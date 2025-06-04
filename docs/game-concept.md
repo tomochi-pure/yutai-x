@@ -1,5 +1,15 @@
 # 株主優待クロスゲーム 修正版完全仕様書
 
+## 🔧 開発方針・制約事項
+- **開発者スキル**: コーディング初心者（HTML/CSS/JS基礎知識のみ、コピペレベル）
+- **進行方式**: 小さなステップを積み重ねて段階的に実装
+- **役割分担**: 要件・指示→開発者、コード作成・技術実装→AI
+- **技術選択**: 単一HTML + CSS表示切り替え（初心者に最適）
+- **命名規則**: 大文字英語禁止（例：development-status.md）
+- **ファイル配置**: ドキュメントはdocs/ディレクトリ
+- **β版画面構成**: タイトル画面 → メインゲーム画面（CSS切り替え）
+- **認証**: β版はローカルストレージ、将来Firebase実装予定
+
 ## 🎮 基本コンセプト
 - **ゲーム名**：優待クロスは、やらない方がいい
 - **ジャンル**：放置系クリッカーゲーム + 資金管理
@@ -10,6 +20,17 @@
 
 ## 🎯 ゲーム概要
 証券アプリ風UIで「注文内容を確認」ボタンを連打し、確保した在庫を獲得。獲得した在庫をガチャ装填→発火して優待券をゲット、売却して自己資金を増やしていく放置系ゲーム。基本はbot君による自動化で、プレイヤーは進捗確認とアップグレードがメイン。
+
+## 📱 画面構成（β版）
+### タイトル画面
+- ゲームタイトル表示
+- ユーザー名入力（初回訪問時）
+- ログインボタン（メインゲームへ遷移）
+- ログインボーナス: 資金20万円/日（0時リセット）
+
+### メインゲーム画面（仕様書の既存内容）
+- 5タブ構成のゲーム画面
+- クリッカー + 資金管理システム
 
 ## 💰 資金・リスク管理システム
 
@@ -176,75 +197,56 @@
 ## 🔧 実装ロードマップ
 
 ### 1. 基本UI構築（HTML/CSS）
-**目標**：メイン画面・タブ構造の構築
+**目標**：タイトル画面 + メイン画面の基本構造
 **完了定義**：
-- 5タブの基本レイアウト完成
-- メイン画面の基本要素配置（ボタン、ステータス表示エリア）
+- タイトル画面（ユーザー名入力、ログインボタン）
+- メイン画面（5タブレイアウト、基本要素配置）
+- 画面切り替え機能（CSS表示制御）
 - 3層重ね合わせHPバー実装
 - スマホ対応レスポンシブデザイン
 
 **必要な要素**：
 ```html
+<!-- タイトル画面要素 -->
+<div id="title-screen">
+  <h1>ゲームタイトル</h1>
+  <input id="username-input" placeholder="ユーザー名を入力">
+  <button id="login-button">ログイン</button>
+</div>
+
 <!-- メイン画面要素 -->
-<div id="server-hp-bar">サーバーHP表示</div>
-<div id="main-button">注文内容を確認</div>
-<div id="capacity-bar-container">
-  <div id="capacity-bar-base">水色背景</div>
-  <div id="capacity-bar-white">白オーバーレイ</div>
-  <div id="capacity-bar-silver">銀オーバーレイ</div>
-  <div id="capacity-bar-rainbow">虹オーバーレイ</div>
+<div id="game-screen" style="display: none;">
+  <div id="server-hp-bar">サーバーHP表示</div>
+  <div id="main-button">注文内容を確認</div>
+  <div id="capacity-bar-container">
+    <div id="capacity-bar-base">水色背景</div>
+    <div id="capacity-bar-white">白オーバーレイ</div>
+    <div id="capacity-bar-silver">銀オーバーレイ</div>
+    <div id="capacity-bar-rainbow">虹オーバーレイ</div>
+  </div>
+  <div id="gacha-button">現引き</div>
+  <div id="status-display">ステータス表示エリア</div>
+  
+  <!-- タブナビゲーション -->
+  <nav id="tab-navigation">
+    <button id="main-tab">メイン</button>
+    <button id="upgrade-tab">強化</button>
+    <button id="sell-tab">売却</button>
+    <!-- 他のタブ -->
+  </nav>
 </div>
-<div id="gacha-button">現引き</div>
-<div id="status-display">
-  自己資金：10,000,000円<br>
-  新規建可能額：30,000,000円<br>
-  50件注文中：15,000,000円（150%/300%）
-</div>
-
-<!-- タブナビゲーション -->
-<nav id="tab-navigation">
-  <button id="main-tab">メイン</button>
-  <button id="upgrade-tab">強化</button>
-  <button id="sell-tab">売却</button>
-  <!-- 他のタブ -->
-</nav>
-```
-
-**CSS変数**：
-```css
-:root {
-  --primary-color: #007bff;
-  --danger-color: #dc3545;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --capacity-base: #87ceeb;
-  --overlay-white: #ffffff;
-  --overlay-silver: #c0c0c0;
-  --overlay-rainbow: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
-}
 ```
 
 ### 2. 基本クリックシステム（JavaScript）
 **目標**：ボタン押下・カウンター機能の実装
 **完了定義**：
+- 画面切り替え処理（タイトル→メイン）
+- ユーザー名保存・読み込み（ローカルストレージ）
+- ログインボーナス判定・付与
 - 「注文内容を確認」ボタンクリックでクリック数増加
 - サーバーHP減少処理
 - 基本的な数値表示更新
-- イベントリスナーの基本動作確認
 
-**必要な変数**：
-```javascript
-// ゲーム状態管理
-let gameState = {
-  totalClicks: 0,           // 総クリック数
-  currentCash: 10000000,    // 現在の現金
-  zaiko: [],                // 確保した在庫配列
-  serverHP: 100000,         // サーバーHP
-  isGachaMode: false,       // ガチャモード判定
-  botLevel: 0,              // bot君レベル
-  botClicksPerSecond: 0     // bot君秒間クリック数
-};
-```
 
 ### 3. 在庫獲得システム（JavaScript）
 **目標**：確率判定・ストック管理の実装
