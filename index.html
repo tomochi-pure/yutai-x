@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>優待クロスは、やらない方がいい</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* タイトル画面 */
+        #title-screen {
+            display: block;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        /* 上部黒いヘッダー */
+        .header {
+            background-color: #000;
+            height: 80px;
+            width: 100%;
+        }
+
+        /* メインコンテナ */
+        .main-container {
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* ログインタイトル部分 */
+        .login-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .cancel-btn {
+            color: #e91e63;
+            border: 2px solid #e91e63;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* フォームコンテナ */
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* フォーム行 */
+        .form-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-row:last-child {
+            border-bottom: none;
+        }
+
+        .form-label {
+            width: 80px;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+            background: #f9f9f9;
+        }
+
+        .form-input:disabled {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .form-input:not(:disabled) {
+            background: white;
+        }
+
+        .save-icon {
+            font-size: 18px;
+        }
+
+        /* ログインボタン */
+        .login-btn {
+            width: 100%;
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .login-btn::after {
+            content: '▶';
+            font-size: 16px;
+        }
+
+        /* リンクボタン */
+        .link-btn {
+            width: 100%;
+            background: white;
+            color: #2196f3;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .link-btn::after {
+            content: '📋';
+            font-size: 16px;
+        }
+
+        /* 問い合わせボタン */
+        .contact-btn {
+            background: white;
+            border: 2px solid #e91e63;
+            color: #e91e63;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-btn::before {
+            content: '📋';
+            font-size: 18px;
+        }
+
+        /* バナー部分 */
+        .banner-container {
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .banner-container iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* 下部リンク */
+        .bottom-links {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .bottom-link {
+            flex: 1;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+            color: #2196f3;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .bottom-link::after {
+            content: ' 📋';
+        }
+
+        /* セクションタイトル */
+        .section-title {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .section-title::after {
+            content: '📋';
+            font-size: 16px;
+        }
+
+        /* メインゲーム画面（初期は非表示） */
+        #game-screen {
+            display: none;
+            height: 100vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        /* エラーメッセージ */
+        .error-message {
+            color: #e91e63;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- タイトル画面 -->
+    <div id="title-screen">
+        <!-- 上部黒いヘッダー -->
+        <div class="header"></div>
+        
+        <!-- メインコンテンツ -->
+        <div class="main-container">
+            <!-- ログインタイトル -->
+            <div class="login-header">
+                <div class="login-title">ログイン</div>
+                <button class="cancel-btn">キャンセル</button>
+            </div>
+
+            <!-- フォーム部分 -->
+            <div class="form-container">
+                <!-- バージョン -->
+                <div class="form-row">
+                    <div class="form-label">バージョン</div>
+                    <input type="text" class="form-input" value="Beta Edition ver0.01" disabled>
+                    <span class="save-icon">✅</span>
+                </div>
+
+                <!-- リリース日 -->
+                <div class="form-row">
+                    <div class="form-label">リリース日</div>
+                    <input type="text" class="form-input" value="2025.6.5" disabled>
+                    <span class="save-icon">✅</span>
+                </div>
+
+                <!-- ユーザーID -->
+                <div class="form-row">
+                    <div class="form-label">ユーザーID</div>
+                    <input type="text" class="form-input" id="user-id-input" placeholder="tomochi_pure">
+                    <span class="save-icon">✅</span>
+                </div>
+
+                <!-- ログインボタン -->
+                <button class="login-btn" id="login-button" disabled>ゲーム開始</button>
+                
+                <!-- エラーメッセージ -->
+                <div class="error-message" id="error-message" style="display: none;">
+                    ユーザーIDを入力してください
+                </div>
+            </div>
+
+            <!-- wikiリンク -->
+            <button class="link-btn" id="wiki-link">
+                ログインにお困りのお客様はこちら
+            </button>
+
+            <!-- 問い合わせボタン -->
+            <button class="contact-btn" id="contact-button">
+                問い合わせ窓口<br>
+                <small>必ずご確認ください</small>
+            </button>
+
+            <!-- バナー部分 -->
+            <div class="banner-container">
+                <iframe class="note-embed" src="https://note.com/embed/notes/n824e5412f6bf" height="400"></iframe>
+            </div>
+
+            <!-- 下部リンク -->
+            <div class="bottom-links">
+                <button class="bottom-link" id="news-link">お知らせ</button>
+                <button class="bottom-link" id="reset-link">ゲームリセット</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- メインゲーム画面（後で実装） -->
+    <div id="game-screen">
+        <h1>メインゲーム画面</h1>
+        <p>ここにゲーム画面が表示されます</p>
+        <button id="back-to-title">タイトルに戻る</button>
+    </div>
+
+    <script>
+        // ゲーム状態管理
+        const gameState = {
+            currentScreen: 'title',
+            userId: '',
+            isFirstTime: true
+        };
+
+        // DOM要素取得
+        const userIdInput = document.getElementById('user-id-input');
+        const loginButton = document.getElementById('login-button');
+        const errorMessage = document.getElementById('error-message');
+        const titleScreen = document.getElementById('title-screen');
+        const gameScreen = document.getElementById('game-screen');
+
+        // ローカルストレージキー
+        const STORAGE_KEY = 'yutai-x-user-data';
+
+        // 初期化
+        function init() {
+            loadUserData();
+            setupEventListeners();
+            updateLoginButton();
+        }
+
+        // ユーザーデータ読み込み
+        function loadUserData() {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                try {
+                    const userData = JSON.parse(savedData);
+                    gameState.userId = userData.userId || '';
+                    gameState.isFirstTime = false;
+                    userIdInput.value = gameState.userId;
+                    userIdInput.disabled = true; // 2回目以降は編集不可
+                } catch (e) {
+                    console.error('セーブデータの読み込みに失敗しました:', e);
+                }
+            }
+        }
+
+        // ユーザーデータ保存
+        function saveUserData() {
+            const userData = {
+                userId: gameState.userId,
+                lastLogin: new Date().toISOString()
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+        }
+
+        // イベントリスナー設定
+        function setupEventListeners() {
+            // ユーザーID入力監視
+            userIdInput.addEventListener('input', function() {
+                gameState.userId = this.value.trim();
+                updateLoginButton();
+                hideErrorMessage();
+            });
+
+            // ログインボタン
+            loginButton.addEventListener('click', handleLogin);
+
+            // 問い合わせボタン
+            document.getElementById('contact-button').addEventListener('click', function() {
+                window.open('https://marshmallow-qa.com/hdl55x2xyxkuz0q?t=RzL1zE&utm_medium=url_text&utm_source=promotion', '_blank');
+            });
+
+            // wikiリンク（将来実装）
+            document.getElementById('wiki-link').addEventListener('click', function() {
+                alert('Wiki/説明書は準備中です');
+            });
+
+            // お知らせ
+            document.getElementById('news-link').addEventListener('click', function() {
+                alert('お知らせ機能は準備中です');
+            });
+
+            // ゲームリセット
+            document.getElementById('reset-link').addEventListener('click', handleGameReset);
+
+            // タイトルに戻る（デバッグ用）
+            document.getElementById('back-to-title').addEventListener('click', function() {
+                showScreen('title');
+            });
+        }
+
+        // ログインボタンの状態更新
+        function updateLoginButton() {
+            const isValid = gameState.userId.length > 0;
+            loginButton.disabled = !isValid;
+        }
+
+        // エラーメッセージ非表示
+        function hideErrorMessage() {
+            errorMessage.style.display = 'none';
+        }
+
+        // エラーメッセージ表示
+        function showErrorMessage(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        // ログイン処理
+        function handleLogin() {
+            if (!gameState.userId) {
+                showErrorMessage('ユーザーIDを入力してください');
+                return;
+            }
+
+            // ユーザーID形式チェック（半角英数字のみ）
+            if (!/^[a-zA-Z0-9_]+$/.test(gameState.userId)) {
+                showErrorMessage('ユーザーIDは半角英数字とアンダースコアのみ使用できます');
+                return;
+            }
+
+            // データ保存
+            saveUserData();
+
+            // ゲーム画面へ遷移
+            showScreen('game');
+        }
+
+        // 画面切り替え
+        function showScreen(screenName) {
+            titleScreen.style.display = screenName === 'title' ? 'block' : 'none';
+            gameScreen.style.display = screenName === 'game' ? 'block' : 'none';
+            gameState.currentScreen = screenName;
+        }
+
+        // ゲームリセット
+        function handleGameReset() {
+            if (confirm('ゲームデータをリセットしますか？\nこの操作は取り消せません。')) {
+                localStorage.removeItem(STORAGE_KEY);
+                gameState.userId = '';
+                gameState.isFirstTime = true;
+                userIdInput.value = '';
+                userIdInput.disabled = false;
+                updateLoginButton();
+                hideErrorMessage();
+                alert('ゲームデータをリセットしました');
+            }
+        }
+
+        // アプリ起動時の初期化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
