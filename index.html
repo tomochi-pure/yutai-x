@@ -33,26 +33,16 @@
 
         .login-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 30px;
         }
 
-        .login-title {
-            font-size: 24px;
+        .game-title {
+            font-size: 20px;
             font-weight: bold;
             color: #333;
-        }
-
-        .ranking-btn {
-            color: #ffc107;
-            border: 2px solid #ffc107;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: bold;
+            text-align: center;
         }
 
         .form-container {
@@ -124,27 +114,8 @@
             font-size: 16px;
         }
 
-        .link-btn {
-            width: 100%;
-            background: white;
-            color: #2196f3;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .link-btn::after {
-            content: '📋';
-            font-size: 16px;
-        }
-
-        .contact-btn {
+        /* マシュマロリンク */
+        .marshmallow-link {
             background: white;
             border: 2px solid #e91e63;
             color: #e91e63;
@@ -155,17 +126,25 @@
             font-weight: bold;
             cursor: pointer;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        .contact-btn::before {
-            content: '📋';
-            font-size: 18px;
+        .marshmallow-link:hover {
+            background: #fce4ec;
         }
 
+        /* 名前入力トグル機能 */
+        .toggle-icon {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .toggle-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* バナーコンテナ調整 */
         .banner-container {
             margin: 20px 0;
             border-radius: 10px;
@@ -179,19 +158,18 @@
             border-radius: 10px;
         }
 
+        /* 下部リンク調整 */
         .bottom-links {
             display: flex;
-            gap: 10px;
+            justify-content: center;
             margin: 20px 0;
         }
 
         .bottom-link {
-            flex: 1;
             background: white;
             border: 1px solid #ddd;
-            padding: 12px;
+            padding: 12px 24px;
             border-radius: 5px;
-            text-align: center;
             color: #2196f3;
             font-size: 14px;
             cursor: pointer;
@@ -201,181 +179,225 @@
             content: ' 📋';
         }
 
-        /* ========== モーダル共通スタイル ========== */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.show {
+        /* 情報タブナビゲーション */
+        .info-tab-navigation {
             display: flex;
-        }
-
-        .modal-content {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            max-width: 350px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            margin-top: 20px;
         }
 
-        .modal-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .modal-subtitle {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .modal-form {
-            margin: 20px 0;
-        }
-
-        .modal-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-
-        .modal-input:focus {
-            border-color: #4caf50;
-            outline: none;
-        }
-
-        .modal-note {
-            font-size: 12px;
-            color: #999;
-            margin-bottom: 20px;
-            line-height: 1.4;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .modal-btn {
+        .info-tab-button {
             flex: 1;
-            padding: 12px;
+            padding: 12px 8px;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
             cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: bold;
         }
 
-        .modal-btn-primary {
-            background: #4caf50;
-            color: white;
-        }
-
-        .modal-btn-secondary {
-            background: #f5f5f5;
-            color: #666;
-        }
-
-        .modal-error {
-            color: #e91e63;
-            font-size: 14px;
-            margin-top: 10px;
-            text-align: center;
-            display: none;
-        }
-
-        .ranking-content {
-            max-width: 320px;
-        }
-
-        .ranking-stats {
+        .info-tab-button.active {
+            color: #2196f3;
+            border-bottom-color: #2196f3;
             background: #f8f9fa;
-            padding: 15px;
+        }
+
+        .info-tab-button:hover {
+            background: #f0f0f0;
+        }
+
+        /* 情報タブコンテンツ */
+        .info-tab-content-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            min-height: 400px;
+        }
+
+        .info-tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .info-tab-content.active {
+            display: block;
+        }
+
+        /* note埋め込み調整 */
+        .note-container {
+            margin-top: 0;
+        }
+
+        .note-container iframe {
+            width: 100%;
             border-radius: 8px;
-            margin: 15px 0;
         }
 
-        .ranking-stat-row {
+        /* ランキング表示 */
+        .ranking-container {
+            text-align: center;
+        }
+
+        .ranking-title {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .ranking-list {
             display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e9ecef;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .ranking-stat-row:last-child {
-            border-bottom: none;
-        }
-
-        .ranking-stat-label {
-            color: #666;
+        .ranking-item {
+            display: grid;
+            grid-template-columns: 60px 1fr 100px;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
             font-size: 14px;
         }
 
-        .ranking-stat-value {
+        .ranking-item.rank-1 {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
             font-weight: bold;
             color: #333;
-            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .rank {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .rank-1 .rank {
+            color: #333;
+        }
+
+        .player-name {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .score {
+            text-align: right;
+            font-weight: bold;
+            color: #4caf50;
+        }
+
+        .rank-1 .score {
+            color: #333;
         }
 
         /* ========== メインゲーム画面 ========== */
         #game-screen {
             display: none;
-            min-height: 100vh;
+            min-height: 90vh;
+            max-height: 90vh;
             background-color: #f0f0f0;
             padding: 0;
             box-sizing: border-box;
+            overflow: hidden;               /* スクロール防止 */
         }
 
         .game-container {
-            height: 100vh;
+            height: 90vh;                 /* 画面高さの90%をシンプルに使用 */
+            min-height: 600px;           /* 最小高さ保証 */
             display: flex;
             flex-direction: column;
             background: #f0f0f0;
         }
 
+        /* 上部ヘッダー */
+        .game-header {
+            background: #87ceeb;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .username-display {
+            font-size: 16px;
+        }
+
+        .stamina-display {
+            font-size: 16px;
+            color: #ffd700;
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+
+        .premium-coin {
+            color: #ffd700;
+        }
+
+        .cash-amount {
+            color: white;
+        }
+
+        /* タブナビゲーション */
+        .tab-navigation {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 10px 5px;
+            border: none;
+            background: white;
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-button.active {
+            color: #2196f3;
+            border-bottom-color: #2196f3;
+        }
+
         /* サーバーHPバー */
         .server-hp-container {
             background: white;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd;
         }
 
         .server-hp-label {
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .server-hp-bar {
             width: 100%;
-            height: 20px;
-            background: #ddd;
-            border-radius: 10px;
+            height: 15px;
+            background: #e0e0e0;
+            border-radius: 7px;
             overflow: hidden;
             position: relative;
         }
@@ -387,156 +409,62 @@
             transition: width 0.3s ease;
         }
 
-        /* 上部ステータスエリア */
-        .top-status-area {
-            background: white;
-            padding: 15px;
-            margin: 0 10px 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .user-info {
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .status-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .status-item {
-            text-align: center;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .status-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 3px;
-        }
-
-        .status-value {
-            font-size: 14px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* メイン操作エリア */
-        .main-action-area {
+        /* メインゲームエリア */
+        .main-game-area {
             flex: 1;
+            background: white;
+            position: relative;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+        }
+
+        /* 中央エリア（注文ボタン + アニメーション空間） */
+        .center-area {
+            flex: 1;
             position: relative;
-        }
-
-        .main-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .mission-btn {
-            background: #2196f3;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
         }
 
         .main-order-btn {
             background: #4caf50;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 15px 25px;
-            font-size: 16px;
+            border-radius: 8px;
+            padding: 20px 40px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            z-index: 10;
         }
 
         .main-order-btn:active {
-            transform: translate(-50%, -50%) translateY(2px);
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
         }
 
-        .effect-area {
-            flex: 1;
-            min-height: 120px;
-            position: relative;
-        }
-
-        /* トラック・炎表示エリア */
-        .truck-area {
-            background: white;
-            margin: 0 10px 10px;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .truck-section,
-        .fire-section {
-            text-align: center;
-        }
-
-        .truck-icon,
-        .fire-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .truck-label,
-        .fire-label {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .truck-value,
-        .fire-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* 下部操作エリア */
+        /* 下部3ボタンエリア */
         .bottom-controls {
             display: grid;
             grid-template-columns: 1fr 2fr 1fr;
-            gap: 10px;
-            margin: 20px 10px 10px;
+            gap: 8px;
+            padding: 10px 15px;
+            background: white;
+            border-top: 1px solid #ddd;
         }
 
         .control-btn {
-            padding: 15px 10px;
+            padding: 12px 8px;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
         .item-use-btn {
@@ -555,66 +483,63 @@
             color: white;
         }
 
-        /* タブナビゲーション */
-        .tab-navigation {
+        /* ステータス表示エリア */
+        .status-bar {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .status-item {
             display: flex;
+            justify-content: space-between;
+            color: #333;
+        }
+
+        .status-label {
+            color: #666;
+        }
+
+        .status-value {
+            font-weight: bold;
+        }
+
+        /* パフォーマンス指標エリア */
+        .performance-bar {
+            padding: 8px 15px;
             background: white;
             border-top: 1px solid #ddd;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            font-size: 11px;
         }
 
-        .tab-button {
-            flex: 1;
-            padding: 12px 8px;
-            border: none;
-            background: white;
-            color: #666;
-            font-size: 12px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
+        .perf-item {
+            text-align: center;
         }
 
-        .tab-button.active {
-            color: #2196f3;
-            border-bottom-color: #2196f3;
-        }
-
-        .tab-content {
-            display: none;
-            flex: 1;
-            padding: 20px;
-            background: white;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .tab-content.active {
+        .perf-icon {
+            font-size: 16px;
+            margin-bottom: 2px;
             display: block;
         }
 
-        /* ========== デバッグボタン ========== */
-        .mobile-debug {
-            position: fixed;
-            bottom: 80px;
-            right: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            z-index: 1000;
+        .perf-label {
+            color: #666;
+            margin-bottom: 2px;
         }
 
-        .debug-btn {
-            background: #333;
-            color: white;
-            border: none;
-            width: 35px;
-            height: 25px;
-            border-radius: 3px;
-            font-size: 10px;
-            cursor: pointer;
+        .perf-value {
+            font-weight: bold;
+            color: #333;
         }
 
-        /* ========== PC表示対応 ========== */
+        /* PC表示対応 */
         @media (min-width: 768px) {
             body {
                 display: flex;
@@ -626,63 +551,11 @@
                 align-items: flex-start;
             }
             
-            #title-screen {
+            #title-screen, #game-screen {
                 max-width: 375px;
                 width: 375px;
-                background: #f5f5f5;
                 box-shadow: 0 0 20px rgba(0,0,0,0.3);
                 min-height: 100vh;
-            }
-            
-            #game-screen {
-                max-width: 375px;
-                width: 375px;
-                background: #f0f0f0;
-                box-shadow: 0 0 20px rgba(0,0,0,0.3);
-                min-height: 100vh;
-            }
-
-            .pc-debug-left,
-            .pc-debug-right {
-                width: 200px;
-                background: #333;
-                color: white;
-                padding: 20px;
-                min-height: 100vh;
-                box-sizing: border-box;
-                font-size: 14px;
-            }
-
-            .pc-debug-section {
-                margin-bottom: 20px;
-                padding-bottom: 15px;
-                border-bottom: 1px solid #555;
-            }
-
-            .pc-debug-title {
-                color: #ffc107;
-                font-weight: bold;
-                margin-bottom: 10px;
-            }
-
-            .pc-debug-button {
-                background: #555;
-                color: white;
-                border: none;
-                padding: 8px 12px;
-                margin: 3px;
-                border-radius: 3px;
-                cursor: pointer;
-                font-size: 12px;
-                width: 100%;
-            }
-
-            .pc-debug-button:hover {
-                background: #666;
-            }
-
-            .mobile-debug {
-                display: none;
             }
         }
     </style>
@@ -692,201 +565,109 @@
     <div id="title-screen">        
         <div class="main-container">
             <div class="login-header">
-                <div class="login-title">ログイン</div>
-                <button class="ranking-btn" id="ranking-button">♔ランキング</button>
+                <div class="game-title">優待クロスは、やらない方がいい</div>
             </div>
 
             <div class="form-container">
                 <div class="form-row">
                     <div class="form-label">バージョン</div>
-                    <input type="text" class="form-input" value="Beta Edition ver0.01" disabled>
+                    <input type="text" class="form-input" value="Beta Edition ver0.02" disabled>
                     <span class="save-icon">✅</span>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-label">リリース日</div>
-                    <input type="text" class="form-input" value="2025.6.5" disabled>
-                    <span class="save-icon">✅</span>
+                    <div class="form-label">ユーザーID</div>
+                    <input type="text" class="form-input" value="tomochi-fun" disabled>
+                    <span class="save-icon">💾</span>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-label">お客様情報</div>
-                    <input type="text" class="form-input" id="customer-status" value="未登録" disabled>
-                    <span class="save-icon">✅</span>
+                    <div class="form-label">お名前</div>
+                    <input type="text" class="form-input" id="name-input" placeholder="お名前（任意）" maxlength="10">
+                    <span class="save-icon toggle-icon" id="name-toggle">📝</span>
                 </div>
 
                 <button class="start-btn" id="start-button">ゲーム開始</button>
             </div>
 
-            <button class="link-btn" id="wiki-link">
-                ログインにお困りのお客様はこちら
-            </button>
-
-            <button class="contact-btn" id="contact-button">
-                問い合わせ窓口<br>
-                <small>必ずご確認ください</small>
-            </button>
-
-            <div class="banner-container">
-                <iframe class="note-embed" src="https://note.com/embed/notes/n824e5412f6bf" height="400"></iframe>
+            <div class="marshmallow-link" id="marshmallow-link">
+                🩷開発者に愛を届ける🩷
             </div>
 
-            <div class="bottom-links">
-                <button class="bottom-link" id="news-link">お知らせ</button>
-                <button class="bottom-link" id="reset-link">ゲームリセット</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== 口座開設モーダル ========== -->
-    <div class="modal" id="account-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">口座開設のご案内</div>
-                <div class="modal-subtitle">
-                    ゲームをお楽しみいただくため、<br>
-                    お客様情報の登録をお願いいたします。
-                </div>
-            </div>
-            
-            <div class="modal-form">
-                <input type="text" class="modal-input" id="modal-user-name" placeholder="お名前（例：ともちぃ）">
-                <input type="text" class="modal-input" id="modal-user-id" placeholder="ユーザーID（例：tomochi_pure）※任意">
-                <div class="modal-note">
-                    ※ お名前は必須項目です（ランキング表示用）<br>
-                    ※ ユーザーIDは半角英数字とアンダースコア（_）のみ<br>
-                    ※ ユーザーIDは開発者への連絡用（任意）
-                </div>
+            <!-- タブナビゲーション -->
+            <div class="info-tab-navigation">
+                <button class="info-tab-button active" data-info-tab="news">お知らせ📄</button>
+                <button class="info-tab-button" data-info-tab="ranking">ランキング👑</button>
             </div>
 
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-secondary" id="modal-cancel">キャンセル</button>
-                <button class="modal-btn modal-btn-primary" id="modal-confirm">口座開設</button>
-            </div>
-            
-            <div class="modal-error" id="modal-error"></div>
-        </div>
-    </div>
+            <!-- タブコンテンツ -->
+            <div class="info-tab-content-container">
+                <!-- お知らせタブ -->
+                <div class="info-tab-content active" id="info-tab-news">
+                    <!-- note埋め込み -->
+                    <div class="note-container">
+                        <iframe class="note-embed" src="https://note.com/embed/notes/n824e5412f6bf" style="border: 0; display: block; max-width: 100%; width: 100%; padding: 0px; margin: 10px 0px; position: static; visibility: visible;" height="400"></iframe>
+                    </div>
+                </div>
 
-    <!-- ========== ランキングモーダル ========== -->
-    <div class="modal" id="ranking-modal">
-        <div class="modal-content ranking-content">
-            <div class="modal-header">
-                <div class="modal-title">♔ 全国ランキング</div>
-                <div class="modal-subtitle">
-                    ランキング制度導入準備中<br>
-                    現在のあなたのステータス
+                <!-- ランキングタブ -->
+                <div class="info-tab-content" id="info-tab-ranking">
+                    <div class="ranking-container">
+                        <h3 class="ranking-title">🏆 全国ランキング</h3>
+                        <div class="ranking-list">
+                            <div class="ranking-item rank-1">
+                                <span class="rank">1位</span>
+                                <span class="player-name">あなた</span>
+                                <span class="score">1,250,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">2位</span>
+                                <span class="player-name">優待マスター</span>
+                                <span class="score">980,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">3位</span>
+                                <span class="player-name">株式投資家A</span>
+                                <span class="score">850,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">4位</span>
+                                <span class="player-name">デイトレーダー</span>
+                                <span class="score">720,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">5位</span>
+                                <span class="player-name">長期投資家</span>
+                                <span class="score">650,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">6位</span>
+                                <span class="player-name">配当生活者</span>
+                                <span class="score">580,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">7位</span>
+                                <span class="player-name">成長株ハンター</span>
+                                <span class="score">520,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">8位</span>
+                                <span class="player-name">バリュー投資家</span>
+                                <span class="score">480,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">9位</span>
+                                <span class="player-name">テクニカル派</span>
+                                <span class="score">420,000,000円</span>
+                            </div>
+                            <div class="ranking-item">
+                                <span class="rank">10位</span>
+                                <span class="player-name">ファンダ重視</span>
+                                <span class="score">380,000,000円</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="ranking-stats">
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">プレイヤー名</span>
-                    <span class="ranking-stat-value" id="ranking-name">-</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">ユーザーID</span>
-                    <span class="ranking-stat-value" id="ranking-id">-</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">現金現在高</span>
-                    <span class="ranking-stat-value" id="ranking-cash">10,000,000円</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">プレミアムコイン</span>
-                    <span class="ranking-stat-value" id="ranking-premium">0枚</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">お米</span>
-                    <span class="ranking-stat-value" id="ranking-rice">0kg</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">総クリック数</span>
-                    <span class="ranking-stat-value" id="ranking-clicks">0回</span>
-                </div>
-            </div>
-
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="ranking-close">閉じる</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== ミッションモーダル ========== -->
-    <div class="modal" id="mission-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">🎯 ミッション</div>
-                <div class="modal-subtitle">
-                    各種ミッションを確認できます
-                </div>
-            </div>
-            
-            <div style="padding: 20px; text-align: center; color: #666;">
-                ミッション機能は準備中です
-            </div>
-
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="mission-close">閉じる</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== アイテム使用モーダル ========== -->
-    <div class="modal" id="item-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">🎒 アイテム使用</div>
-                <div class="modal-subtitle">
-                    各種バフアイテムを選択できます
-                </div>
-            </div>
-            
-            <div style="padding: 20px; text-align: center; color: #666;">
-                アイテム機能は準備中です
-            </div>
-
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="item-close">閉じる</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========== 注文約定一覧モーダル ========== -->
-    <div class="modal" id="order-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">📊 注文約定一覧</div>
-                <div class="modal-subtitle">
-                    現在の注文状況と詳細ステータス
-                </div>
-            </div>
-            
-            <div class="ranking-stats">
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">自己資金</span>
-                    <span class="ranking-stat-value" id="order-cash">10,000,000円</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">新規建可能額</span>
-                    <span class="ranking-stat-value" id="order-capacity">30,000,000円</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">50件注文中</span>
-                    <span class="ranking-stat-value" id="order-orders">0円（0%/300%）</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">確保した在庫</span>
-                    <span class="ranking-stat-value" id="order-stock">0件</span>
-                </div>
-                <div class="ranking-stat-row">
-                    <span class="ranking-stat-label">サーバーHP</span>
-                    <span class="ranking-stat-value" id="order-server">75%</span>
-                </div>
-            </div>
-
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="order-close">閉じる</button>
             </div>
         </div>
     </div>
@@ -894,6 +675,31 @@
     <!-- ========== メインゲーム画面 ========== -->
     <div id="game-screen">
         <div class="game-container">
+            <!-- 上部ヘッダー -->
+            <div class="game-header">
+                <div class="header-left">
+                    <div class="username-display" id="header-username">tomochi_pure</div>
+                    <div class="stamina-display" id="header-stamina">★★★★☆</div>
+                </div>
+                <div class="header-right">
+                    <div class="premium-coin">
+                        <span id="header-premium">360</span>P プレミアムコイン
+                    </div>
+                    <div class="cash-amount">
+                        <span id="header-cash">10,000,000</span>円
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブナビゲーション -->
+            <nav class="tab-navigation">
+                <button class="tab-button active" data-tab="stocks">株注文</button>
+                <button class="tab-button" data-tab="bot">bot改造</button>
+                <button class="tab-button" data-tab="mission">ミッション</button>
+                <button class="tab-button" data-tab="yuutai">実績</button>
+                <button class="tab-button" data-tab="settings">設定</button>
+            </nav>
+
             <!-- サーバーHPバー -->
             <div class="server-hp-container">
                 <div class="server-hp-label">サーバーHP</div>
@@ -902,166 +708,74 @@
                 </div>
             </div>
 
-            <!-- 上部ステータスエリア -->
-            <div class="top-status-area">
-                <div class="user-info" id="user-display">tomochi_pure</div>
-                <div class="status-grid">
-                    <div class="status-item">
-                        <div class="status-label">現金現在高</div>
-                        <div class="status-value" id="status-cash">10,003,400円</div>
+            <!-- メインゲームエリア -->
+            <div class="main-game-area">
+                <!-- 中央エリア（注文ボタン + アニメーション） -->
+                <div class="center-area">
+                    <button class="main-order-btn" id="main-order-button">注文内容を確認</button>
+                </div>
+
+                <!-- 下部3ボタン -->
+                <div class="bottom-controls">
+                    <button class="control-btn item-use-btn" id="item-use-button">
+                        アイテム<br>使用
+                    </button>
+                    <button class="control-btn order-list-btn" id="order-list-button">
+                        注文約定一覧
+                    </button>
+                    <button class="control-btn gacha-btn" id="gacha-button">
+                        現引き
+                    </button>
+                </div>
+
+                <!-- ステータス表示エリア -->
+                <div class="status-bar">
+                    <div class="status-left">
+                        <div class="status-item">
+                            <span class="status-label">注文件数</span>
+                            <span class="status-value" id="status-orders">265件</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">建玉金額</span>
+                            <span class="status-value" id="status-position">79,500,000円</span>
+                        </div>
                     </div>
-                    <div class="status-item">
-                        <div class="status-label">プレミアムコイン</div>
-                        <div class="status-value" id="status-premium">65,000枚</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-label">お米</div>
-                        <div class="status-value" id="status-rice">46kg</div>
-                    </div>
-                    <div class="status-item">
-                        <div class="status-label">-</div>
-                        <div class="status-value">-</div>
+                    <div class="status-right">
+                        <div class="status-item">
+                            <span class="status-label">確保した在庫</span>
+                            <span class="status-value" id="status-stock">0件</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">総クリック数</span>
+                            <span class="status-value" id="status-total-clicks">0回</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- メイン操作エリア -->
-            <div class="main-action-area">
-                <div class="main-controls">
-                    <button class="mission-btn" id="mission-button">ミッション</button>
-                    <div style="width: 80px;"></div>
-                </div>
-
-                <div class="effect-area">
-                    <button class="main-order-btn" id="main-order-button">注文</button>
-                </div>
-            </div>
-
-            <!-- トラック・炎表示エリア -->
-            <div class="truck-area">
-                <div class="truck-section">
-                    <span class="truck-icon">🚛</span>
-                    <div class="truck-label">積載率</div>
-                    <div class="truck-value" id="truck-load">430%</div>
-                </div>
-                <div class="fire-section">
-                    <span class="fire-icon">🔥</span>
-                    <div class="fire-label">委託保証金率</div>
-                    <div class="fire-value" id="fire-rate">38%</div>
+                <!-- パフォーマンス指標 -->
+                <div class="performance-bar">
+                    <div class="perf-item">
+                        <span class="perf-icon">⚡</span>
+                        <div class="perf-label">Cps</div>
+                        <div class="perf-value" id="perf-cps">34回/秒</div>
+                    </div>
+                    <div class="perf-item">
+                        <span class="perf-icon">🎯</span>
+                        <div class="perf-label">ゲット率</div>
+                        <div class="perf-value" id="perf-get-rate">3.4倍</div>
+                    </div>
+                    <div class="perf-item">
+                        <span class="perf-icon">🚛</span>
+                        <div class="perf-label">積載率</div>
+                        <div class="perf-value" id="perf-load-rate">430%</div>
+                    </div>
+                    <div class="perf-item">
+                        <span class="perf-icon">🔥</span>
+                        <div class="perf-label">委託率</div>
+                        <div class="perf-value" id="perf-fire-rate">24%</div>
+                    </div>
                 </div>
             </div>
-
-            <!-- 下部操作エリア -->
-            <div class="bottom-controls">
-                <button class="control-btn item-use-btn" id="item-use-button">
-                    アイテム<br>使用
-                </button>
-                <button class="control-btn order-list-btn" id="order-list-button">
-                    注文約定一覧
-                </button>
-                <button class="control-btn gacha-btn" id="gacha-button">
-                    現引き
-                </button>
-            </div>
-
-            <!-- タブコンテンツエリア -->
-            <div class="tab-content active" id="tab-stocks">
-                <h3>株注文</h3>
-                <p>メインゲーム画面です</p>
-            </div>
-            
-            <div class="tab-content" id="tab-bot">
-                <h3>bot改造</h3>
-                <p>bot強化画面です</p>
-            </div>
-            
-            <div class="tab-content" id="tab-yuutai">
-                <h3>株主優待</h3>
-                <p>優待券売却画面です</p>
-            </div>
-            
-            <div class="tab-content" id="tab-records">
-                <h3>実績</h3>
-                <p>実績確認画面です</p>
-            </div>
-            
-            <div class="tab-content" id="tab-settings">
-                <h3>設定</h3>
-                <p>設定画面です</p>
-                <button id="back-to-title">タイトルに戻る</button>
-            </div>
-
-            <!-- タブナビゲーション -->
-            <nav class="tab-navigation">
-                <button class="tab-button active" data-tab="stocks">株注文</button>
-                <button class="tab-button" data-tab="bot">bot改造</button>
-                <button class="tab-button" data-tab="yuutai">株主優待</button>
-                <button class="tab-button" data-tab="records">実績</button>
-                <button class="tab-button" data-tab="settings">設定</button>
-            </nav>
-        </div>
-
-        <!-- スマホ用デバッグボタン -->
-        <div class="mobile-debug">
-            <button class="debug-btn" onclick="debugClick(1)">+1</button>
-            <button class="debug-btn" onclick="debugClick(10)">+10</button>
-            <button class="debug-btn" onclick="debugClick(100)">+100</button>
-            <button class="debug-btn" onclick="debugReset()">RST</button>
-            <button class="debug-btn" onclick="debugTruck(50)">+50%</button>
-            <button class="debug-btn" onclick="debugTruck(-50)">-50%</button>
-        </div>
-    </div>
-
-    <!-- ========== PCデバッグパネル ========== -->
-    <div class="pc-debug-left">
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">クリック数調整</div>
-            <button class="pc-debug-button" onclick="debugClick(1)">+1クリック</button>
-            <button class="pc-debug-button" onclick="debugClick(10)">+10クリック</button>
-            <button class="pc-debug-button" onclick="debugClick(100)">+100クリック</button>
-            <button class="pc-debug-button" onclick="debugClick(1000)">+1000クリック</button>
-            <button class="pc-debug-button" onclick="debugReset()">リセット</button>
-        </div>
-        
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">積載率調整</div>
-            <button class="pc-debug-button" onclick="debugTruck(25)">+25%</button>
-            <button class="pc-debug-button" onclick="debugTruck(-25)">-25%</button>
-            <button class="pc-debug-button" onclick="debugTruck(50)">+50%</button>
-            <button class="pc-debug-button" onclick="debugTruck(-50)">-50%</button>
-            <button class="pc-debug-button" onclick="debugTruckReset()">積載リセット</button>
-        </div>
-
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">状態確認</div>
-            <div id="debug-info" style="color: #ccc; font-size: 12px; line-height: 1.4;">
-                クリック数: <span id="debug-clicks">0</span><br>
-                積載率: <span id="debug-truck">430%</span><br>
-                在庫数: <span id="debug-stock">0</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="pc-debug-right">
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">ガチャテスト</div>
-            <button class="pc-debug-button" onclick="debugGacha()">ガチャ装填</button>
-            <button class="pc-debug-button" onclick="debugGachaFire()">ガチャ発火</button>
-            <button class="pc-debug-button" onclick="debugGachaReset()">ガチャリセット</button>
-        </div>
-
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">サーバーHP</div>
-            <button class="pc-debug-button" onclick="debugServerHP(-10)">HP -10%</button>
-            <button class="pc-debug-button" onclick="debugServerHP(-25)">HP -25%</button>
-            <button class="pc-debug-button" onclick="debugServerHP(25)">HP +25%</button>
-            <button class="pc-debug-button" onclick="debugServerHP('full')">HP 満タン</button>
-        </div>
-
-        <div class="pc-debug-section">
-            <div class="pc-debug-title">画面切り替え</div>
-            <button class="pc-debug-button" onclick="showScreen('title')">タイトル画面</button>
-            <button class="pc-debug-button" onclick="showScreen('game')">ゲーム画面</button>
         </div>
     </div>
 
@@ -1071,395 +785,112 @@
             currentScreen: 'title',
             userName: '',
             userId: '',
-            isFirstTime: true,
-            cash: 10003400,
-            premiumCoin: 65000,
-            rice: 46,
-            totalClicks: 0
+            cash: 10000000,
+            premiumCoin: 360,
+            totalClicks: 0,
+            stamina: 4
         };
 
-        // デバッグ用変数（モックアップ用）
-        let debugState = {
-            clicks: 0,
-            truckLoad: 430,
+        const debugState = {
+            orders: 265,
+            positionAmount: 79500000,
             stock: 0,
-            serverHP: 75,
-            fireRate: 38,
-            gachaMode: 'ready'
+            cps: 34,
+            getRate: 3.4,
+            loadRate: 430,
+            fireRate: 24,
+            serverHP: 75
         };
-
-        const STORAGE_KEY = 'yutai-x-user-data';
 
         // ========== 初期化 ==========
         function init() {
-            loadUserData();
             setupEventListeners();
-            updateCustomerStatus();
-            updateDebugDisplay();
+            updateDisplay();
         }
 
-        // ========== データ管理 ==========
-        function loadUserData() {
-            const savedData = localStorage.getItem(STORAGE_KEY);
-            if (savedData) {
-                try {
-                    const userData = JSON.parse(savedData);
-                    gameState.userName = userData.userName || '';
-                    gameState.userId = userData.userId || '';
-                    gameState.isFirstTime = false;
-                    gameState.cash = userData.cash || 10003400;
-                    gameState.premiumCoin = userData.premiumCoin || 65000;
-                    gameState.rice = userData.rice || 46;
-                    gameState.totalClicks = userData.totalClicks || 0;
-                } catch (e) {
-                    console.error('セーブデータの読み込みに失敗しました:', e);
-                }
-            }
-        }
-
-        function saveUserData() {
-            const userData = {
-                userName: gameState.userName,
-                userId: gameState.userId,
-                cash: gameState.cash,
-                premiumCoin: gameState.premiumCoin,
-                rice: gameState.rice,
-                totalClicks: gameState.totalClicks,
-                lastLogin: new Date().toISOString()
-            };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
-        }
-
-        // ========== UI更新 ==========
-        function updateCustomerStatus() {
-            const customerStatus = document.getElementById('customer-status');
-            if (gameState.userName) {
-                if (customerStatus) {
-                    customerStatus.value = `登録済み（${gameState.userName}）`;
-                }
-            } else {
-                if (customerStatus) customerStatus.value = '未登録';
-            }
-        }
-
-        function updateUserDisplay() {
-            const userDisplay = document.getElementById('user-display');
-            const statusCash = document.getElementById('status-cash');
-            const statusPremium = document.getElementById('status-premium');
-            const statusRice = document.getElementById('status-rice');
-
-            if (userDisplay) {
-                userDisplay.textContent = gameState.userId || gameState.userName || '未設定';
-            }
-            if (statusCash) {
-                statusCash.textContent = gameState.cash.toLocaleString() + '円';
-            }
-            if (statusPremium) {
-                statusPremium.textContent = gameState.premiumCoin.toLocaleString() + '枚';
-            }
-            if (statusRice) {
-                statusRice.textContent = gameState.rice.toLocaleString() + 'kg';
-            }
-        }
-
-        // ========== イベントリスナー設定 ==========
         function setupEventListeners() {
-            // ゲーム開始ボタン
             const startButton = document.getElementById('start-button');
+            const mainOrderButton = document.getElementById('main-order-button');
+            const nameToggle = document.getElementById('name-toggle');
+            const nameInput = document.getElementById('name-input');
+            const marshmallowLink = document.getElementById('marshmallow-link');
+            
             if (startButton) {
                 startButton.addEventListener('click', handleGameStart);
             }
-
-            // ランキングボタン
-            const rankingButton = document.getElementById('ranking-button');
-            if (rankingButton) {
-                rankingButton.addEventListener('click', showRankingModal);
-            }
-
-            // 問い合わせボタン
-            const contactButton = document.getElementById('contact-button');
-            if (contactButton) {
-                contactButton.addEventListener('click', function() {
-                    window.open('https://marshmallow-qa.com/hdl55x2xyxkuz0q?t=RzL1zE&utm_medium=url_text&utm_source=promotion', '_blank');
-                });
-            }
-
-            // wikiリンク
-            const wikiLink = document.getElementById('wiki-link');
-            if (wikiLink) {
-                wikiLink.addEventListener('click', function() {
-                    alert('Wiki/説明書は準備中です');
-                });
-            }
-
-            // お知らせ
-            const newsLink = document.getElementById('news-link');
-            if (newsLink) {
-                newsLink.addEventListener('click', function() {
-                    alert('お知らせ機能は準備中です');
-                });
-            }
-
-            // ゲームリセット
-            const resetLink = document.getElementById('reset-link');
-            if (resetLink) {
-                resetLink.addEventListener('click', handleGameReset);
-            }
-
-            // 口座開設モーダル関連
-            setupAccountModal();
             
-            // その他モーダル関連
-            setupOtherModals();
-
-            // ゲーム画面関連
-            setupGameScreen();
-        }
-
-        function setupAccountModal() {
-            const modalCancel = document.getElementById('modal-cancel');
-            const modalConfirm = document.getElementById('modal-confirm');
-            const modalUserName = document.getElementById('modal-user-name');
-            const modalUserID = document.getElementById('modal-user-id');
-
-            if (modalCancel) {
-                modalCancel.addEventListener('click', closeModal);
-            }
-
-            if (modalConfirm) {
-                modalConfirm.addEventListener('click', handleAccountCreation);
-            }
-
-            if (modalUserName) {
-                modalUserName.addEventListener('input', function() {
-                    hideModalError();
-                });
-            }
-
-            if (modalUserID) {
-                modalUserID.addEventListener('input', function() {
-                    hideModalError();
-                });
-            }
-        }
-
-        function setupOtherModals() {
-            // ランキングモーダル
-            const rankingClose = document.getElementById('ranking-close');
-            if (rankingClose) {
-                rankingClose.addEventListener('click', closeAllModals);
-            }
-
-            // ミッションモーダル
-            const missionButton = document.getElementById('mission-button');
-            const missionClose = document.getElementById('mission-close');
-            if (missionButton) {
-                missionButton.addEventListener('click', showMissionModal);
-            }
-            if (missionClose) {
-                missionClose.addEventListener('click', closeAllModals);
-            }
-
-            // アイテム使用モーダル
-            const itemUseButton = document.getElementById('item-use-button');
-            const itemClose = document.getElementById('item-close');
-            if (itemUseButton) {
-                itemUseButton.addEventListener('click', showItemModal);
-            }
-            if (itemClose) {
-                itemClose.addEventListener('click', closeAllModals);
-            }
-
-            // 注文約定一覧モーダル
-            const orderListButton = document.getElementById('order-list-button');
-            const orderClose = document.getElementById('order-close');
-            if (orderListButton) {
-                orderListButton.addEventListener('click', showOrderModal);
-            }
-            if (orderClose) {
-                orderClose.addEventListener('click', closeAllModals);
-            }
-        }
-
-        function setupGameScreen() {
-            // タブ切り替え
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const tabName = this.dataset.tab;
-                    switchTab(tabName);
-                });
-            });
-
-            // タイトルに戻る
-            const backButton = document.getElementById('back-to-title');
-            if (backButton) {
-                backButton.addEventListener('click', function() {
-                    showScreen('title');
-                });
-            }
-
-            // メイン注文ボタン
-            const mainOrderButton = document.getElementById('main-order-button');
             if (mainOrderButton) {
-                mainOrderButton.addEventListener('click', function() {
-                    debugClick(1);
+                mainOrderButton.addEventListener('click', handleOrderClick);
+            }
+
+            if (nameToggle && nameInput) {
+                nameToggle.addEventListener('click', toggleNameInput);
+            }
+
+            if (marshmallowLink) {
+                marshmallowLink.addEventListener('click', function() {
+                    window.open('https://marshmallow-qa.com/hdl55x2xyxkuz0q?t=OGltiZ&utm_medium=url_text&utm_source=promotion', '_blank');
                 });
             }
 
-            // ガチャボタン
-            const gachaButton = document.getElementById('gacha-button');
-            if (gachaButton) {
-                gachaButton.addEventListener('click', function() {
-                    if (debugState.gachaMode === 'ready') {
-                        debugGacha();
-                    } else if (debugState.gachaMode === 'loaded') {
-                        debugGachaFire();
-                    }
+            // 情報タブ切り替え
+            document.querySelectorAll('.info-tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.dataset.infoTab;
+                    switchInfoTab(tabName);
                 });
-            }
-        }
-
-        // ========== ゲーム開始処理 ==========
-        function handleGameStart() {
-            if (!gameState.userName) {
-                showModal();
-            } else {
-                showScreen('game');
-            }
-        }
-
-        // ========== モーダル管理 ==========
-        function showModal() {
-            const modal = document.getElementById('account-modal');
-            const modalUserName = document.getElementById('modal-user-name');
-            
-            if (modal) {
-                modal.classList.add('show');
-            }
-            
-            if (modalUserName) {
-                modalUserName.value = '';
-                modalUserName.focus();
-            }
-            
-            hideModalError();
-        }
-
-        function showRankingModal() {
-            const modal = document.getElementById('ranking-modal');
-            const rankingName = document.getElementById('ranking-name');
-            const rankingId = document.getElementById('ranking-id');
-            const rankingCash = document.getElementById('ranking-cash');
-            const rankingPremium = document.getElementById('ranking-premium');
-            const rankingRice = document.getElementById('ranking-rice');
-            const rankingClicks = document.getElementById('ranking-clicks');
-
-            if (rankingName) rankingName.textContent = gameState.userName || '未設定';
-            if (rankingId) rankingId.textContent = gameState.userId || '未設定';
-            if (rankingCash) rankingCash.textContent = gameState.cash.toLocaleString() + '円';
-            if (rankingPremium) rankingPremium.textContent = gameState.premiumCoin.toLocaleString() + '枚';
-            if (rankingRice) rankingRice.textContent = gameState.rice.toLocaleString() + 'kg';
-            if (rankingClicks) rankingClicks.textContent = gameState.totalClicks.toLocaleString() + '回';
-
-            if (modal) {
-                modal.classList.add('show');
-            }
-        }
-
-        function showMissionModal() {
-            const modal = document.getElementById('mission-modal');
-            if (modal) {
-                modal.classList.add('show');
-            }
-        }
-
-        function showItemModal() {
-            const modal = document.getElementById('item-modal');
-            if (modal) {
-                modal.classList.add('show');
-            }
-        }
-
-        function showOrderModal() {
-            const modal = document.getElementById('order-modal');
-            const orderCash = document.getElementById('order-cash');
-            const orderCapacity = document.getElementById('order-capacity');
-            const orderOrders = document.getElementById('order-orders');
-            const orderStock = document.getElementById('order-stock');
-            const orderServer = document.getElementById('order-server');
-
-            if (orderCash) orderCash.textContent = gameState.cash.toLocaleString() + '円';
-            if (orderCapacity) orderCapacity.textContent = (gameState.cash * 3).toLocaleString() + '円';
-            if (orderOrders) {
-                const orderAmount = (debugState.truckLoad / 100) * (gameState.cash * 3);
-                orderOrders.textContent = `${orderAmount.toLocaleString()}円（${debugState.truckLoad}%/300%）`;
-            }
-            if (orderStock) orderStock.textContent = debugState.stock + '件';
-            if (orderServer) orderServer.textContent = debugState.serverHP + '%';
-
-            if (modal) {
-                modal.classList.add('show');
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('account-modal');
-            if (modal) {
-                modal.classList.remove('show');
-            }
-            hideModalError();
-        }
-
-        function closeAllModals() {
-            document.querySelectorAll('.modal').forEach(modal => {
-                modal.classList.remove('show');
             });
-            hideModalError();
         }
 
-        // ========== 口座開設処理 ==========
-        function handleAccountCreation() {
-            const modalUserName = document.getElementById('modal-user-name');
-            const modalUserID = document.getElementById('modal-user-id');
-            const userName = modalUserName ? modalUserName.value.trim() : '';
-            const userId = modalUserID ? modalUserID.value.trim() : '';
-
-            if (!userName) {
-                showModalError('お名前を入力してください');
-                return;
+        function switchInfoTab(tabName) {
+            // タブボタンのアクティブ状態切り替え
+            document.querySelectorAll('.info-tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeTabButton = document.querySelector(`[data-info-tab="${tabName}"]`);
+            if (activeTabButton) {
+                activeTabButton.classList.add('active');
             }
 
-            if (userId && !/^[a-zA-Z0-9_]+$/.test(userId)) {
-                showModalError('ユーザーIDは半角英数字とアンダースコア（_）のみ使用可能です');
-                return;
+            // タブコンテンツの表示切り替え
+            document.querySelectorAll('.info-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            const activeTabContent = document.getElementById(`info-tab-${tabName}`);
+            if (activeTabContent) {
+                activeTabContent.classList.add('active');
             }
+        }
 
-            gameState.userName = userName;
-            gameState.userId = userId;
-            gameState.isFirstTime = false;
-            saveUserData();
-            
-            updateCustomerStatus();
-            closeModal();
+        function handleGameStart() {
+            const nameInput = document.getElementById('name-input');
+            if (nameInput && nameInput.value.trim()) {
+                gameState.userName = nameInput.value.trim();
+            }
             showScreen('game');
         }
 
-        function showModalError(message) {
-            const modalError = document.getElementById('modal-error');
-            if (modalError) {
-                modalError.textContent = message;
-                modalError.style.display = 'block';
+        function toggleNameInput() {
+            const nameInput = document.getElementById('name-input');
+            const nameToggle = document.getElementById('name-toggle');
+            
+            if (nameInput && nameToggle) {
+                if (nameInput.disabled) {
+                    // 無効 → 有効
+                    nameInput.disabled = false;
+                    nameInput.style.background = '#fff';
+                    nameInput.style.color = '#333';
+                    nameToggle.textContent = '📝';
+                } else {
+                    // 有効 → 無効
+                    nameInput.disabled = true;
+                    nameInput.style.background = '#f5f5f5';
+                    nameInput.style.color = '#666';
+                    nameToggle.textContent = '🔒';
+                }
             }
         }
 
-        function hideModalError() {
-            const modalError = document.getElementById('modal-error');
-            if (modalError) {
-                modalError.style.display = 'none';
-            }
-        }
-
-        // ========== 画面切り替え ==========
         function showScreen(screenName) {
             const titleScreen = document.getElementById('title-screen');
             const gameScreen = document.getElementById('game-screen');
@@ -1470,148 +901,58 @@
             gameState.currentScreen = screenName;
             
             if (screenName === 'game') {
-                updateUserDisplay();
-                updateDebugDisplay();
-            }
-            
-            if (screenName === 'title') {
-                updateCustomerStatus();
+                updateDisplay();
             }
         }
 
-        function handleGameReset() {
-            if (confirm('ゲームデータをリセットしますか？\nこの操作は取り消せません。')) {
-                localStorage.removeItem(STORAGE_KEY);
-                gameState.userName = '';
-                gameState.userId = '';
-                gameState.isFirstTime = true;
-                gameState.cash = 10003400;
-                gameState.premiumCoin = 65000;
-                gameState.rice = 46;
-                gameState.totalClicks = 0;
-                updateCustomerStatus();
-                alert('ゲームデータをリセットしました');
+        function handleOrderClick() {
+            gameState.totalClicks++;
+            debugState.stock++;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            // ヘッダー更新
+            const headerUsername = document.getElementById('header-username');
+            const headerStamina = document.getElementById('header-stamina');
+            const headerPremium = document.getElementById('header-premium');
+            const headerCash = document.getElementById('header-cash');
+
+            if (headerUsername) headerUsername.textContent = gameState.userName || 'ゲスト';
+            if (headerStamina) headerStamina.textContent = generateStaminaDisplay(gameState.stamina);
+            if (headerPremium) headerPremium.textContent = gameState.premiumCoin.toLocaleString();
+            if (headerCash) headerCash.textContent = gameState.cash.toLocaleString();
+
+            // ステータス更新
+            const statusOrders = document.getElementById('status-orders');
+            const statusPosition = document.getElementById('status-position');
+            const statusStock = document.getElementById('status-stock');
+            const statusTotalClicks = document.getElementById('status-total-clicks');
+
+            if (statusOrders) statusOrders.textContent = debugState.orders + '件';
+            if (statusPosition) statusPosition.textContent = debugState.positionAmount.toLocaleString() + '円';
+            if (statusStock) statusStock.textContent = debugState.stock + '件';
+            if (statusTotalClicks) statusTotalClicks.textContent = gameState.totalClicks.toLocaleString() + '回';
+
+            // パフォーマンス指標更新
+            const perfCps = document.getElementById('perf-cps');
+            const perfGetRate = document.getElementById('perf-get-rate');
+            const perfLoadRate = document.getElementById('perf-load-rate');
+            const perfFireRate = document.getElementById('perf-fire-rate');
+
+            if (perfCps) perfCps.textContent = debugState.cps + '回/秒';
+            if (perfGetRate) perfGetRate.textContent = debugState.getRate + '倍';
+            if (perfLoadRate) perfLoadRate.textContent = debugState.loadRate + '%';
+            if (perfFireRate) perfFireRate.textContent = debugState.fireRate + '%';
+        }
+
+        function generateStaminaDisplay(current) {
+            const max = 5;
+            let display = '';
+            for (let i = 0; i < max; i++) {
+                display += i < current ? '★' : '☆';
             }
-        }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            const activeTabButton = document.querySelector(`[data-tab="${tabName}"]`);
-            if (activeTabButton) {
-                activeTabButton.classList.add('active');
-            }
-
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            const activeTabContent = document.getElementById(`tab-${tabName}`);
-            if (activeTabContent) {
-                activeTabContent.classList.add('active');
-            }
-        }
-
-        // ========== デバッグ関数群 ==========
-        function debugClick(amount) {
-            debugState.clicks += amount;
-            gameState.totalClicks += amount;
-            debugState.stock += Math.floor(Math.random() * amount * 0.1);
-            debugState.serverHP = Math.max(0, debugState.serverHP - amount * 0.1);
-            updateDebugDisplay();
-        }
-
-        function debugReset() {
-            debugState.clicks = 0;
-            debugState.stock = 0;
-            debugState.serverHP = 100;
-            debugState.truckLoad = 0;
-            debugState.fireRate = 0;
-            updateDebugDisplay();
-        }
-
-        function debugTruck(amount) {
-            debugState.truckLoad = Math.max(0, Math.min(500, debugState.truckLoad + amount));
-            debugState.fireRate = Math.max(0, Math.min(100, debugState.fireRate + amount * 0.1));
-            updateDebugDisplay();
-        }
-
-        function debugTruckReset() {
-            debugState.truckLoad = 0;
-            debugState.fireRate = 0;
-            updateDebugDisplay();
-        }
-
-        function debugGacha() {
-            debugState.gachaMode = 'loaded';
-            updateDebugDisplay();
-        }
-
-        function debugGachaFire() {
-            debugState.gachaMode = 'fired';
-            debugState.stock = 0;
-            setTimeout(() => {
-                debugState.gachaMode = 'ready';
-                updateDebugDisplay();
-            }, 1000);
-            updateDebugDisplay();
-        }
-
-        function debugGachaReset() {
-            debugState.gachaMode = 'ready';
-            updateDebugDisplay();
-        }
-
-        function debugServerHP(amount) {
-            if (amount === 'full') {
-                debugState.serverHP = 100;
-            } else {
-                debugState.serverHP = Math.max(0, Math.min(100, debugState.serverHP + amount));
-            }
-            updateDebugDisplay();
-        }
-
-        function updateDebugDisplay() {
-            // トラック・炎表示更新
-            const truckLoad = document.getElementById('truck-load');
-            const fireRate = document.getElementById('fire-rate');
-            
-            if (truckLoad) {
-                truckLoad.textContent = `${debugState.truckLoad}%`;
-            }
-            if (fireRate) {
-                fireRate.textContent = `${Math.round(debugState.fireRate)}%`;
-            }
-
-            // サーバーHP更新
-            const serverHpFill = document.getElementById('server-hp-fill');
-            if (serverHpFill) {
-                serverHpFill.style.width = `${debugState.serverHP}%`;
-                serverHpFill.style.background = 
-                    debugState.serverHP > 25 ? 'linear-gradient(90deg, #4caf50, #8bc34a)' : 
-                    debugState.serverHP > 0 ? 'linear-gradient(90deg, #ff9800, #ff5722)' : '#ccc';
-            }
-
-            // ガチャボタン更新
-            const gachaButton = document.getElementById('gacha-button');
-            if (gachaButton) {
-                if (debugState.gachaMode === 'loaded') {
-                    gachaButton.textContent = '現渡し';
-                    gachaButton.style.background = '#f44336';
-                } else {
-                    gachaButton.textContent = '現引き';
-                    gachaButton.style.background = '#ff5722';
-                }
-            }
-
-            // PCデバッグ情報更新
-            const debugClicks = document.getElementById('debug-clicks');
-            const debugTruckDisplay = document.getElementById('debug-truck');
-            const debugStockDisplay = document.getElementById('debug-stock');
-            
-            if (debugClicks) debugClicks.textContent = debugState.clicks;
-            if (debugTruckDisplay) debugTruckDisplay.textContent = `${debugState.truckLoad}%`;
-            if (debugStockDisplay) debugStockDisplay.textContent = debugState.stock;
+            return display;
         }
 
         // ========== アプリ起動 ==========
@@ -1619,4 +960,3 @@
     </script>
 </body>
 </html>
-                    
