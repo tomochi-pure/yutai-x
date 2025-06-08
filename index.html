@@ -144,41 +144,6 @@
             transform: scale(1.1);
         }
 
-        /* バナーコンテナ調整 */
-        .banner-container {
-            margin: 20px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .banner-container iframe {
-            width: 100%;
-            border: none;
-            border-radius: 10px;
-        }
-
-        /* 下部リンク調整 */
-        .bottom-links {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-
-        .bottom-link {
-            background: white;
-            border: 1px solid #ddd;
-            padding: 12px 24px;
-            border-radius: 5px;
-            color: #2196f3;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .bottom-link::after {
-            content: ' 📋';
-        }
-
         /* 情報タブナビゲーション */
         .info-tab-navigation {
             display: flex;
@@ -304,12 +269,12 @@
             background-color: #f0f0f0;
             padding: 0;
             box-sizing: border-box;
-            overflow: hidden;               /* スクロール防止 */
+            overflow: hidden;
         }
 
         .game-container {
-            height: 90vh;                 /* 画面高さの90%をシンプルに使用 */
-            min-height: 600px;           /* 最小高さ保証 */
+            height: 90vh;
+            min-height: 600px;
             display: flex;
             flex-direction: column;
             background: #f0f0f0;
@@ -317,44 +282,52 @@
 
         /* 上部ヘッダー */
         .game-header {
-            background: #87ceeb;
+            background: #f0f0f0;
             padding: 10px 15px;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 10px;
             align-items: center;
-            color: white;
+            color: #333;
             font-weight: bold;
         }
 
         .header-left {
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
         }
 
         .username-display {
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
         }
 
-        .stamina-display {
-            font-size: 16px;
-            color: #ffd700;
+        .user-id-display {
+            font-size: 12px;
+            color: #666;
+            font-weight: normal;
         }
 
         .header-right {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            font-size: 12px;
-            line-height: 1.2;
-        }
-
-        .premium-coin {
-            color: #ffd700;
+            font-size: 11px;
+            line-height: 1.3;
+            gap: 2px;
         }
 
         .cash-amount {
-            color: white;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .premium-coin {
+            color: #333;
+            font-weight: bold;
         }
 
         /* タブナビゲーション */
@@ -372,15 +345,37 @@
             color: #666;
             font-size: 12px;
             cursor: pointer;
-            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
         }
 
         .tab-button.active {
-            color: #2196f3;
-            border-bottom-color: #2196f3;
+            background: #87ceeb;
+            color: white;
+            font-weight: bold;
         }
 
-        /* サーバーHPバー */
+        .tab-button:hover:not(.active) {
+            background: #f0f0f0;
+        }
+
+        /* タブコンテンツエリア */
+        #tab-content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* 株注文タブ専用スタイル */
         .server-hp-container {
             background: white;
             padding: 8px 15px;
@@ -409,7 +404,6 @@
             transition: width 0.3s ease;
         }
 
-        /* メインゲームエリア */
         .main-game-area {
             flex: 1;
             background: white;
@@ -418,7 +412,6 @@
             flex-direction: column;
         }
 
-        /* 中央エリア（注文ボタン + アニメーション空間） */
         .center-area {
             flex: 1;
             position: relative;
@@ -446,17 +439,66 @@
             box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
         }
 
-        /* 下部3ボタンエリア */
-        .bottom-controls {
+        .credit-margin-container {
+            background: white;
+            padding: 8px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .credit-margin-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .credit-margin-bar {
+            width: 100%;
+            height: 15px;
+            background: #e0e0e0;
+            border-radius: 7px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .credit-margin-fill {
+            height: 100%;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .credit-margin-fill.positive {
+            background: linear-gradient(90deg, #87ceeb, #5dade2);
+        }
+
+        .credit-margin-fill.warning {
+            background: linear-gradient(90deg, #f1c40f, #f39c12);
+        }
+
+        .credit-margin-fill.orange {
+            background: linear-gradient(90deg, #e67e22, #d35400);
+        }
+
+        .credit-margin-fill.negative {
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+        }
+
+        .credit-margin-fill.danger {
+            background: linear-gradient(90deg, #8b0000, #660000);
+        }
+
+        .credit-margin-fill.critical {
+            background: linear-gradient(90deg, #2c3e50, #1a252f);
+        }
+
+        .bottom-tab-controls {
             display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-columns: 1fr 3fr;
             gap: 8px;
             padding: 10px 15px;
             background: white;
             border-top: 1px solid #ddd;
         }
 
-        .control-btn {
+        .bottom-tab-btn {
             padding: 12px 8px;
             border: none;
             border-radius: 6px;
@@ -465,38 +507,75 @@
             cursor: pointer;
             text-align: center;
             line-height: 1.1;
+            transition: all 0.2s ease;
         }
 
-        .item-use-btn {
+        .bottom-tab-btn.bot-adjust {
             background: #4caf50;
             color: white;
         }
 
-        .order-list-btn {
+        .bottom-tab-btn.order-list {
             background: white;
             color: #2196f3;
             border: 2px solid #2196f3;
         }
 
-        .gacha-btn {
-            background: #ff5722;
-            color: white;
+        .bottom-tab-btn.active {
+            opacity: 0.8;
+            transform: translateY(1px);
         }
 
-        /* ステータス表示エリア */
-        .status-bar {
+        .unified-display-area {
             padding: 10px 15px;
             background: #f8f9fa;
             border-top: 1px solid #ddd;
             font-size: 12px;
+        }
+
+        .display-content {
+            display: none;
+        }
+
+        .display-content.active {
+            display: block;
+        }
+
+        .performance-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            font-size: 11px;
+        }
+
+        .order-list-layout {
+            display: grid;
+            grid-template-columns: 4fr 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .status-display {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 8px;
+        }
+
+        .status-row-top {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
+        .status-row-bottom {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
         .status-item {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             color: #333;
         }
 
@@ -508,15 +587,23 @@
             font-weight: bold;
         }
 
-        /* パフォーマンス指標エリア */
-        .performance-bar {
-            padding: 8px 15px;
-            background: white;
-            border-top: 1px solid #ddd;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+        .gacha-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gacha-btn-unified {
+            background: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 16px;
             font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
         }
 
         .perf-item {
@@ -537,6 +624,181 @@
         .perf-value {
             font-weight: bold;
             color: #333;
+        }
+
+        .debug-controls {
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-top: 2px solid #e74c3c;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .debug-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            color: #333;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .debug-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .debug-btn.increase {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .debug-btn.decrease {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .debug-btn.reset {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        /* ミッションタブ専用スタイル */
+        .mission-tab-content {
+            padding: 15px;
+            background: #f0f0f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .mission-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .refresh-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .refresh-btn:hover {
+            background: #1976d2;
+        }
+
+        .mission-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mission-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mission-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .mission-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mission-avatar {
+            font-size: 24px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .mission-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mission-user {
+            display: flex;
+            align-items: baseline;
+            gap: 5px;
+            margin-bottom: 2px;
+        }
+
+        .mission-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .mission-handle {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .mission-timestamp {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .mission-content {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            white-space: pre-line;
+        }
+
+        .mission-stats {
+            display: flex;
+            gap: 15px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .mission-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .loading-message {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #e74c3c;
+            font-size: 14px;
+            padding: 20px;
         }
 
         /* PC表示対応 */
@@ -678,15 +940,15 @@
             <!-- 上部ヘッダー -->
             <div class="game-header">
                 <div class="header-left">
-                    <div class="username-display" id="header-username">tomochi_pure</div>
-                    <div class="stamina-display" id="header-stamina">★★★★☆</div>
+                    <div class="username-display" id="header-username">ともちぃさん</div>
+                    <div class="user-id-display" id="header-userid">tomochi-fun</div>
                 </div>
                 <div class="header-right">
-                    <div class="premium-coin">
-                        <span id="header-premium">360</span>P プレミアムコイン
-                    </div>
                     <div class="cash-amount">
-                        <span id="header-cash">10,000,000</span>円
+                        現金残高：<span id="header-cash">10,000,000</span>円
+                    </div>
+                    <div class="premium-coin">
+                        プレミアムコイン：<span id="header-premium">450</span>枚
                     </div>
                 </div>
             </div>
@@ -700,79 +962,144 @@
                 <button class="tab-button" data-tab="settings">設定</button>
             </nav>
 
-            <!-- サーバーHPバー -->
-            <div class="server-hp-container">
-                <div class="server-hp-label">サーバーHP</div>
-                <div class="server-hp-bar">
-                    <div class="server-hp-fill" id="server-hp-fill"></div>
-                </div>
-            </div>
-
-            <!-- メインゲームエリア -->
-            <div class="main-game-area">
-                <!-- 中央エリア（注文ボタン + アニメーション） -->
-                <div class="center-area">
-                    <button class="main-order-btn" id="main-order-button">注文内容を確認</button>
-                </div>
-
-                <!-- 下部3ボタン -->
-                <div class="bottom-controls">
-                    <button class="control-btn item-use-btn" id="item-use-button">
-                        アイテム<br>使用
-                    </button>
-                    <button class="control-btn order-list-btn" id="order-list-button">
-                        注文約定一覧
-                    </button>
-                    <button class="control-btn gacha-btn" id="gacha-button">
-                        現引き
-                    </button>
-                </div>
-
-                <!-- ステータス表示エリア -->
-                <div class="status-bar">
-                    <div class="status-left">
-                        <div class="status-item">
-                            <span class="status-label">注文件数</span>
-                            <span class="status-value" id="status-orders">265件</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="status-label">建玉金額</span>
-                            <span class="status-value" id="status-position">79,500,000円</span>
+            <!-- タブコンテンツエリア -->
+            <div id="tab-content-area">
+                <!-- 株注文タブの内容 -->
+                <div id="stocks-content" class="tab-content active">
+                    <!-- サーバーHPバー -->
+                    <div class="server-hp-container">
+                        <div class="server-hp-label">サーバーHP</div>
+                        <div class="server-hp-bar">
+                            <div class="server-hp-fill" id="server-hp-fill"></div>
                         </div>
                     </div>
-                    <div class="status-right">
-                        <div class="status-item">
-                            <span class="status-label">確保した在庫</span>
-                            <span class="status-value" id="status-stock">0件</span>
+
+                    <!-- メインゲームエリア -->
+                    <div class="main-game-area">
+                        <!-- 中央エリア（注文ボタン + アニメーション） -->
+                        <div class="center-area">
+                            <button class="main-order-btn" id="main-order-button">注文内容を確認</button>
                         </div>
-                        <div class="status-item">
-                            <span class="status-label">総クリック数</span>
-                            <span class="status-value" id="status-total-clicks">0回</span>
+                    </div>
+
+                    <!-- 信用建て余力バー -->
+                    <div class="credit-margin-container">
+                        <div class="credit-margin-label" id="credit-margin-label">信用建て余力：100%</div>
+                        <div class="credit-margin-bar">
+                            <div class="credit-margin-fill" id="credit-margin-fill"></div>
+                        </div>
+                    </div>
+
+                    <!-- 下部タブボタンエリア -->
+                    <div class="bottom-tab-controls">
+                        <button class="bottom-tab-btn bot-adjust" id="bot-adjust-tab">
+                            BOT調整
+                        </button>
+                        <button class="bottom-tab-btn order-list active" id="order-list-tab">
+                            注文約定一覧
+                        </button>
+                    </div>
+
+                    <!-- 統合表示エリア -->
+                    <div class="unified-display-area">
+                        <!-- BOT調整時のパフォーマンス指標 -->
+                        <div class="display-content" id="bot-adjust-content">
+                            <div class="performance-display">
+                                <div class="perf-item">
+                                    <span class="perf-icon">⚡</span>
+                                    <div class="perf-label">Cps</div>
+                                    <div class="perf-value" id="perf-cps">34回/秒</div>
+                                </div>
+                                <div class="perf-item">
+                                    <span class="perf-icon">🎯</span>
+                                    <div class="perf-label">ゲット率</div>
+                                    <div class="perf-value" id="perf-get-rate">3.4倍</div>
+                                </div>
+                                <div class="perf-item">
+                                    <span class="perf-icon">🚛</span>
+                                    <div class="perf-label">積載率</div>
+                                    <div class="perf-value" id="perf-load-rate">430%</div>
+                                </div>
+                                <div class="perf-item">
+                                    <span class="perf-icon">🔥</span>
+                                    <div class="perf-label">委託率</div>
+                                    <div class="perf-value" id="perf-fire-rate">24%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 注文約定一覧時のステータス + 現引きボタン -->
+                        <div class="display-content active" id="order-list-content">
+                            <div class="order-list-layout">
+                                <div class="status-display">
+                                    <!-- 上段：2列 -->
+                                    <div class="status-row-top">
+                                        <div class="status-item">
+                                            <span class="status-label">注文件数</span>
+                                            <span class="status-value" id="status-orders">265件</span>
+                                        </div>
+                                        <div class="status-item">
+                                            <span class="status-label">信用建て余力</span>
+                                            <span class="status-value" id="status-credit-margin">100%</span>
+                                        </div>
+                                    </div>
+                                    <!-- 下段：1列 -->
+                                    <div class="status-row-bottom">
+                                        <div class="status-item">
+                                            <span class="status-label">建玉金額</span>
+                                            <span class="status-value" id="status-position">0円</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="gacha-area">
+                                    <button class="gacha-btn-unified" id="gacha-button">
+                                        現引き
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- デバッグボタンエリア -->
+                    <div class="debug-controls">
+                        <button class="debug-btn increase" id="debug-increase">建玉+1000万</button>
+                        <button class="debug-btn decrease" id="debug-decrease">建玉-1000万</button>
+                        <button class="debug-btn reset" id="debug-reset">リセット</button>
+                    </div>
+                </div>
+
+                <!-- BOT改造タブの内容 -->
+                <div id="bot-content" class="tab-content">
+                    <div class="mission-tab-content">
+                        BOT改造タブ - 準備中
+                    </div>
+                </div>
+
+                <!-- ミッションタブの内容 -->
+                <div id="mission-content" class="tab-content">
+                    <div class="mission-tab-content">
+                        <div class="mission-header">
+                            <div class="mission-title">ミッション</div>
+                            <button class="refresh-btn" id="mission-refresh">🔄</button>
+                        </div>
+                        <div class="mission-list" id="mission-list">
+                            <div class="loading-message">ミッションを読み込み中...</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- パフォーマンス指標 -->
-                <div class="performance-bar">
-                    <div class="perf-item">
-                        <span class="perf-icon">⚡</span>
-                        <div class="perf-label">Cps</div>
-                        <div class="perf-value" id="perf-cps">34回/秒</div>
+                <!-- 実績タブの内容 -->
+                <div id="yuutai-content" class="tab-content">
+                    <div class="mission-tab-content">
+                        実績タブ - 準備中
                     </div>
-                    <div class="perf-item">
-                        <span class="perf-icon">🎯</span>
-                        <div class="perf-label">ゲット率</div>
-                        <div class="perf-value" id="perf-get-rate">3.4倍</div>
-                    </div>
-                    <div class="perf-item">
-                        <span class="perf-icon">🚛</span>
-                        <div class="perf-label">積載率</div>
-                        <div class="perf-value" id="perf-load-rate">430%</div>
-                    </div>
-                    <div class="perf-item">
-                        <span class="perf-icon">🔥</span>
-                        <div class="perf-label">委託率</div>
-                        <div class="perf-value" id="perf-fire-rate">24%</div>
+                </div>
+
+                <!-- 設定タブの内容 -->
+                <div id="settings-content" class="tab-content">
+                    <div class="mission-tab-content">
+                        設定タブ - 準備中
                     </div>
                 </div>
             </div>
@@ -783,17 +1110,18 @@
         // ========== ゲーム状態管理 ==========
         const gameState = {
             currentScreen: 'title',
-            userName: '',
-            userId: '',
+            userName: 'ともちぃさん',
+            userId: 'tomochi-fun',
             cash: 10000000,
-            premiumCoin: 360,
+            premiumCoin: 450,
             totalClicks: 0,
             stamina: 4
         };
 
         const debugState = {
             orders: 265,
-            positionAmount: 79500000,
+            positionAmount: 0,
+            initialPositionAmount: 0,
             stock: 0,
             cps: 34,
             getRate: 3.4,
@@ -815,6 +1143,11 @@
             const nameInput = document.getElementById('name-input');
             const marshmallowLink = document.getElementById('marshmallow-link');
             
+            // デバッグボタン
+            const debugIncrease = document.getElementById('debug-increase');
+            const debugDecrease = document.getElementById('debug-decrease');
+            const debugReset = document.getElementById('debug-reset');
+            
             if (startButton) {
                 startButton.addEventListener('click', handleGameStart);
             }
@@ -833,6 +1166,34 @@
                 });
             }
 
+            // デバッグボタンイベント
+            if (debugIncrease) {
+                debugIncrease.addEventListener('click', function() {
+                    debugState.positionAmount += 10000000;
+                    if (debugState.positionAmount < 0) {
+                        debugState.positionAmount = 0;
+                    }
+                    updateDisplay();
+                });
+            }
+
+            if (debugDecrease) {
+                debugDecrease.addEventListener('click', function() {
+                    debugState.positionAmount -= 10000000;
+                    if (debugState.positionAmount < 0) {
+                        debugState.positionAmount = 0;
+                    }
+                    updateDisplay();
+                });
+            }
+
+            if (debugReset) {
+                debugReset.addEventListener('click', function() {
+                    debugState.positionAmount = debugState.initialPositionAmount;
+                    updateDisplay();
+                });
+            }
+
             // 情報タブ切り替え
             document.querySelectorAll('.info-tab-button').forEach(button => {
                 button.addEventListener('click', function() {
@@ -840,6 +1201,93 @@
                     switchInfoTab(tabName);
                 });
             });
+
+            // ゲームタブ切り替え
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    switchGameTab(this);
+                });
+            });
+
+            // 下部タブ切り替え
+            document.querySelectorAll('.bottom-tab-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    switchBottomTab(this);
+                });
+            });
+
+            // ミッション更新ボタン
+            const missionRefresh = document.getElementById('mission-refresh');
+            if (missionRefresh) {
+                missionRefresh.addEventListener('click', loadMissions);
+            }
+        }
+
+        // ========== ミッション機能 ==========
+        async function loadMissions() {
+            const missionList = document.getElementById('mission-list');
+            if (!missionList) return;
+
+            // ローディング表示
+            missionList.innerHTML = '<div class="loading-message">ミッションを読み込み中...</div>';
+
+            try {
+                const response = await fetch('./missions.json');
+                if (!response.ok) {
+                    throw new Error('ミッションファイルの読み込みに失敗しました');
+                }
+                
+                const data = await response.json();
+                displayMissions(data.missions);
+            } catch (error) {
+                console.error('ミッション読み込みエラー:', error);
+                missionList.innerHTML = '<div class="error-message">ミッションの読み込みに失敗しました<br>missions.jsonファイルを確認してください</div>';
+            }
+        }
+
+        function displayMissions(missions) {
+            const missionList = document.getElementById('mission-list');
+            if (!missionList || !missions || missions.length === 0) {
+                missionList.innerHTML = '<div class="error-message">ミッションが見つかりません</div>';
+                return;
+            }
+
+            // ミッション1つのみ表示
+            const mission = missions[0];
+            const missionHTML = createMissionCard(mission);
+            missionList.innerHTML = missionHTML;
+        }
+
+        function createMissionCard(mission) {
+            return `
+                <div class="mission-card" data-mission-id="${mission.id}">
+                    <div class="mission-card-header">
+                        <div class="mission-avatar">${mission.character.icon}</div>
+                        <div class="mission-info">
+                            <div class="mission-user">
+                                <span class="mission-name">${mission.character.name}</span>
+                                <span class="mission-handle">${mission.character.handle}</span>
+                                <span class="mission-timestamp">・${mission.timestamp}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-content">${mission.content}</div>
+                    <div class="mission-stats">
+                        <div class="mission-stat">
+                            <span>💬</span>
+                            <span>${mission.stats.replies}</span>
+                        </div>
+                        <div class="mission-stat">
+                            <span>🔁</span>
+                            <span>${mission.stats.retweets}</span>
+                        </div>
+                        <div class="mission-stat">
+                            <span>❤️</span>
+                            <span>${mission.stats.likes}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         function switchInfoTab(tabName) {
@@ -859,6 +1307,55 @@
             const activeTabContent = document.getElementById(`info-tab-${tabName}`);
             if (activeTabContent) {
                 activeTabContent.classList.add('active');
+            }
+        }
+
+        function switchGameTab(clickedTab) {
+            // すべてのタブボタンからactiveクラスを削除
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // クリックされたタブにactiveクラスを追加
+            clickedTab.classList.add('active');
+
+            // すべてのタブコンテンツを非表示
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 対応するタブコンテンツを表示
+            const tabName = clickedTab.dataset.tab;
+            const targetContent = document.getElementById(`${tabName}-content`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                
+                // ミッションタブの場合はミッションを読み込み
+                if (tabName === 'mission') {
+                    loadMissions();
+                }
+            }
+        }
+
+        function switchBottomTab(clickedTab) {
+            // すべてのタブボタンからactiveクラスを削除
+            document.querySelectorAll('.bottom-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // クリックされたタブにactiveクラスを追加
+            clickedTab.classList.add('active');
+
+            // すべての表示コンテンツを非表示
+            document.querySelectorAll('.display-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // 対応するコンテンツを表示
+            if (clickedTab.id === 'bot-adjust-tab') {
+                document.getElementById('bot-adjust-content').classList.add('active');
+            } else if (clickedTab.id === 'order-list-tab') {
+                document.getElementById('order-list-content').classList.add('active');
             }
         }
 
@@ -914,25 +1411,30 @@
         function updateDisplay() {
             // ヘッダー更新
             const headerUsername = document.getElementById('header-username');
-            const headerStamina = document.getElementById('header-stamina');
+            const headerUserid = document.getElementById('header-userid');
             const headerPremium = document.getElementById('header-premium');
             const headerCash = document.getElementById('header-cash');
 
-            if (headerUsername) headerUsername.textContent = gameState.userName || 'ゲスト';
-            if (headerStamina) headerStamina.textContent = generateStaminaDisplay(gameState.stamina);
+            if (headerUsername) headerUsername.textContent = gameState.userName;
+            if (headerUserid) headerUserid.textContent = gameState.userId;
             if (headerPremium) headerPremium.textContent = gameState.premiumCoin.toLocaleString();
             if (headerCash) headerCash.textContent = gameState.cash.toLocaleString();
 
             // ステータス更新
             const statusOrders = document.getElementById('status-orders');
             const statusPosition = document.getElementById('status-position');
-            const statusStock = document.getElementById('status-stock');
-            const statusTotalClicks = document.getElementById('status-total-clicks');
+            const statusCreditMargin = document.getElementById('status-credit-margin');
 
             if (statusOrders) statusOrders.textContent = debugState.orders + '件';
             if (statusPosition) statusPosition.textContent = debugState.positionAmount.toLocaleString() + '円';
-            if (statusStock) statusStock.textContent = debugState.stock + '件';
-            if (statusTotalClicks) statusTotalClicks.textContent = gameState.totalClicks.toLocaleString() + '回';
+            
+            // 信用建て余力のパーセンテージ更新
+            if (statusCreditMargin) {
+                const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
+                const maxPositive = gameState.cash * 3.3;
+                const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
+                statusCreditMargin.textContent = marginPercentage + '%';
+            }
 
             // パフォーマンス指標更新
             const perfCps = document.getElementById('perf-cps');
@@ -944,6 +1446,62 @@
             if (perfGetRate) perfGetRate.textContent = debugState.getRate + '倍';
             if (perfLoadRate) perfLoadRate.textContent = debugState.loadRate + '%';
             if (perfFireRate) perfFireRate.textContent = debugState.fireRate + '%';
+
+            // 信用建て余力バー更新
+            updateCreditMarginBar();
+        }
+
+        function updateCreditMarginBar() {
+            const creditMarginFill = document.getElementById('credit-margin-fill');
+            const creditMarginLabel = document.getElementById('credit-margin-label');
+            if (!creditMarginFill || !creditMarginLabel) return;
+
+            // 余力計算: 現金残高 × 3.3 - 建玉金額
+            const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
+            const maxPositive = gameState.cash * 3.3;
+
+            // パーセンテージ計算
+            const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
+            
+            // ラベル更新
+            creditMarginLabel.textContent = `信用建て余力：${marginPercentage}%`;
+
+            // バー表示用の値とクラス決定
+            let percentage;
+            let className;
+
+            if (creditMargin >= 0) {
+                // プラス領域 (0% ～ 100%) - 水色
+                percentage = Math.min((creditMargin / maxPositive) * 100, 100);
+                className = 'credit-margin-fill positive';
+            } else {
+                // マイナス領域の段階判定
+                const absPercentage = Math.abs(marginPercentage);
+                const stage = Math.floor(absPercentage / 100);
+                
+                // 各段階内での進捗 (0-100%)
+                const stageProgress = absPercentage % 100;
+                percentage = stageProgress;
+
+                // 段階に応じた色設定
+                const colorClasses = [
+                    'credit-margin-fill warning',    // 0-100%: 黄色
+                    'credit-margin-fill orange',     // 100-200%: オレンジ
+                    'credit-margin-fill negative',   // 200-300%: 赤色
+                    'credit-margin-fill danger',     // 300-400%: 濃赤色
+                    'credit-margin-fill critical'    // 400-500%+: 黒色
+                ];
+
+                className = colorClasses[Math.min(stage, colorClasses.length - 1)];
+                
+                // -500%超えの場合は100%固定
+                if (absPercentage >= 500) {
+                    percentage = 100;
+                }
+            }
+
+            creditMarginFill.className = className;
+            creditMarginFill.style.width = percentage + '%';
         }
 
         function generateStaminaDisplay(current) {
