@@ -264,17 +264,14 @@
         /* ========== メインゲーム画面 ========== */
         #game-screen {
             display: none;
-            min-height: 90vh;
-            max-height: 90vh;
+            min-height: 100vh;
             background-color: #f0f0f0;
             padding: 0;
             box-sizing: border-box;
-            overflow: hidden;
         }
 
         .game-container {
-            height: 90vh;
-            min-height: 600px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             background: #f0f0f0;
@@ -669,9 +666,9 @@
         .mission-tab-content {
             padding: 15px;
             background: #f0f0f0;
-            height: 100%;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .mission-header {
@@ -688,25 +685,22 @@
         }
 
         .refresh-btn {
-            background: #2196f3;
+            background: #87ceeb;
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            font-size: 16px;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: all 0.2s ease;
         }
 
         .refresh-btn:hover {
-            background: #1976d2;
+            background: #5dade2;
         }
 
         .mission-list {
-            flex: 1;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -799,6 +793,154 @@
             color: #e74c3c;
             font-size: 14px;
             padding: 20px;
+        }
+
+        /* ミッション4状態のスタイル */
+        .mission-state-unaccepted {
+            background: white;
+        }
+
+        .mission-state-progress {
+            background: #e3f2fd;
+        }
+
+        .mission-state-complete {
+            background: #fff3e0;
+            animation: glow-pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            from {
+                box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+            }
+            to {
+                box-shadow: 0 4px 16px rgba(255, 152, 0, 0.6);
+            }
+        }
+
+        .mission-state-claimed {
+            background: #f5f5f5;
+            opacity: 0.7;
+        }
+
+        /* ミッション詳細レイアウト */
+        .mission-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+
+        .mission-requirement {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .mission-reward {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        /* ミッションアクション */
+        .mission-actions {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .mission-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mission-btn-accept {
+            background: #4caf50;
+            color: white;
+        }
+
+        .mission-btn-accept:hover {
+            background: #45a049;
+        }
+
+        .mission-btn-claim {
+            background: #ff9800;
+            color: white;
+        }
+
+        .mission-btn-claim:hover {
+            background: #f57c00;
+        }
+
+        .mission-btn-disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .mission-time {
+            background: #87ceeb;
+            color: white;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 6px;
+            padding: 8px 12px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-difficulty {
+            color: #ff9800;
+            margin-left: 5px;
+        }
+
+        /* ミッション内タブナビゲーション */
+        .mission-tab-navigation {
+            display: flex;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+
+        .mission-tab-button {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-weight: bold;
+        }
+
+        .mission-tab-button.active {
+            color: #2196f3;
+            border-bottom-color: #2196f3;
+            background: #f8f9fa;
+        }
+
+        .mission-tab-button:hover {
+            background: #f0f0f0;
+        }
+
+        .mission-tab-content-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 15px;
         }
 
         /* PC表示対応 */
@@ -1079,12 +1221,21 @@
                 <!-- ミッションタブの内容 -->
                 <div id="mission-content" class="tab-content">
                     <div class="mission-tab-content">
-                        <div class="mission-header">
-                            <div class="mission-title">ミッション</div>
-                            <button class="refresh-btn" id="mission-refresh">🔄</button>
+                        <!-- ミッション内タブナビゲーション -->
+                        <div class="mission-tab-navigation">
+                            <button class="mission-tab-button active" data-mission-tab="recommend">オススメ</button>
+                            <button class="mission-tab-button" data-mission-tab="character">フォロー中</button>
                         </div>
-                        <div class="mission-list" id="mission-list">
-                            <div class="loading-message">ミッションを読み込み中...</div>
+
+                        <!-- ミッション内タブコンテンツ -->
+                        <div class="mission-tab-content-container">
+                            <div class="mission-header">
+                                <div class="mission-title">ミッション</div>
+                                <button class="refresh-btn" id="mission-refresh">更新</button>
+                            </div>
+                            <div class="mission-list" id="mission-list">
+                                <div class="loading-message">ミッションを読み込み中...</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1130,10 +1281,15 @@
             serverHP: 75
         };
 
+        // ========== ミッションシステム ==========
+        let missionData = null;
+        let currentMissionTab = 'recommend'; // 現在のミッションタブ
+
         // ========== 初期化 ==========
         function init() {
             setupEventListeners();
             updateDisplay();
+            loadMissions();
         }
 
         function setupEventListeners() {
@@ -1221,6 +1377,14 @@
             if (missionRefresh) {
                 missionRefresh.addEventListener('click', loadMissions);
             }
+
+            // ミッション内タブ切り替え（イベント委譲）
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('mission-tab-button')) {
+                    const tabName = event.target.dataset.missionTab;
+                    switchMissionTab(tabName);
+                }
+            });
         }
 
         // ========== ミッション機能 ==========
@@ -1238,53 +1402,105 @@
                 }
                 
                 const data = await response.json();
-                displayMissions(data.missions);
+                missionData = data;
+                displayCurrentTabMissions();
             } catch (error) {
                 console.error('ミッション読み込みエラー:', error);
                 missionList.innerHTML = '<div class="error-message">ミッションの読み込みに失敗しました<br>missions.jsonファイルを確認してください</div>';
             }
         }
 
-        function displayMissions(missions) {
+        function displayCurrentTabMissions() {
+            if (currentMissionTab === 'recommend') {
+                displayRecommendMissions();
+            } else if (currentMissionTab === 'character') {
+                displayCharacterMissions();
+            }
+        }
+
+        function displayRecommendMissions() {
             const missionList = document.getElementById('mission-list');
-            if (!missionList || !missions || missions.length === 0) {
+            if (!missionList) return;
+
+            // オススメミッションはまだ未実装
+            missionList.innerHTML = '<div class="loading-message">更新中...</div>';
+        }
+
+        function displayCharacterMissions() {
+            const missionList = document.getElementById('mission-list');
+            if (!missionList || !missionData || !missionData.characterMissions) {
                 missionList.innerHTML = '<div class="error-message">ミッションが見つかりません</div>';
                 return;
             }
 
-            // ミッション1つのみ表示
-            const mission = missions[0];
-            const missionHTML = createMissionCard(mission);
+            // ランダムに6個のミッションを抽選
+            const selectedMissions = getRandomMissions(missionData.characterMissions, 6);
+            displayMultipleMissions(selectedMissions);
+        }
+
+        function switchMissionTab(tabName) {
+            currentMissionTab = tabName;
+
+            // タブボタンのアクティブ状態切り替え
+            document.querySelectorAll('.mission-tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeButton = document.querySelector(`[data-mission-tab="${tabName}"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // コンテンツの表示切り替え
+            displayCurrentTabMissions();
+        }
+
+        function getRandomMissions(missions, count) {
+            // 配列をシャッフル
+            const shuffled = [...missions].sort(() => Math.random() - 0.5);
+            // 指定数だけ取得（配列の長さを超えない）
+            return shuffled.slice(0, Math.min(count, shuffled.length));
+        }
+
+        function displayMultipleMissions(missions) {
+            const missionList = document.getElementById('mission-list');
+            if (!missionList) return;
+
+            const missionHTML = missions.map(mission => {
+                const stateInfo = {
+                    id: mission.id,
+                    state: 'unaccepted',
+                    buttonText: '受諾',
+                    buttonClass: 'mission-btn-accept',
+                    timeText: '必要時間：5秒',
+                    bgClass: 'mission-state-unaccepted'
+                };
+                return createMissionCard(mission, stateInfo);
+            }).join('');
+
             missionList.innerHTML = missionHTML;
         }
 
-        function createMissionCard(mission) {
+        function createMissionCard(mission, stateInfo) {
             return `
-                <div class="mission-card" data-mission-id="${mission.id}">
+                <div class="mission-card ${stateInfo.bgClass}" data-mission-id="${stateInfo.id}">
                     <div class="mission-card-header">
                         <div class="mission-avatar">${mission.character.icon}</div>
                         <div class="mission-info">
                             <div class="mission-user">
                                 <span class="mission-name">${mission.character.name}</span>
                                 <span class="mission-handle">${mission.character.handle}</span>
-                                <span class="mission-timestamp">・${mission.timestamp}</span>
+                                <span class="mission-difficulty">⭐⭐</span>
                             </div>
                         </div>
                     </div>
                     <div class="mission-content">${mission.content}</div>
-                    <div class="mission-stats">
-                        <div class="mission-stat">
-                            <span>💬</span>
-                            <span>${mission.stats.replies}</span>
-                        </div>
-                        <div class="mission-stat">
-                            <span>🔁</span>
-                            <span>${mission.stats.retweets}</span>
-                        </div>
-                        <div class="mission-stat">
-                            <span>❤️</span>
-                            <span>${mission.stats.likes}</span>
-                        </div>
+                    <div class="mission-details">
+                        <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
+                        <div class="mission-reward">報酬：${mission.mission.reward}</div>
+                    </div>
+                    <div class="mission-actions">
+                        <button class="mission-btn ${stateInfo.buttonClass}">${stateInfo.buttonText}</button>
+                        <div class="mission-time">${stateInfo.timeText}</div>
                     </div>
                 </div>
             `;
