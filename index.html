@@ -396,9 +396,19 @@
 
         .server-hp-fill {
             height: 100%;
+            transition: width 0.3s ease, background 0.3s ease;
+        }
+
+        .server-hp-fill.high {
             background: linear-gradient(90deg, #4caf50, #8bc34a);
-            width: 75%;
-            transition: width 0.3s ease;
+        }
+
+        .server-hp-fill.medium {
+            background: linear-gradient(90deg, #ff9800, #ffc107);
+        }
+
+        .server-hp-fill.low {
+            background: linear-gradient(90deg, #f44336, #e57373);
         }
 
         .main-game-area {
@@ -428,12 +438,56 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-            z-index: 10;
+            z-index: 1000;
+            position: relative;
         }
 
         .main-order-btn:active {
             transform: translateY(2px);
             box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+        }
+
+        /* ポップアップ演出 */
+        .result-popup {
+            position: absolute;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 999;
+            width: 200px !important;
+            min-width: 200px !important;
+            max-width: 200px !important;
+            text-align: center;
+            line-height: 1.3;
+            opacity: 1;
+            overflow: hidden;
+            white-space: normal;
+            animation: fadeOut ease-out forwards;
+        }
+
+        .result-popup.success {
+            background: white;
+            color: #2196f3;
+            border: 2px solid #87ceeb;
+        }
+
+        .result-popup.failure {
+            background: white;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
         }
 
         .credit-margin-container {
@@ -601,6 +655,169 @@
             cursor: pointer;
             text-align: center;
             width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .gacha-btn-unified.disabled {
+            background: #cccccc !important;
+            cursor: not-allowed !important;
+        }
+
+        .gacha-btn-unified.yellow {
+            background: #ffc107 !important;
+            color: #333;
+        }
+
+        .gacha-btn-unified.apology {
+            background: #87ceeb !important;
+            color: white;
+        }
+
+        .gacha-btn-unified.pink {
+            background: #F78FA7 !important;
+            color: white;
+            animation: glow-pulse 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow-pulse {
+            from {
+                box-shadow: 0 2px 8px rgba(247, 143, 167, 0.4);
+            }
+            to {
+                box-shadow: 0 4px 16px rgba(247, 143, 167, 0.8);
+            }
+        }
+
+        .main-order-btn.disabled {
+            background: #cccccc !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ガチャ結果ポップアップ */
+        .gacha-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gacha-result-popup {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            animation: luxuryAppear 0.6s ease forwards;
+            position: relative;
+        }
+
+        @keyframes luxuryAppear {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.5) rotate(-5deg); 
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scale(1.1) rotate(2deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0deg); 
+            }
+        }
+
+        .gacha-result-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #87ceeb;
+            margin: -20px -20px 15px -20px;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gacha-result-title::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            animation: sparkle 2s linear infinite;
+        }
+
+        .gacha-result-section {
+            margin-bottom: 12px;
+        }
+
+        .gacha-rarity-header {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .rarity-a { color: #ff6b35; }
+        .rarity-b { color: #4ecdc4; }
+        .rarity-c { color: #95a5a6; }
+
+        .gacha-item-list {
+            margin-left: 15px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .gacha-item {
+            color: #555;
+            margin-bottom: 3px;
+        }
+
+        .gacha-close-hint {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+
+        @keyframes sparkle {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* インベントリ表示エリア */
+        .inventory-display {
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            font-size: 11px;
+            color: #666;
+        }
+
+        .inventory-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .inventory-list {
+            line-height: 1.4;
+            color: #777;
         }
 
         .perf-item {
@@ -975,7 +1192,7 @@
             <div class="form-container">
                 <div class="form-row">
                     <div class="form-label">バージョン</div>
-                    <input type="text" class="form-input" value="Beta Edition ver0.02" disabled>
+                    <input type="text" class="form-input" value="Beta Edition ver0.20" disabled>
                     <span class="save-icon">✅</span>
                 </div>
 
@@ -1119,7 +1336,7 @@
                     <!-- メインゲームエリア -->
                     <div class="main-game-area">
                         <!-- 中央エリア（注文ボタン + アニメーション） -->
-                        <div class="center-area">
+                        <div class="center-area" id="center-area">
                             <button class="main-order-btn" id="main-order-button">注文内容を確認</button>
                         </div>
                     </div>
@@ -1178,7 +1395,7 @@
                                     <div class="status-row-top">
                                         <div class="status-item">
                                             <span class="status-label">注文件数</span>
-                                            <span class="status-value" id="status-orders">265件</span>
+                                            <span class="status-value" id="status-orders">0件</span>
                                         </div>
                                         <div class="status-item">
                                             <span class="status-label">信用建て余力</span>
@@ -1208,6 +1425,12 @@
                         <button class="debug-btn increase" id="debug-increase">建玉+1000万</button>
                         <button class="debug-btn decrease" id="debug-decrease">建玉-1000万</button>
                         <button class="debug-btn reset" id="debug-reset">リセット</button>
+                    </div>
+
+                    <!-- インベントリ表示エリア -->
+                    <div class="inventory-display">
+                        <div class="inventory-label">[デバッグ] 所持アイテム:</div>
+                        <div class="inventory-list" id="inventory-list">なし</div>
                     </div>
                 </div>
 
@@ -1270,7 +1493,7 @@
         };
 
         const debugState = {
-            orders: 265,
+            orders: 0,
             positionAmount: 0,
             initialPositionAmount: 0,
             stock: 0,
@@ -1278,18 +1501,65 @@
             getRate: 3.4,
             loadRate: 430,
             fireRate: 24,
-            serverHP: 75
+            serverHP: 20,
+            maxServerHP: 20,
+            clickDamage: 1,
+            isServerDown: false,
+            isPreGacha: false
         };
 
         // ========== ミッションシステム ==========
         let missionData = null;
-        let currentMissionTab = 'recommend'; // 現在のミッションタブ
+        let currentMissionTab = 'recommend';
+        let missionStates = {}; // ミッション状態管理
+        let serverRecoveryTimer = null; // サーバー自動回復タイマー
+
+        // ========== インベントリ表示システム ==========
+        function updateInventoryDisplay() {
+            const inventoryList = document.getElementById('inventory-list');
+            if (!inventoryList) return;
+
+            // インベントリが空の場合
+            if (!gameState.inventory || Object.keys(gameState.inventory).length === 0) {
+                inventoryList.textContent = 'なし';
+                return;
+            }
+
+            // アイテムを名前付きで表示用に変換
+            const displayItems = [];
+            for (const [itemId, count] of Object.entries(gameState.inventory)) {
+                // アイテムIDから名前を取得
+                const itemData = testItems.find(item => item.id === itemId);
+                if (itemData) {
+                    displayItems.push(`${itemData.name} x${count}枚`);
+                }
+            }
+
+            // " | " で区切って表示
+            inventoryList.textContent = displayItems.join(' | ');
+        }
+
+        // ========== サーバー自動回復システム ==========
+        function startServerRecovery() {
+            if (serverRecoveryTimer) return; // 重複防止
+            
+            serverRecoveryTimer = setInterval(() => {
+                if (debugState.serverHP < debugState.maxServerHP) {
+                    debugState.serverHP += 1;
+                    
+                    // サーバーダウン状態チェック
+                    checkServerDown();
+                    updateDisplay();
+                }
+            }, 1000); // 1秒間隔で1HP回復
+        }
 
         // ========== 初期化 ==========
         function init() {
             setupEventListeners();
             updateDisplay();
             loadMissions();
+            startServerRecovery(); // サーバー自動回復開始
         }
 
         function setupEventListeners() {
@@ -1346,7 +1616,13 @@
             if (debugReset) {
                 debugReset.addEventListener('click', function() {
                     debugState.positionAmount = debugState.initialPositionAmount;
+                    debugState.serverHP = debugState.maxServerHP;
+                    debugState.isServerDown = false;
+                    debugState.isPreGacha = false;
+                    gameState.inventory = {}; // インベントリもリセット
+                    updateServerDownUI();
                     updateDisplay();
+                    updateInventoryDisplay(); // インベントリ表示更新
                 });
             }
 
@@ -1375,16 +1651,208 @@
             // ミッション更新ボタン
             const missionRefresh = document.getElementById('mission-refresh');
             if (missionRefresh) {
-                missionRefresh.addEventListener('click', loadMissions);
+                missionRefresh.addEventListener('click', refreshMissions);
             }
 
-            // ミッション内タブ切り替え（イベント委譲）
+            // 現引き/謝罪ボタン
+            const gachaButton = document.getElementById('gacha-button');
+            if (gachaButton) {
+                gachaButton.addEventListener('click', function() {
+                    if (debugState.isServerDown) {
+                        handleApologyClick();
+                    } else if (debugState.isPreGacha) {
+                        // ガチャ発火処理
+                        console.log('現渡ボタンクリック - ガチャ発火開始');
+                        executeGacha();
+                    } else if (debugState.orders > 0) {
+                        // pre現渡モードに移行
+                        console.log('現引きボタンクリック - pre現渡モード開始');
+                        enterPreGachaMode();
+                    }
+                });
+            }
+
+            // イベント委譲によるミッション関連イベント処理
             document.addEventListener('click', function(event) {
+                // ミッション内タブ切り替え
                 if (event.target.classList.contains('mission-tab-button')) {
                     const tabName = event.target.dataset.missionTab;
                     switchMissionTab(tabName);
                 }
+                
+                // ミッションボタンクリック処理
+                if (event.target.classList.contains('mission-btn')) {
+                    const missionCard = event.target.closest('.mission-card');
+                    if (missionCard) {
+                        const missionId = missionCard.dataset.missionId;
+                        const action = event.target.textContent;
+                        handleMissionAction(missionId, action);
+                    }
+                }
             });
+        }
+
+        // ========== クリック処理機能 ==========
+        function handleOrderClick() {
+            // サーバーダウン中またはpre現渡中はクリック無効
+            if (debugState.isServerDown || debugState.isPreGacha) return;
+            
+            // 総クリック数を必ず増加
+            gameState.totalClicks++;
+            
+            // サーバーHP減少処理
+            debugState.serverHP -= debugState.clickDamage;
+            if (debugState.serverHP < 0) debugState.serverHP = 0;
+            
+            // サーバーダウンチェック
+            checkServerDown();
+            
+            // 25%の確率で当たり
+            const isHit = Math.random() < 0.25;
+            
+            if (isHit) {
+                // 当たり処理
+                debugState.orders++;
+                debugState.positionAmount += 300000; // 30万円増加
+                showResultPopup(true);
+            } else {
+                // 外れ処理
+                showResultPopup(false);
+            }
+            
+            // 表示を即座に更新
+            updateDisplay();
+        }
+
+        function showResultPopup(isSuccess) {
+            const centerArea = document.getElementById('center-area');
+            if (!centerArea) return;
+
+            // ポップアップ要素を作成
+            const popup = document.createElement('div');
+            popup.className = `result-popup ${isSuccess ? 'success' : 'failure'}`;
+            
+            // メッセージ設定
+            if (isSuccess) {
+                popup.textContent = '新規売り注文を受け付けました';
+                popup.style.animationDuration = '2s'; // 成功時2秒
+            } else {
+                popup.textContent = 'ご注文数量が、一般信用売建可能数量を超過しているため、受付けできません。';
+                popup.style.animationDuration = '0.5s'; // 失敗時0.5秒
+            }
+
+            // 一時的に画面外に配置してサイズを取得
+            popup.style.visibility = 'hidden';
+            popup.style.position = 'absolute';
+            centerArea.appendChild(popup);
+
+            // ランダム位置を設定（center-area内・中心点基準）
+            const areaRect = centerArea.getBoundingClientRect();
+            const popupRect = popup.getBoundingClientRect();
+            
+            const randomX = Math.random() * areaRect.width;
+            const randomY = Math.random() * areaRect.height;
+            
+            // 中心点基準で座標設定
+            const centerX = randomX - (popupRect.width / 2);
+            const centerY = randomY - (popupRect.height / 2);
+            
+            popup.style.left = centerX + 'px';
+            popup.style.top = centerY + 'px';
+            popup.style.visibility = 'visible';
+
+            // アニメーション終了後に削除
+            const duration = isSuccess ? 2000 : 500; // 成功2秒・失敗0.5秒
+            setTimeout(() => {
+                if (popup.parentNode) {
+                    popup.parentNode.removeChild(popup);
+                }
+            }, duration);
+        }
+
+        // ========== サーバーダウン処理 ==========
+        function checkServerDown() {
+            const wasDown = debugState.isServerDown;
+            const shouldBeDown = (debugState.serverHP === 0);
+            const shouldRecover = (debugState.serverHP === debugState.maxServerHP);
+            
+            if (!wasDown && shouldBeDown) {
+                enterServerDownMode();
+            } else if (wasDown && shouldRecover) {
+                exitServerDownMode();
+            }
+        }
+
+        function enterServerDownMode() {
+            debugState.isServerDown = true;
+            debugState.orders = 0;
+            debugState.positionAmount = 0;
+            updateServerDownUI();
+        }
+
+        function exitServerDownMode() {
+            debugState.isServerDown = false;
+            updateServerDownUI();
+        }
+
+        function updateServerDownUI() {
+            const orderButton = document.getElementById('main-order-button');
+            const gachaButton = document.getElementById('gacha-button');
+            const hpLabel = document.querySelector('.server-hp-label');
+            
+            if (debugState.isServerDown) {
+                // サーバーダウン状態のUI
+                if (orderButton) {
+                    orderButton.classList.add('disabled');
+                    orderButton.style.background = '#cccccc';
+                    orderButton.style.cursor = 'not-allowed';
+                }
+                
+                if (gachaButton) {
+                    gachaButton.textContent = '謝罪';
+                    gachaButton.style.background = '#87ceeb';
+                    gachaButton.classList.add('apology');
+                }
+                
+                if (hpLabel) {
+                    hpLabel.textContent = 'サーバーは応答していません。現在復旧中です。';
+                }
+            } else if (debugState.isPreGacha) {
+                // pre現渡状態のUI
+                if (orderButton) {
+                    orderButton.classList.add('disabled');
+                    orderButton.style.background = '#cccccc';
+                    orderButton.style.cursor = 'not-allowed';
+                }
+                // ガチャボタンはupdateGachaButtonState()で処理
+            } else {
+                // 通常状態のUI
+                if (orderButton) {
+                    orderButton.classList.remove('disabled');
+                    orderButton.style.background = '#4caf50';
+                    orderButton.style.cursor = 'pointer';
+                }
+                
+                if (gachaButton) {
+                    gachaButton.style.background = '#ff5722';
+                    gachaButton.classList.remove('apology');
+                }
+                
+                if (hpLabel) {
+                    hpLabel.textContent = 'サーバーHP';
+                }
+            }
+        }
+
+        function handleApologyClick() {
+            if (debugState.isServerDown) {
+                debugState.serverHP += 5;
+                if (debugState.serverHP > debugState.maxServerHP) {
+                    debugState.serverHP = debugState.maxServerHP;
+                }
+                checkServerDown();
+                updateDisplay();
+            }
         }
 
         // ========== ミッション機能 ==========
@@ -1410,6 +1878,26 @@
             }
         }
 
+        function refreshMissions() {
+            if (!missionData || !missionData.characterMissions) return;
+
+            // 未受諾 + 受取済み状態のミッションIDを取得
+            const replaceableMissions = [];
+            for (const missionId in missionStates) {
+                if (missionStates[missionId].state === 'unaccepted' || missionStates[missionId].state === 'claimed') {
+                    replaceableMissions.push(missionId);
+                }
+            }
+
+            // 未受諾 + 受取済みミッションの状態をクリア
+            replaceableMissions.forEach(missionId => {
+                delete missionStates[missionId];
+            });
+
+            // ミッションを再表示
+            displayCurrentTabMissions();
+        }
+
         function displayCurrentTabMissions() {
             if (currentMissionTab === 'recommend') {
                 displayRecommendMissions();
@@ -1433,9 +1921,32 @@
                 return;
             }
 
-            // ランダムに6個のミッションを抽選
-            const selectedMissions = getRandomMissions(missionData.characterMissions, 6);
-            displayMultipleMissions(selectedMissions);
+            // 進行中・完了のミッションを保持（タイマー継続・報酬受取待ち）
+            const activeMissions = [];
+            for (const missionId in missionStates) {
+                if (missionStates[missionId].state === 'progress' || missionStates[missionId].state === 'complete') {
+                    const mission = missionData.characterMissions.find(m => m.id === missionId);
+                    if (mission) {
+                        activeMissions.push(mission);
+                    }
+                }
+            }
+
+            // 必要な新規ミッション数を計算（6個から保持分を引く）
+            const neededCount = 6 - activeMissions.length;
+            
+            // 未選択のミッションから抽選（進行中・完了以外）
+            const availableMissions = missionData.characterMissions.filter(mission => 
+                !missionStates[mission.id] || 
+                (missionStates[mission.id].state !== 'progress' && missionStates[mission.id].state !== 'complete')
+            );
+            
+            const newMissions = getRandomMissions(availableMissions, neededCount);
+            
+            // 全ミッションを結合
+            const allMissions = [...activeMissions, ...newMissions];
+            
+            displayMultipleMissions(allMissions);
         }
 
         function switchMissionTab(tabName) {
@@ -1466,18 +1977,45 @@
             if (!missionList) return;
 
             const missionHTML = missions.map(mission => {
-                const stateInfo = {
-                    id: mission.id,
-                    state: 'unaccepted',
-                    buttonText: '受諾',
-                    buttonClass: 'mission-btn-accept',
-                    timeText: '必要時間：5秒',
-                    bgClass: 'mission-state-unaccepted'
-                };
+                const state = missionStates[mission.id] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
+                const stateInfo = getMissionStateInfo(mission.id, state);
                 return createMissionCard(mission, stateInfo);
             }).join('');
 
             missionList.innerHTML = missionHTML;
+        }
+
+        function getMissionStateInfo(missionId, state) {
+            const stateInfo = {
+                id: missionId,
+                state: state.state,
+                bgClass: `mission-state-${state.state}`
+            };
+
+            switch (state.state) {
+                case 'unaccepted':
+                    stateInfo.buttonText = '受諾';
+                    stateInfo.buttonClass = gameState.cash >= 200000 ? 'mission-btn-accept' : 'mission-btn-disabled';
+                    stateInfo.timeText = '必要時間：5秒';
+                    break;
+                case 'progress':
+                    stateInfo.buttonText = '受諾中';
+                    stateInfo.buttonClass = 'mission-btn-disabled';
+                    stateInfo.timeText = `残り時間：${state.remainingTime}秒`;
+                    break;
+                case 'complete':
+                    stateInfo.buttonText = '報酬受取';
+                    stateInfo.buttonClass = 'mission-btn-claim';
+                    stateInfo.timeText = '完了';
+                    break;
+                case 'claimed':
+                    stateInfo.buttonText = '受取済';
+                    stateInfo.buttonClass = 'mission-btn-disabled';
+                    stateInfo.timeText = '受取済';
+                    break;
+            }
+
+            return stateInfo;
         }
 
         function createMissionCard(mission, stateInfo) {
@@ -1499,9 +2037,125 @@
                         <div class="mission-reward">報酬：${mission.mission.reward}</div>
                     </div>
                     <div class="mission-actions">
-                        <button class="mission-btn ${stateInfo.buttonClass}">${stateInfo.buttonText}</button>
+                        <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
                         <div class="mission-time">${stateInfo.timeText}</div>
                     </div>
+                </div>
+            `;
+        }
+
+        // ========== ミッションアクション処理 ==========
+        function handleMissionAction(missionId, action) {
+            const state = missionStates[missionId] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
+
+            switch (action) {
+                case '受諾':
+                    if (gameState.cash >= 200000) {
+                        acceptMission(missionId);
+                    }
+                    break;
+                case '報酬受取':
+                    claimMissionReward(missionId);
+                    break;
+            }
+        }
+
+        function acceptMission(missionId) {
+            // 現金を消費
+            gameState.cash -= 200000;
+            
+            // ミッション状態を進行中に変更
+            missionStates[missionId] = {
+                state: 'progress',
+                timerId: null,
+                remainingTime: 5
+            };
+
+            // タイマーを開始
+            startMissionTimer(missionId);
+
+            // 表示を更新
+            updateDisplay();
+            updateMissionDisplay(missionId);
+        }
+
+        function startMissionTimer(missionId) {
+            const state = missionStates[missionId];
+            if (!state || state.state !== 'progress') return;
+
+            // 既存のタイマーをクリア
+            if (state.timerId) {
+                clearInterval(state.timerId);
+            }
+
+            // 新しいタイマーを開始
+            state.timerId = setInterval(() => {
+                state.remainingTime--;
+                
+                if (state.remainingTime <= 0) {
+                    // タイマー完了
+                    clearInterval(state.timerId);
+                    state.timerId = null;
+                    state.state = 'complete';
+                    state.remainingTime = 0;
+                }
+                
+                // 表示を更新
+                updateMissionDisplay(missionId);
+            }, 1000);
+        }
+
+        function claimMissionReward(missionId) {
+            // プレミアムコインを獲得
+            gameState.premiumCoin += 50;
+            
+            // ミッション状態を受取済に変更
+            missionStates[missionId] = {
+                state: 'claimed',
+                timerId: null,
+                remainingTime: 0
+            };
+
+            // 表示を更新
+            updateDisplay();
+            updateMissionDisplay(missionId);
+        }
+
+        function updateMissionDisplay(missionId) {
+            const missionCard = document.querySelector(`[data-mission-id="${missionId}"]`);
+            if (!missionCard) return;
+
+            const state = missionStates[missionId];
+            if (!state) return;
+
+            // ミッションデータを取得
+            const mission = missionData.characterMissions.find(m => m.id === missionId);
+            if (!mission) return;
+
+            // 状態情報を取得
+            const stateInfo = getMissionStateInfo(missionId, state);
+
+            // カードの内容を更新
+            missionCard.className = `mission-card ${stateInfo.bgClass}`;
+            missionCard.innerHTML = `
+                <div class="mission-card-header">
+                    <div class="mission-avatar">${mission.character.icon}</div>
+                    <div class="mission-info">
+                        <div class="mission-user">
+                            <span class="mission-name">${mission.character.name}</span>
+                            <span class="mission-handle">${mission.character.handle}</span>
+                            <span class="mission-difficulty">⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mission-content">${mission.content}</div>
+                <div class="mission-details">
+                    <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
+                    <div class="mission-reward">報酬：${mission.mission.reward}</div>
+                </div>
+                <div class="mission-actions">
+                    <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
+                    <div class="mission-time">${stateInfo.timeText}</div>
                 </div>
             `;
         }
@@ -1618,12 +2272,6 @@
             }
         }
 
-        function handleOrderClick() {
-            gameState.totalClicks++;
-            debugState.stock++;
-            updateDisplay();
-        }
-
         function updateDisplay() {
             // ヘッダー更新
             const headerUsername = document.getElementById('header-username');
@@ -1665,6 +2313,252 @@
 
             // 信用建て余力バー更新
             updateCreditMarginBar();
+            
+            // サーバーHPバー更新
+            updateServerHPBar();
+            
+            // サーバーダウンUI更新
+            updateServerDownUI();
+            
+            // ガチャボタン状態更新
+            updateGachaButtonState();
+        }
+
+        function updateGachaButtonState() {
+            const gachaButton = document.getElementById('gacha-button');
+            if (!gachaButton) return;
+
+            // サーバーダウン中は謝罪ボタン優先
+            if (debugState.isServerDown) {
+                return; // updateServerDownUI()で処理済み
+            }
+
+            // pre現渡状態の場合
+            if (debugState.isPreGacha) {
+                gachaButton.textContent = '現渡';
+                gachaButton.className = 'gacha-btn-unified pink';
+                gachaButton.disabled = false;
+                return;
+            }
+
+            // 注文件数に応じた状態切り替え
+            if (debugState.orders === 0) {
+                // グレーアウト状態
+                gachaButton.textContent = '現引き';
+                gachaButton.className = 'gacha-btn-unified disabled';
+                gachaButton.disabled = true;
+            } else {
+                // 黄色状態（注文件数1以上）
+                gachaButton.textContent = '現引き';
+                gachaButton.className = 'gacha-btn-unified yellow';
+                gachaButton.disabled = false;
+            }
+        }
+
+        // ========== ガチャ処理機能 ==========
+        
+        // テスト用アイテムデータ（3種類）
+        const testItems = [
+            { 
+                id: "quo_high", 
+                name: "QUOカード5000円", 
+                value: 5000, 
+                rarity: "A",
+                probability: 0.1 
+            },
+            { 
+                id: "quo_mid", 
+                name: "QUOカード1000円", 
+                value: 1000, 
+                rarity: "B",
+                probability: 0.3 
+            },
+            { 
+                id: "quo_low", 
+                name: "QUOカード500円", 
+                value: 500, 
+                rarity: "C",
+                probability: 0.6 
+            }
+        ];
+
+        function rollSingleGacha() {
+            try {
+                const random = Math.random();
+                let cumulativeProbability = 0;
+                
+                for (const item of testItems) {
+                    cumulativeProbability += item.probability;
+                    if (random < cumulativeProbability) {
+                        return item;
+                    }
+                }
+                
+                // 確率計算エラー時は最低レアリティを返す
+                return testItems[testItems.length - 1];
+            } catch (error) {
+                console.error('ガチャ抽選エラー:', error);
+                return testItems[testItems.length - 1]; // 最低レアリティ
+            }
+        }
+
+        function executeGacha() {
+            const gachaCount = debugState.orders;
+            const results = [];
+            
+            console.log(`ガチャ発火開始 - ${gachaCount}回抽選`);
+            
+            // 注文件数分だけ抽選
+            for (let i = 0; i < gachaCount; i++) {
+                const result = rollSingleGacha();
+                results.push(result);
+                console.log(`${i + 1}回目:`, result.name);
+            }
+            
+            // アイテムをインベントリに追加
+            addItemsToInventory(results);
+            
+            // ガチャ結果ポップアップ表示
+            showGachaResult(results);
+            
+            // 注文件数・建玉金額をリセット・状態復帰
+            debugState.orders = 0;
+            debugState.positionAmount = 0; // 建玉金額もリセット
+            exitPreGachaMode();
+            
+            return results;
+        }
+
+        function showGachaResult(results) {
+            // 結果を集計・レアリティ別ソート
+            const summary = summarizeGachaResults(results);
+            
+            // オーバーレイ作成
+            const overlay = document.createElement('div');
+            overlay.className = 'gacha-overlay';
+            
+            // ポップアップ作成
+            const popup = document.createElement('div');
+            popup.className = 'gacha-result-popup';
+            
+            // ポップアップ内容生成
+            popup.innerHTML = createGachaResultHTML(summary);
+            
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+            
+            // クリックで閉じる（手動のみ）
+            overlay.addEventListener('click', function() {
+                document.body.removeChild(overlay);
+            });
+        }
+
+        function summarizeGachaResults(results) {
+            const summary = {};
+            
+            for (const item of results) {
+                const key = `${item.rarity}-${item.id}`;
+                if (summary[key]) {
+                    summary[key].count += 1;
+                } else {
+                    summary[key] = {
+                        ...item,
+                        count: 1
+                    };
+                }
+            }
+            
+            // レアリティ順でソート (A > B > C)
+            const rarityOrder = { 'A': 1, 'B': 2, 'C': 3 };
+            const sortedItems = Object.values(summary).sort((a, b) => 
+                rarityOrder[a.rarity] - rarityOrder[b.rarity]
+            );
+            
+            return sortedItems;
+        }
+
+        function createGachaResultHTML(items) {
+            let html = '<div class="gacha-result-title">注文約定一覧</div>';
+            
+            // レアリティ別にグループ化
+            const rarityGroups = {};
+            for (const item of items) {
+                if (!rarityGroups[item.rarity]) {
+                    rarityGroups[item.rarity] = [];
+                }
+                rarityGroups[item.rarity].push(item);
+            }
+            
+            // A, B, C順で表示
+            const rarities = ['A', 'B', 'C'];
+            for (const rarity of rarities) {
+                if (rarityGroups[rarity]) {
+                    html += `<div class="gacha-result-section">`;
+                    html += `<div class="gacha-rarity-header rarity-${rarity.toLowerCase()}">${rarity}ランク</div>`;
+                    html += `<div class="gacha-item-list">`;
+                    
+                    for (const item of rarityGroups[rarity]) {
+                        html += `<div class="gacha-item">${item.name}　${item.count}枚</div>`;
+                    }
+                    
+                    html += `</div></div>`;
+                }
+            }
+            
+            html += '<div class="gacha-close-hint">クリックで閉じる</div>';
+            return html;
+        }
+
+        function addItemsToInventory(items) {
+            // インベントリシステムの初期化
+            if (!gameState.inventory) {
+                gameState.inventory = {};
+            }
+            
+            // アイテムを加算式で追加
+            for (const item of items) {
+                if (gameState.inventory[item.id]) {
+                    gameState.inventory[item.id] += 1;
+                } else {
+                    gameState.inventory[item.id] = 1;
+                }
+            }
+            
+            console.log('インベントリ更新:', gameState.inventory);
+            
+            // インベントリ表示を更新
+            updateInventoryDisplay();
+        }
+
+        function enterPreGachaMode() {
+            debugState.isPreGacha = true;
+            updateDisplay();
+        }
+
+        function exitPreGachaMode() {
+            debugState.isPreGacha = false;
+            updateDisplay();
+        }
+
+        function updateServerHPBar() {
+            const serverHPFill = document.getElementById('server-hp-fill');
+            if (!serverHPFill) return;
+
+            // HP割合計算
+            const hpPercentage = (debugState.serverHP / debugState.maxServerHP) * 100;
+            
+            // バー幅更新
+            serverHPFill.style.width = hpPercentage + '%';
+            
+            // 色クラス設定
+            serverHPFill.className = 'server-hp-fill';
+            if (hpPercentage > 50) {
+                serverHPFill.classList.add('high');
+            } else if (hpPercentage > 25) {
+                serverHPFill.classList.add('medium');
+            } else {
+                serverHPFill.classList.add('low');
+            }
         }
 
         function updateCreditMarginBar() {
@@ -1718,15 +2612,6 @@
 
             creditMarginFill.className = className;
             creditMarginFill.style.width = percentage + '%';
-        }
-
-        function generateStaminaDisplay(current) {
-            const max = 5;
-            let display = '';
-            for (let i = 0; i < max; i++) {
-                display += i < current ? '★' : '☆';
-            }
-            return display;
         }
 
         // ========== アプリ起動 ==========
