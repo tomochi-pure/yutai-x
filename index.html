@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>優待クロスは、やらない方がいい</title>
+    <title>優待クロスで世界を救う系ゲーム</title>
+    <!-- Twemoji CDN (更新版) -->
+    <script src="https://cdn.jsdelivr.net/npm/twemoji@latest/dist/twemoji.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -309,22 +311,36 @@
         }
 
         .header-right {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-columns: 1fr;
             font-size: 11px;
             line-height: 1.3;
             gap: 2px;
         }
 
-        .cash-amount {
-            color: #333;
-            font-weight: bold;
+        .header-row-1 {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
 
-        .premium-coin {
+        .header-row-2,
+        .header-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .cash-amount,
+        .premium-coin,
+        .rice-amount,
+        .favo-amount,
+        .follower-amount {
             color: #333;
             font-weight: bold;
+            text-align: right;
         }
 
         /* タブナビゲーション */
@@ -1160,6 +1176,13 @@
             padding: 15px;
         }
 
+        /* Twemoji絵文字サイズ調整 */
+        img.emoji {
+            height: 1.2em;
+            width: 1.2em;
+            vertical-align: -0.1em;
+        }
+
         /* PC表示対応 */
         @media (min-width: 768px) {
             body {
@@ -1186,7 +1209,7 @@
     <div id="title-screen">        
         <div class="main-container">
             <div class="login-header">
-                <div class="game-title">優待クロスは、やらない方がいい</div>
+                <div class="game-title">Yutai-X simulation</div>
             </div>
 
             <div class="form-container">
@@ -1212,7 +1235,7 @@
             </div>
 
             <div class="marshmallow-link" id="marshmallow-link">
-                🩷開発者に愛を届ける🩷
+                🩷開発者に愛のマシュマロを贈る🩷
             </div>
 
             <!-- タブナビゲーション -->
@@ -1246,46 +1269,6 @@
                                 <span class="player-name">優待マスター</span>
                                 <span class="score">980,000,000円</span>
                             </div>
-                            <div class="ranking-item">
-                                <span class="rank">3位</span>
-                                <span class="player-name">株式投資家A</span>
-                                <span class="score">850,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">4位</span>
-                                <span class="player-name">デイトレーダー</span>
-                                <span class="score">720,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">5位</span>
-                                <span class="player-name">長期投資家</span>
-                                <span class="score">650,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">6位</span>
-                                <span class="player-name">配当生活者</span>
-                                <span class="score">580,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">7位</span>
-                                <span class="player-name">成長株ハンター</span>
-                                <span class="score">520,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">8位</span>
-                                <span class="player-name">バリュー投資家</span>
-                                <span class="score">480,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">9位</span>
-                                <span class="player-name">テクニカル派</span>
-                                <span class="score">420,000,000円</span>
-                            </div>
-                            <div class="ranking-item">
-                                <span class="rank">10位</span>
-                                <span class="player-name">ファンダ重視</span>
-                                <span class="score">380,000,000円</span>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1303,11 +1286,26 @@
                     <div class="user-id-display" id="header-userid">tomochi-fun</div>
                 </div>
                 <div class="header-right">
-                    <div class="cash-amount">
-                        現金残高：<span id="header-cash">10,000,000</span>円
+                    <div class="header-row-1">
+                        <div class="cash-amount">
+                            現金💴<span id="header-cash">10,000,000</span>円
+                        </div>
                     </div>
-                    <div class="premium-coin">
-                        プレミアムコイン：<span id="header-premium">450</span>枚
+                    <div class="header-row-2">
+                        <div class="rice-amount">
+                            お米🍙<span id="header-rice">0</span>kg
+                        </div>
+                        <div class="premium-coin">
+                            PTC🪙<span id="header-premium">450</span>枚
+                        </div>
+                    </div>
+                    <div class="header-row-3">
+                        <div class="favo-amount">
+                            承認欲求💕<span id="header-favo">0</span>件
+                        </div>
+                        <div class="follower-amount">
+                            フォロワー🐣<span id="header-follower">0</span>人
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1316,7 +1314,7 @@
             <nav class="tab-navigation">
                 <button class="tab-button active" data-tab="stocks">株注文</button>
                 <button class="tab-button" data-tab="bot">bot改造</button>
-                <button class="tab-button" data-tab="mission">ミッション</button>
+                <button class="tab-button" data-tab="mission">SNS</button>
                 <button class="tab-button" data-tab="yuutai">実績</button>
                 <button class="tab-button" data-tab="settings">設定</button>
             </nav>
@@ -1453,7 +1451,7 @@
                         <!-- ミッション内タブコンテンツ -->
                         <div class="mission-tab-content-container">
                             <div class="mission-header">
-                                <div class="mission-title">ミッション</div>
+                                <div class="mission-title">いまどうしてる？</div>
                                 <button class="refresh-btn" id="mission-refresh">更新</button>
                             </div>
                             <div class="mission-list" id="mission-list">
@@ -1488,6 +1486,9 @@
             userId: 'tomochi-fun',
             cash: 10000000,
             premiumCoin: 450,
+            rice: 0,           // お米システム
+            favo: 0,           // 新規追加: 承認欲求システム
+            follower: 0,       // フォロワーシステム
             totalClicks: 0,
             stamina: 4
         };
@@ -1514,6 +1515,23 @@
         let missionStates = {}; // ミッション状態管理
         let serverRecoveryTimer = null; // サーバー自動回復タイマー
 
+        // ========== アイテムシステム ==========
+        let itemData = null; // items.jsonから読み込んだデータ
+
+        // ========== ガチャシステム ==========
+        let gachaData = null; // gacha.jsonから読み込んだデータ
+
+        // ========== Twemoji 変換システム ==========
+        function convertEmojis(element = document.body) {
+            if (typeof twemoji !== 'undefined') {
+                twemoji.parse(element, {
+                    folder: 'svg',
+                    ext: '.svg',
+                    base: 'https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/'
+                });
+            }
+        }
+
         // ========== インベントリ表示システム ==========
         function updateInventoryDisplay() {
             const inventoryList = document.getElementById('inventory-list');
@@ -1529,14 +1547,58 @@
             const displayItems = [];
             for (const [itemId, count] of Object.entries(gameState.inventory)) {
                 // アイテムIDから名前を取得
-                const itemData = testItems.find(item => item.id === itemId);
-                if (itemData) {
-                    displayItems.push(`${itemData.name} x${count}枚`);
+                const item = findItemById(itemId);
+                if (item) {
+                    displayItems.push(`${item.name} x${count}枚`);
                 }
             }
 
             // " | " で区切って表示
             inventoryList.textContent = displayItems.join(' | ');
+        }
+
+        // ========== アイテム検索ヘルパー関数 ==========
+        function findItemById(itemId) {
+            if (!itemData || !itemData.items) return null;
+            return itemData.items.find(item => item.id === itemId);
+        }
+
+        // ========== アイテムデータ読み込み ==========
+        async function loadItems() {
+            try {
+                const response = await fetch('./items.json');
+                if (!response.ok) {
+                    throw new Error(`アイテムファイルの読み込みに失敗しました (${response.status})`);
+                }
+                
+                const data = await response.json();
+                itemData = data;
+                console.log('アイテムデータ読み込み完了:', itemData);
+                return true;
+            } catch (error) {
+                console.error('重大エラー: アイテムデータの読み込みに失敗しました:', error);
+                alert('ゲームの初期化に失敗しました。items.jsonファイルを確認してください。');
+                return false;
+            }
+        }
+
+        // ========== ガチャデータ読み込み ==========
+        async function loadGacha() {
+            try {
+                const response = await fetch('./gacha.json');
+                if (!response.ok) {
+                    throw new Error(`ガチャファイルの読み込みに失敗しました (${response.status})`);
+                }
+                
+                const data = await response.json();
+                gachaData = data;
+                console.log('ガチャデータ読み込み完了:', gachaData);
+                return true;
+            } catch (error) {
+                console.error('ガチャデータの読み込みに失敗しました:', error);
+                console.error('ガチャはハードコードされた設定で動作します');
+                return false;
+            }
         }
 
         // ========== サーバー自動回復システム ==========
@@ -1555,8 +1617,46 @@
         }
 
         // ========== 初期化 ==========
-        function init() {
+        async function init() {
             setupEventListeners();
+            
+            // Twemoji 初期化（シンプル版）
+            if (typeof twemoji !== 'undefined') {
+                // 初期変換
+                convertEmojis();
+                console.log('Twemoji初期化完了');
+                
+                // MutationObserver で動的要素監視
+                const emojiObserver = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        mutation.addedNodes.forEach((node) => {
+                            if (node.nodeType === Node.ELEMENT_NODE) {
+                                convertEmojis(node);
+                            }
+                        });
+                    });
+                });
+                
+                // 監視開始
+                emojiObserver.observe(document.body, { 
+                    childList: true, 
+                    subtree: true 
+                });
+                console.log('絵文字自動変換システム開始');
+            } else {
+                console.warn('Twemojiライブラリが読み込まれていません');
+            }
+            
+            // アイテムデータ読み込み（必須）
+            const itemsLoaded = await loadItems();
+            if (!itemsLoaded) {
+                console.error('ゲーム初期化中止: アイテムデータが読み込めませんでした');
+                return;
+            }
+            
+            // ガチャデータ読み込み（エラーでも続行）
+            await loadGacha();
+            
             updateDisplay();
             loadMissions();
             startServerRecovery(); // サーバー自動回復開始
@@ -1620,6 +1720,9 @@
                     debugState.isServerDown = false;
                     debugState.isPreGacha = false;
                     gameState.inventory = {}; // インベントリもリセット
+                    gameState.rice = 0;       // お米もリセット
+                    gameState.favo = 0;       // 承認欲求もリセット
+                    gameState.follower = 0;   // フォロワーもリセット
                     updateServerDownUI();
                     updateDisplay();
                     updateInventoryDisplay(); // インベントリ表示更新
@@ -2278,11 +2381,17 @@
             const headerUserid = document.getElementById('header-userid');
             const headerPremium = document.getElementById('header-premium');
             const headerCash = document.getElementById('header-cash');
+            const headerRice = document.getElementById('header-rice');
+            const headerFavo = document.getElementById('header-favo');
+            const headerFollower = document.getElementById('header-follower');
 
             if (headerUsername) headerUsername.textContent = gameState.userName;
             if (headerUserid) headerUserid.textContent = gameState.userId;
             if (headerPremium) headerPremium.textContent = gameState.premiumCoin.toLocaleString();
             if (headerCash) headerCash.textContent = gameState.cash.toLocaleString();
+            if (headerRice) headerRice.textContent = gameState.rice.toLocaleString();
+            if (headerFavo) headerFavo.textContent = gameState.favo.toLocaleString();
+            if (headerFollower) headerFollower.textContent = gameState.follower.toLocaleString();
 
             // ステータス更新
             const statusOrders = document.getElementById('status-orders');
@@ -2355,51 +2464,219 @@
             }
         }
 
-        // ========== ガチャ処理機能 ==========
+        // ========== ガチャ処理機能（Phase 2: 4段階抽選エンジン） ==========
         
-        // テスト用アイテムデータ（3種類）
-        const testItems = [
-            { 
-                id: "quo_high", 
-                name: "QUOカード5000円", 
-                value: 5000, 
-                rarity: "A",
-                probability: 0.1 
-            },
-            { 
-                id: "quo_mid", 
-                name: "QUOカード1000円", 
-                value: 1000, 
-                rarity: "B",
-                probability: 0.3 
-            },
-            { 
-                id: "quo_low", 
-                name: "QUOカード500円", 
-                value: 500, 
-                rarity: "C",
-                probability: 0.6 
-            }
-        ];
+        // ガチャタイプ取得
+        function getGachaType() {
+            // 現在は"standard"固定
+            return gachaData?.defaultGacha || 'standard';
+        }
 
+        // Stage 1: カテゴリ抽選
+        function stage1_rollCategory(gachaType) {
+            const gacha = gachaData?.gachaTypes?.[gachaType];
+            if (!gacha || !gacha.stage1_categories) {
+                console.error('Stage1設定が見つかりません');
+                return 'item'; // デフォルト
+            }
+
+            const categories = gacha.stage1_categories;
+            const totalWeight = categories.reduce((sum, cat) => sum + cat.weight, 0);
+            const random = Math.random() * totalWeight;
+            
+            let cumulative = 0;
+            for (const category of categories) {
+                cumulative += category.weight;
+                if (random < cumulative) {
+                    console.log(`Stage1: ${category.type} (${category.description})`);
+                    return category.type;
+                }
+            }
+            
+            return 'item'; // フォールバック
+        }
+
+        // Stage 2: 数量抽選（現金・PTC・お米用）
+        function stage2_rollAmount(gachaType, categoryType) {
+            const gacha = gachaData?.gachaTypes?.[gachaType];
+            if (!gacha || !gacha.stage2_amounts || !gacha.stage2_amounts[categoryType]) {
+                console.error('Stage2設定が見つかりません');
+                return 100000; // デフォルト
+            }
+
+            const amounts = gacha.stage2_amounts[categoryType];
+            const totalWeight = amounts.reduce((sum, amt) => sum + amt.weight, 0);
+            const random = Math.random() * totalWeight;
+            
+            let cumulative = 0;
+            for (const amount of amounts) {
+                cumulative += amount.weight;
+                if (random < cumulative) {
+                    console.log(`Stage2: ${amount.amount}${categoryType === 'rice' ? 'kg' : '円/枚'}`);
+                    return amount.amount;
+                }
+            }
+            
+            return amounts[0].amount; // フォールバック
+        }
+
+        // Stage 3: レアリティ抽選（アイテム用）
+        function stage3_rollRarity(gachaType) {
+            const gacha = gachaData?.gachaTypes?.[gachaType];
+            if (!gacha || !gacha.stage3_rarities) {
+                console.error('Stage3設定が見つかりません');
+                return 'C'; // デフォルト
+            }
+
+            const rarities = gacha.stage3_rarities;
+            const totalWeight = rarities.reduce((sum, rar) => sum + rar.weight, 0);
+            const random = Math.random() * totalWeight;
+            
+            let cumulative = 0;
+            for (const rarity of rarities) {
+                cumulative += rarity.weight;
+                if (random < cumulative) {
+                    console.log(`Stage3: レアリティ ${rarity.rarity}`);
+                    return rarity.rarity;
+                }
+            }
+            
+            return 'C'; // フォールバック
+        }
+
+        // Stage 4: 具体的なアイテム抽選
+        function stage4_rollItem(gachaType, rarity) {
+            // まず該当レアリティのアイテムを全て取得
+            const rarityItems = itemData?.items?.filter(item => item.rarity === rarity) || [];
+            if (rarityItems.length === 0) {
+                console.error(`レアリティ${rarity}のアイテムが見つかりません`);
+                return null;
+            }
+
+            // オーバーライド設定を確認
+            const gacha = gachaData?.gachaTypes?.[gachaType];
+            const overrides = gacha?.stage4_item_overrides?.[rarity] || [];
+            
+            // 各アイテムの重みを設定（デフォルト1）
+            const itemWeights = {};
+            rarityItems.forEach(item => {
+                itemWeights[item.id] = 1; // デフォルト重み
+            });
+            
+            // オーバーライドがあれば適用
+            overrides.forEach(override => {
+                if (itemWeights[override.itemId] !== undefined) {
+                    itemWeights[override.itemId] = override.weight;
+                }
+            });
+            
+            // 重み付き抽選
+            const totalWeight = rarityItems.reduce((sum, item) => sum + itemWeights[item.id], 0);
+            const random = Math.random() * totalWeight;
+            
+            let cumulative = 0;
+            for (const item of rarityItems) {
+                cumulative += itemWeights[item.id];
+                if (random < cumulative) {
+                    console.log(`Stage4: ${item.id} (${item.name})`);
+                    return item;
+                }
+            }
+            
+            return rarityItems[0]; // フォールバック
+        }
+
+        // 新しいrollSingleGacha関数（4段階抽選）
         function rollSingleGacha() {
             try {
-                const random = Math.random();
-                let cumulativeProbability = 0;
+                console.log('=== ガチャ抽選開始 ===');
                 
-                for (const item of testItems) {
-                    cumulativeProbability += item.probability;
-                    if (random < cumulativeProbability) {
-                        return item;
+                // ガチャデータチェック
+                if (!gachaData) {
+                    console.warn('ガチャデータが読み込まれていません。ハードコード版で動作します。');
+                    // フォールバック（元のハードコード版）
+                    return rollSingleGachaFallback();
+                }
+
+                // ガチャタイプ取得
+                const gachaType = getGachaType();
+                
+                // Stage 1: カテゴリ抽選
+                const category = stage1_rollCategory(gachaType);
+                
+                // カテゴリに応じて処理分岐
+                if (category === 'cash' || category === 'premium' || category === 'rice') {
+                    // Stage 2: 数量抽選
+                    const amount = stage2_rollAmount(gachaType, category);
+                    
+                    // 結果オブジェクト作成
+                    const result = {
+                        type: category,
+                        amount: amount,
+                        name: category === 'cash' ? `現金${amount.toLocaleString()}円` :
+                              category === 'premium' ? `プレミアムコイン${amount}枚` :
+                              `お米${amount}kg`
+                    };
+                    
+                    console.log('抽選結果:', result);
+                    return result;
+                    
+                } else if (category === 'item') {
+                    // Stage 3: レアリティ抽選
+                    const rarity = stage3_rollRarity(gachaType);
+                    
+                    // Stage 4: アイテム抽選
+                    const item = stage4_rollItem(gachaType, rarity);
+                    
+                    if (!item) {
+                        console.error('アイテム抽選に失敗しました');
+                        return rollSingleGachaFallback();
                     }
+                    
+                    // アイテムにtypeを追加
+                    const result = {
+                        ...item,
+                        type: 'item'
+                    };
+                    
+                    console.log('抽選結果:', result);
+                    return result;
                 }
                 
-                // 確率計算エラー時は最低レアリティを返す
-                return testItems[testItems.length - 1];
             } catch (error) {
                 console.error('ガチャ抽選エラー:', error);
-                return testItems[testItems.length - 1]; // 最低レアリティ
+                return rollSingleGachaFallback();
             }
+        }
+
+        // フォールバック用（元のハードコード版）
+        function rollSingleGachaFallback() {
+            if (!itemData || !itemData.items) {
+                console.error('アイテムデータが読み込まれていません');
+                return null;
+            }
+
+            // アイテムのみ（現金・PTC・お米は出ない）
+            const items = itemData.items.filter(item => 
+                item.id === 'quo_5000' || item.id === 'quo_1000' || item.id === 'quo_500'
+            );
+            
+            // 簡易確率（A:10%, B:30%, C:60%）
+            const random = Math.random();
+            let selectedItem;
+            
+            if (random < 0.1) {
+                selectedItem = items.find(item => item.id === 'quo_5000');
+            } else if (random < 0.4) {
+                selectedItem = items.find(item => item.id === 'quo_1000');
+            } else {
+                selectedItem = items.find(item => item.id === 'quo_500');
+            }
+            
+            return {
+                ...selectedItem,
+                type: 'item'
+            };
         }
 
         function executeGacha() {
@@ -2411,12 +2688,14 @@
             // 注文件数分だけ抽選
             for (let i = 0; i < gachaCount; i++) {
                 const result = rollSingleGacha();
-                results.push(result);
-                console.log(`${i + 1}回目:`, result.name);
+                if (result) {
+                    results.push(result);
+                    console.log(`${i + 1}回目:`, result.name);
+                }
             }
             
-            // アイテムをインベントリに追加
-            addItemsToInventory(results);
+            // 結果を処理（アイテムと現金等を分離）
+            processGachaResults(results);
             
             // ガチャ結果ポップアップ表示
             showGachaResult(results);
@@ -2427,6 +2706,42 @@
             exitPreGachaMode();
             
             return results;
+        }
+
+        // ガチャ結果の処理（新規追加）
+        function processGachaResults(results) {
+            for (const result of results) {
+                switch (result.type) {
+                    case 'cash':
+                        gameState.cash += result.amount;
+                        console.log(`現金 +${result.amount}円 (合計: ${gameState.cash}円)`);
+                        break;
+                    case 'premium':
+                        gameState.premiumCoin += result.amount;
+                        console.log(`PTC +${result.amount}枚 (合計: ${gameState.premiumCoin}枚)`);
+                        break;
+                    case 'rice':
+                        gameState.rice += result.amount;
+                        console.log(`お米 +${result.amount}kg (合計: ${gameState.rice}kg)`);
+                        break;
+                    case 'item':
+                        // 既存のインベントリシステムで処理
+                        if (!gameState.inventory) {
+                            gameState.inventory = {};
+                        }
+                        if (gameState.inventory[result.id]) {
+                            gameState.inventory[result.id] += 1;
+                        } else {
+                            gameState.inventory[result.id] = 1;
+                        }
+                        console.log(`アイテム +${result.name}`);
+                        break;
+                }
+            }
+            
+            // 表示を更新
+            updateDisplay();
+            updateInventoryDisplay();
         }
 
         function showGachaResult(results) {
@@ -2454,51 +2769,91 @@
         }
 
         function summarizeGachaResults(results) {
-            const summary = {};
+            const summary = {
+                cash: 0,
+                premium: 0,
+                rice: 0,
+                items: {}
+            };
             
-            for (const item of results) {
-                const key = `${item.rarity}-${item.id}`;
-                if (summary[key]) {
-                    summary[key].count += 1;
-                } else {
-                    summary[key] = {
-                        ...item,
-                        count: 1
-                    };
+            for (const result of results) {
+                switch (result.type) {
+                    case 'cash':
+                        summary.cash += result.amount;
+                        break;
+                    case 'premium':
+                        summary.premium += result.amount;
+                        break;
+                    case 'rice':
+                        summary.rice += result.amount;
+                        break;
+                    case 'item':
+                        const key = `${result.rarity}-${result.id}`;
+                        if (summary.items[key]) {
+                            summary.items[key].count += 1;
+                        } else {
+                            summary.items[key] = {
+                                ...result,
+                                count: 1
+                            };
+                        }
+                        break;
                 }
             }
             
-            // レアリティ順でソート (A > B > C)
-            const rarityOrder = { 'A': 1, 'B': 2, 'C': 3 };
-            const sortedItems = Object.values(summary).sort((a, b) => 
-                rarityOrder[a.rarity] - rarityOrder[b.rarity]
-            );
-            
-            return sortedItems;
+            return summary;
         }
 
-        function createGachaResultHTML(items) {
+        function createGachaResultHTML(summary) {
             let html = '<div class="gacha-result-title">注文約定一覧</div>';
             
-            // レアリティ別にグループ化
-            const rarityGroups = {};
-            for (const item of items) {
-                if (!rarityGroups[item.rarity]) {
-                    rarityGroups[item.rarity] = [];
-                }
-                rarityGroups[item.rarity].push(item);
+            // 現金表示
+            if (summary.cash > 0) {
+                html += `<div class="gacha-result-section">`;
+                html += `<div class="gacha-rarity-header" style="color: #4caf50;">💴 現金</div>`;
+                html += `<div class="gacha-item-list">`;
+                html += `<div class="gacha-item">${summary.cash.toLocaleString()}円</div>`;
+                html += `</div></div>`;
             }
             
-            // A, B, C順で表示
-            const rarities = ['A', 'B', 'C'];
+            // プレミアムコイン表示
+            if (summary.premium > 0) {
+                html += `<div class="gacha-result-section">`;
+                html += `<div class="gacha-rarity-header" style="color: #ff9800;">🪙 プレミアムコイン</div>`;
+                html += `<div class="gacha-item-list">`;
+                html += `<div class="gacha-item">${summary.premium}枚</div>`;
+                html += `</div></div>`;
+            }
+            
+            // お米表示
+            if (summary.rice > 0) {
+                html += `<div class="gacha-result-section">`;
+                html += `<div class="gacha-rarity-header" style="color: #8b4513;">🍙 お米</div>`;
+                html += `<div class="gacha-item-list">`;
+                html += `<div class="gacha-item">${summary.rice}kg</div>`;
+                html += `</div></div>`;
+            }
+            
+            // アイテム表示（レアリティ別）
+            const itemsByRarity = {};
+            for (const item of Object.values(summary.items)) {
+                if (!itemsByRarity[item.rarity]) {
+                    itemsByRarity[item.rarity] = [];
+                }
+                itemsByRarity[item.rarity].push(item);
+            }
+            
+            // S, A, B, C順で表示
+            const rarities = ['S', 'A', 'B', 'C'];
             for (const rarity of rarities) {
-                if (rarityGroups[rarity]) {
+                if (itemsByRarity[rarity]) {
                     html += `<div class="gacha-result-section">`;
                     html += `<div class="gacha-rarity-header rarity-${rarity.toLowerCase()}">${rarity}ランク</div>`;
                     html += `<div class="gacha-item-list">`;
                     
-                    for (const item of rarityGroups[rarity]) {
-                        html += `<div class="gacha-item">${item.name}　${item.count}枚</div>`;
+                    for (const item of itemsByRarity[rarity]) {
+                        const emoji = item.emoji || '💳';
+                        html += `<div class="gacha-item">${emoji}${item.name}　${item.count}枚</div>`;
                     }
                     
                     html += `</div></div>`;
@@ -2510,24 +2865,8 @@
         }
 
         function addItemsToInventory(items) {
-            // インベントリシステムの初期化
-            if (!gameState.inventory) {
-                gameState.inventory = {};
-            }
-            
-            // アイテムを加算式で追加
-            for (const item of items) {
-                if (gameState.inventory[item.id]) {
-                    gameState.inventory[item.id] += 1;
-                } else {
-                    gameState.inventory[item.id] = 1;
-                }
-            }
-            
-            console.log('インベントリ更新:', gameState.inventory);
-            
-            // インベントリ表示を更新
-            updateInventoryDisplay();
+            // この関数は不要になったが、互換性のため残す
+            // processGachaResults()で処理されるため
         }
 
         function enterPreGachaMode() {

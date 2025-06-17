@@ -1,0 +1,364 @@
+{
+  "items": [
+    {
+      "id": "quo_xx",
+      "name": "QUOカードxx円",
+      "value": 10000,
+      "rarity": "N",
+      "emoji": "💳",
+      "cssClass": "glow",
+      "memo": "",
+      "gid": "ITM_20250614_100005"
+    },
+    {
+      "id": "quo_10000",
+      "name": "QUOカード10,000円",
+      "value": 10000,
+      "rarity": "S",
+      "emoji": "💳",
+      "cssClass": "glow",
+      "memo": "",
+      "gid": "ITM_20250614_163319"
+    },
+    {
+      "id": "quo_5000",
+      "name": "QUOカード5,000円",
+      "value": 5000,
+      "rarity": "A",
+      "emoji": "💳",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163326"
+    },
+    {
+      "id": "quo_3000",
+      "name": "QUOカード3,000円",
+      "value": 3000,
+      "rarity": "B",
+      "emoji": "💳",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163335"
+    },
+    {
+      "id": "quo_2000",
+      "name": "QUOカード2,000円",
+      "value": 2000,
+      "rarity": "B",
+      "emoji": "💳",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163340"
+    },
+    {
+      "id": "quo_1000",
+      "name": "QUOカード1,000円",
+      "value": 1000,
+      "rarity": "C",
+      "emoji": "💳",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163347"
+    },
+    {
+      "id": "quo_500",
+      "name": "QUOカード500円",
+      "value": 500,
+      "rarity": "C",
+      "emoji": "💳",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163352"
+    },
+    {
+      "id": "yutai_ramen",
+      "name": "ラーメン食事券",
+      "value": 1000,
+      "rarity": "C",
+      "emoji": "🍜",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163511"
+    },
+    {
+      "id": "yutai_panc",
+      "name": "パンケーキ食事券",
+      "value": 2000,
+      "rarity": "A",
+      "emoji": "🥞",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_163735"
+    },
+    {
+      "id": "yutai_hotel",
+      "name": "ホテル宿泊券",
+      "value": 20000,
+      "rarity": "A",
+      "emoji": "🏨",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_170028"
+    },
+    {
+      "id": "yutai_lovehotel",
+      "name": "ホテル宿泊券",
+      "value": 20000,
+      "rarity": "S",
+      "emoji": "🏩",
+      "cssClass": "glow",
+      "memo": "",
+      "gid": "ITM_20250614_170049"
+    },
+    {
+      "id": "yutai_ice",
+      "name": "アイス無料券",
+      "value": 500,
+      "rarity": "C",
+      "emoji": "🍦",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_170151"
+    },
+    {
+      "id": "yutai_teiki",
+      "name": "株主優待定期券",
+      "value": 30000,
+      "rarity": "S",
+      "emoji": "🚅",
+      "cssClass": "glow",
+      "memo": "",
+      "gid": "ITM_20250614_170556"
+    },
+    {
+      "id": "yutai_kippu",
+      "name": "株主優待乗車券",
+      "value": 1000,
+      "rarity": "C",
+      "emoji": "🚃",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_170739"
+    },
+    {
+      "id": "yutai_onsen",
+      "name": "温泉優待券",
+      "value": 1000,
+      "rarity": "C",
+      "emoji": "♨",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171100"
+    },
+    {
+      "id": "yutai_onsen_nurunuru",
+      "name": "温泉優待券",
+      "value": 10000,
+      "rarity": "S",
+      "emoji": "♨",
+      "cssClass": "glow",
+      "memo": "",
+      "gid": "ITM_20250614_171113"
+    },
+    {
+      "id": "yutai_mcd",
+      "name": "ハンバーガー無料券",
+      "value": 1000,
+      "rarity": "C",
+      "emoji": "🍔",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171159"
+    },
+    {
+      "id": "yutai_tako",
+      "name": "たこやき無料券",
+      "value": 1500,
+      "rarity": "B",
+      "emoji": "🐙",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171457"
+    },
+    {
+      "id": "yutai_miya",
+      "name": "ステーキ食事券",
+      "value": 20000,
+      "rarity": "A",
+      "emoji": "🥩",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171633"
+    },
+    {
+      "id": "yutai_susi",
+      "name": "お寿司食事券",
+      "value": 3000,
+      "rarity": "B",
+      "emoji": "🍣",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171710"
+    },
+    {
+      "id": "yutai_cafe",
+      "name": "カフェ優待券",
+      "value": 2000,
+      "rarity": "C",
+      "emoji": "☕",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_171813"
+    },
+    {
+      "id": "yutai_izakaya",
+      "name": "居酒屋優待券",
+      "value": 4000,
+      "rarity": "A",
+      "emoji": "🍻",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_172053"
+    },
+    {
+      "id": "yutai_usagi",
+      "name": "子供用品優待券",
+      "value": 3000,
+      "rarity": "B",
+      "emoji": "🐇",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_172220"
+    },
+    {
+      "id": "quo_temu",
+      "name": "塾の優待券",
+      "value": 5000,
+      "rarity": "A",
+      "emoji": "🎫",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_172300"
+    },
+    {
+      "id": "yutai_cake",
+      "name": "ケーキ優待券",
+      "value": 3000,
+      "rarity": "B",
+      "emoji": "🍰",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_172359"
+    },
+    {
+      "id": "cosm_kirara",
+      "name": "おめめキラキラ",
+      "value": 4864,
+      "rarity": "C",
+      "emoji": "💄",
+      "cssClass": "",
+      "memo": "",
+      "gid": "ITM_20250614_172942"
+    },
+    {
+      "id": "cosm_kosika",
+      "name": "化粧水",
+      "value": 2000,
+      "rarity": "B",
+      "emoji": "💄",
+      "cssClass": "",
+      "memo": "足の裏の匂いがする",
+      "gid": "ITM_20250614_173207"
+    },
+    {
+      "id": "cosm_taya",
+      "name": "シャンプー",
+      "value": 1760,
+      "rarity": "B",
+      "emoji": "🧴",
+      "cssClass": "",
+      "memo": "りんごの匂いがする",
+      "gid": "ITM_20250614_173339"
+    },
+    {
+      "id": "cosm_roze",
+      "name": "ハンドクリーム",
+      "value": 1100,
+      "rarity": "B",
+      "emoji": "💄",
+      "cssClass": "",
+      "memo": "バラの匂いがする",
+      "gid": "ITM_20250614_173502"
+    },
+    {
+      "id": "cosm_yaman",
+      "name": "化粧水",
+      "value": 4000,
+      "rarity": "B",
+      "emoji": "🧴",
+      "cssClass": "",
+      "memo": "ミネラルがオンリーで黄色いやつ。オススメ",
+      "gid": "ITM_20250614_173701"
+    },
+    {
+      "id": "cosm_pef",
+      "name": "オールインワンジェル",
+      "value": 3000,
+      "rarity": "B",
+      "emoji": "🫧",
+      "cssClass": "",
+      "memo": "パーフェクトな１つ",
+      "gid": "ITM_20250614_173844"
+    },
+    {
+      "id": "cosm_dr",
+      "name": "高級ドライヤー",
+      "value": 10000,
+      "rarity": "A",
+      "emoji": "🚿",
+      "cssClass": "",
+      "memo": "逆日歩の嵐が吹く",
+      "gid": "ITM_20250614_173920"
+    },
+    {
+      "id": "yutai_sanrio",
+      "name": "1dayパスポート",
+      "value": 3000,
+      "rarity": "A",
+      "emoji": "🎟️",
+      "cssClass": "",
+      "memo": "クロミちゃんすこです",
+      "gid": "ITM_20250614_174152"
+    },
+    {
+      "id": "yutai_momuharu",
+      "name": "1dayパスポート",
+      "value": 3000,
+      "rarity": "A",
+      "emoji": "🎟️",
+      "cssClass": "",
+      "memo": "ウマ娘",
+      "gid": "ITM_20250614_174238"
+    },
+    {
+      "id": "yutai_hawai",
+      "name": "1dayパスポート",
+      "value": 3000,
+      "rarity": "A",
+      "emoji": "🎟️",
+      "cssClass": "",
+      "memo": "ココ姉さん",
+      "gid": "ITM_20250614_174330"
+    },
+    {
+      "id": "yutai_dis",
+      "name": "1dayパスポート",
+      "value": 10000,
+      "rarity": "A",
+      "emoji": "🎟️",
+      "cssClass": "",
+      "memo": "ぶっちゃけあんまり好きじゃない",
+      "gid": "ITM_20250614_174415"
+    }
+  ]
+}
