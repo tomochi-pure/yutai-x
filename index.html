@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <!-- Twemoji CDN (更新版) -->
     <script src="https://cdn.jsdelivr.net/npm/twemoji@latest/dist/twemoji.min.js"></script>
 
-<!-- ========== ブロック1 始点 ========== -->
+    <!-- ========== ブロック1 始点 ========== -->
 
     <style>
         * {
@@ -55,7 +56,7 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             box-sizing: border-box;
         }
@@ -503,6 +504,7 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
             100% {
                 opacity: 0;
                 transform: translateY(-10px);
@@ -561,7 +563,7 @@
 
         .bottom-tab-controls {
             display: grid;
-            grid-template-columns: 1fr 3fr;
+            grid-template-columns: 1fr 2fr 2fr;
             gap: 8px;
             padding: 10px 15px;
             background: white;
@@ -581,8 +583,9 @@
         }
 
         .bottom-tab-btn.bot-adjust {
-            background: #4caf50;
-            color: white;
+            background: white;
+            color: #ff9800;
+            border: 2px solid #ff9800;
         }
 
         .bottom-tab-btn.order-list {
@@ -594,6 +597,24 @@
         .bottom-tab-btn.active {
             opacity: 0.8;
             transform: translateY(1px);
+        }
+
+        .bot-toggle-btn {
+            padding: 8px 6px;
+            border: none;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            line-height: 1;
+            background: #e74c3c;
+            color: white;
+            transition: all 0.2s ease;
+        }
+
+        .bot-toggle-btn.active {
+            background: #4caf50;
         }
 
         .unified-display-area {
@@ -702,6 +723,7 @@
             from {
                 box-shadow: 0 2px 8px rgba(247, 143, 167, 0.4);
             }
+
             to {
                 box-shadow: 0 4px 16px rgba(247, 143, 167, 0.8);
             }
@@ -742,17 +764,19 @@
         }
 
         @keyframes luxuryAppear {
-            0% { 
-                opacity: 0; 
-                transform: scale(0.5) rotate(-5deg); 
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-5deg);
             }
-            50% { 
-                opacity: 0.8; 
-                transform: scale(1.1) rotate(2deg); 
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1) rotate(2deg);
             }
-            100% { 
-                opacity: 1; 
-                transform: scale(1) rotate(0deg); 
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
             }
         }
 
@@ -776,7 +800,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
             animation: sparkle 2s linear infinite;
         }
 
@@ -790,9 +814,17 @@
             margin-bottom: 5px;
         }
 
-        .rarity-a { color: #ff6b35; }
-        .rarity-b { color: #4ecdc4; }
-        .rarity-c { color: #95a5a6; }
+        .rarity-a {
+            color: #ff6b35;
+        }
+
+        .rarity-b {
+            color: #4ecdc4;
+        }
+
+        .rarity-c {
+            color: #95a5a6;
+        }
 
         .gacha-item-list {
             margin-left: 15px;
@@ -815,8 +847,13 @@
         }
 
         @keyframes sparkle {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* インベントリ表示エリア */
@@ -915,9 +952,9 @@
         }
 
         .mission-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
+            font-size: 15px;
+            font-weight: normal;
+            color: #666;
         }
 
         .refresh-btn {
@@ -946,13 +983,13 @@
             background: white;
             border-radius: 10px;
             padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .mission-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .mission-card-header {
@@ -1049,6 +1086,7 @@
             from {
                 box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
             }
+
             to {
                 box-shadow: 0 4px 16px rgba(255, 152, 0, 0.6);
             }
@@ -1197,11 +1235,12 @@
                 gap: 20px;
                 align-items: flex-start;
             }
-            
-            #title-screen, #game-screen {
+
+            #title-screen,
+            #game-screen {
                 max-width: 375px;
                 width: 375px;
-                box-shadow: 0 0 20px rgba(0,0,0,0.3);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
                 min-height: 100vh;
             }
         }
@@ -1214,7 +1253,7 @@
 
 <body>
     <!-- ========== タイトル画面 ========== -->
-    <div id="title-screen">        
+    <div id="title-screen">
         <div class="main-container">
             <div class="login-header">
                 <div class="game-title">Yutai-X simulation</div>
@@ -1258,7 +1297,9 @@
                 <div class="info-tab-content active" id="info-tab-news">
                     <!-- note埋め込み -->
                     <div class="note-container">
-                        <iframe class="note-embed" src="https://note.com/embed/notes/n824e5412f6bf" style="border: 0; display: block; max-width: 100%; width: 100%; padding: 0px; margin: 10px 0px; position: static; visibility: visible;" height="400"></iframe>
+                        <iframe class="note-embed" src="https://note.com/embed/notes/n824e5412f6bf"
+                            style="border: 0; display: block; max-width: 100%; width: 100%; padding: 0px; margin: 10px 0px; position: static; visibility: visible;"
+                            height="400"></iframe>
                     </div>
                 </div>
 
@@ -1309,10 +1350,10 @@
                     </div>
                     <div class="header-row-3">
                         <div class="favo-amount">
-                            承認欲求💕<span id="header-favo">0</span>件
+                            はぁと💕<span id="header-favo">0</span>件
                         </div>
                         <div class="follower-amount">
-                            フォロワー🐣<span id="header-follower">0</span>人
+                            議決権📜<span id="header-voting">0</span>個
                         </div>
                     </div>
                 </div>
@@ -1357,6 +1398,9 @@
 
                     <!-- 下部タブボタンエリア -->
                     <div class="bottom-tab-controls">
+                        <button class="bot-toggle-btn" id="bot-toggle">
+                            BOT<br>OFF
+                        </button>
                         <button class="bottom-tab-btn bot-adjust" id="bot-adjust-tab">
                             BOT調整
                         </button>
@@ -1431,6 +1475,8 @@
                         <button class="debug-btn increase" id="debug-increase">建玉+1000万</button>
                         <button class="debug-btn decrease" id="debug-decrease">建玉-1000万</button>
                         <button class="debug-btn reset" id="debug-reset">リセット</button>
+                        <button class="debug-btn increase" id="debug-voting">議決権+100個</button>
+                        <button class="debug-btn increase" id="debug-orders">注文件数+10</button>
                     </div>
 
                     <!-- インベントリ表示エリア -->
@@ -1486,9 +1532,9 @@
         </div>
     </div>
 
-<!-- ========== ブロック2 終点 ========== -->
+    <!-- ========== ブロック2 終点 ========== -->
 
-<!-- ========== ブロック3 始点 ========== -->
+    <!-- ========== ブロック3 始点 ========== -->
 
     <script>
         // ========== ゲーム状態管理 ==========
@@ -1499,8 +1545,11 @@
             cash: 10000000,
             premiumCoin: 450,
             rice: 0,           // お米システム
-            favo: 0,           // 新規追加: 承認欲求システム
-            follower: 0,       // フォロワーシステム
+            favo: 0,           // 新規追加: はぁとシステム
+            voting: 0,        // 議決権の保有量
+            botEnabled: false,    // bot起動状態
+            botInterval: null,    // タイマー管理用
+            botSpeed: 1000,        // 1秒間隔
             totalClicks: 0,
             stamina: 4
         };
@@ -1582,7 +1631,7 @@
                 if (!response.ok) {
                     throw new Error(`アイテムファイルの読み込みに失敗しました (${response.status})`);
                 }
-                
+
                 const data = await response.json();
                 itemData = data;
                 console.log('アイテムデータ読み込み完了:', itemData);
@@ -1601,7 +1650,7 @@
                 if (!response.ok) {
                     throw new Error(`ガチャファイルの読み込みに失敗しました (${response.status})`);
                 }
-                
+
                 const data = await response.json();
                 gachaData = data;
                 console.log('ガチャデータ読み込み完了:', gachaData);
@@ -1616,11 +1665,11 @@
         // ========== サーバー自動回復システム ==========
         function startServerRecovery() {
             if (serverRecoveryTimer) return; // 重複防止
-            
+
             serverRecoveryTimer = setInterval(() => {
                 if (debugState.serverHP < debugState.maxServerHP) {
                     debugState.serverHP += 1;
-                    
+
                     // サーバーダウン状態チェック
                     checkServerDown();
                     updateDisplay();
@@ -1631,13 +1680,13 @@
         // ========== 初期化 ==========
         async function init() {
             setupEventListeners();
-            
+
             // Twemoji 初期化（シンプル版）
             if (typeof twemoji !== 'undefined') {
                 // 初期変換
                 convertEmojis();
                 console.log('Twemoji初期化完了');
-                
+
                 // MutationObserver で動的要素監視
                 const emojiObserver = new MutationObserver((mutations) => {
                     mutations.forEach((mutation) => {
@@ -1648,27 +1697,27 @@
                         });
                     });
                 });
-                
+
                 // 監視開始
-                emojiObserver.observe(document.body, { 
-                    childList: true, 
-                    subtree: true 
+                emojiObserver.observe(document.body, {
+                    childList: true,
+                    subtree: true
                 });
                 console.log('絵文字自動変換システム開始');
             } else {
                 console.warn('Twemojiライブラリが読み込まれていません');
             }
-            
+
             // アイテムデータ読み込み（必須）
             const itemsLoaded = await loadItems();
             if (!itemsLoaded) {
                 console.error('ゲーム初期化中止: アイテムデータが読み込めませんでした');
                 return;
             }
-            
+
             // ガチャデータ読み込み（エラーでも続行）
             await loadGacha();
-            
+
             updateDisplay();
             loadMissions();
             startServerRecovery(); // サーバー自動回復開始
@@ -1680,16 +1729,19 @@
             const nameToggle = document.getElementById('name-toggle');
             const nameInput = document.getElementById('name-input');
             const marshmallowLink = document.getElementById('marshmallow-link');
-            
+            const botToggle = document.getElementById('bot-toggle');
+
             // デバッグボタン
             const debugIncrease = document.getElementById('debug-increase');
             const debugDecrease = document.getElementById('debug-decrease');
             const debugReset = document.getElementById('debug-reset');
-            
+            const debugVoting = document.getElementById('debug-voting');
+            const debugOrders = document.getElementById('debug-orders');
+
             if (startButton) {
                 startButton.addEventListener('click', handleGameStart);
             }
-            
+
             if (mainOrderButton) {
                 mainOrderButton.addEventListener('click', handleOrderClick);
             }
@@ -1699,14 +1751,22 @@
             }
 
             if (marshmallowLink) {
-                marshmallowLink.addEventListener('click', function() {
+                marshmallowLink.addEventListener('click', function () {
                     window.open('https://marshmallow-qa.com/hdl55x2xyxkuz0q?t=OGltiZ&utm_medium=url_text&utm_source=promotion', '_blank');
+                });
+            }
+
+            if (botToggle) {
+                botToggle.addEventListener('click', function () {
+                    toggleBot();
+                    botToggle.innerHTML = gameState.botEnabled ? 'BOT<br>ON' : 'BOT<br>OFF';
+                    botToggle.className = gameState.botEnabled ? 'bot-toggle-btn active' : 'bot-toggle-btn';
                 });
             }
 
             // デバッグボタンイベント
             if (debugIncrease) {
-                debugIncrease.addEventListener('click', function() {
+                debugIncrease.addEventListener('click', function () {
                     debugState.positionAmount += 10000000;
                     if (debugState.positionAmount < 0) {
                         debugState.positionAmount = 0;
@@ -1716,7 +1776,7 @@
             }
 
             if (debugDecrease) {
-                debugDecrease.addEventListener('click', function() {
+                debugDecrease.addEventListener('click', function () {
                     debugState.positionAmount -= 10000000;
                     if (debugState.positionAmount < 0) {
                         debugState.positionAmount = 0;
@@ -1726,24 +1786,38 @@
             }
 
             if (debugReset) {
-                debugReset.addEventListener('click', function() {
+                debugReset.addEventListener('click', function () {
                     debugState.positionAmount = debugState.initialPositionAmount;
                     debugState.serverHP = debugState.maxServerHP;
                     debugState.isServerDown = false;
                     debugState.isPreGacha = false;
                     gameState.inventory = {}; // インベントリもリセット
                     gameState.rice = 0;       // お米もリセット
-                    gameState.favo = 0;       // 承認欲求もリセット
-                    gameState.follower = 0;   // フォロワーもリセット
+                    gameState.favo = 0;       // はぁともリセット
+                    gameState.voting = 0;   // フォロワーもリセット
                     updateServerDownUI();
                     updateDisplay();
                     updateInventoryDisplay(); // インベントリ表示更新
                 });
+            }// debugReset の処理の後に追加
+            if (debugVoting) {
+                debugVoting.addEventListener('click', function () {
+                    gameState.voting += 100;
+                    updateDisplay();
+                });
             }
+            if (debugOrders) {
+                debugOrders.addEventListener('click', function () {
+                    debugState.orders += 10;
+                    debugState.positionAmount += 3000000; // 30万円×10 = 300万円
+                    updateDisplay();
+                });
+            }
+
 
             // 情報タブ切り替え
             document.querySelectorAll('.info-tab-button').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const tabName = this.dataset.infoTab;
                     switchInfoTab(tabName);
                 });
@@ -1751,14 +1825,14 @@
 
             // ゲームタブ切り替え
             document.querySelectorAll('.tab-button').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     switchGameTab(this);
                 });
             });
 
             // 下部タブ切り替え
             document.querySelectorAll('.bottom-tab-btn').forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     switchBottomTab(this);
                 });
             });
@@ -1772,7 +1846,7 @@
             // 現引き/謝罪ボタン
             const gachaButton = document.getElementById('gacha-button');
             if (gachaButton) {
-                gachaButton.addEventListener('click', function() {
+                gachaButton.addEventListener('click', function () {
                     if (debugState.isServerDown) {
                         handleApologyClick();
                     } else if (debugState.isPreGacha) {
@@ -1788,13 +1862,13 @@
             }
 
             // イベント委譲によるミッション関連イベント処理
-            document.addEventListener('click', function(event) {
+            document.addEventListener('click', function (event) {
                 // ミッション内タブ切り替え
                 if (event.target.classList.contains('mission-tab-button')) {
                     const tabName = event.target.dataset.missionTab;
                     switchMissionTab(tabName);
                 }
-                
+
                 // ミッションボタンクリック処理
                 if (event.target.classList.contains('mission-btn')) {
                     const missionCard = event.target.closest('.mission-card');
@@ -1811,20 +1885,20 @@
         function handleOrderClick() {
             // サーバーダウン中またはpre現渡中はクリック無効
             if (debugState.isServerDown || debugState.isPreGacha) return;
-            
+
             // 総クリック数を必ず増加
             gameState.totalClicks++;
-            
+
             // サーバーHP減少処理
             debugState.serverHP -= debugState.clickDamage;
             if (debugState.serverHP < 0) debugState.serverHP = 0;
-            
+
             // サーバーダウンチェック
             checkServerDown();
-            
+
             // 25%の確率で当たり
             const isHit = Math.random() < 0.25;
-            
+
             if (isHit) {
                 // 当たり処理
                 debugState.orders++;
@@ -1834,7 +1908,7 @@
                 // 外れ処理
                 showResultPopup(false);
             }
-            
+
             // 表示を即座に更新
             updateDisplay();
         }
@@ -1846,7 +1920,7 @@
             // ポップアップ要素を作成
             const popup = document.createElement('div');
             popup.className = `result-popup ${isSuccess ? 'success' : 'failure'}`;
-            
+
             // メッセージ設定
             if (isSuccess) {
                 popup.textContent = '新規売り注文を受け付けました';
@@ -1864,14 +1938,14 @@
             // ランダム位置を設定（center-area内・中心点基準）
             const areaRect = centerArea.getBoundingClientRect();
             const popupRect = popup.getBoundingClientRect();
-            
+
             const randomX = Math.random() * areaRect.width;
             const randomY = Math.random() * areaRect.height;
-            
+
             // 中心点基準で座標設定
             const centerX = randomX - (popupRect.width / 2);
             const centerY = randomY - (popupRect.height / 2);
-            
+
             popup.style.left = centerX + 'px';
             popup.style.top = centerY + 'px';
             popup.style.visibility = 'visible';
@@ -1890,7 +1964,7 @@
             const wasDown = debugState.isServerDown;
             const shouldBeDown = (debugState.serverHP === 0);
             const shouldRecover = (debugState.serverHP === debugState.maxServerHP);
-            
+
             if (!wasDown && shouldBeDown) {
                 enterServerDownMode();
             } else if (wasDown && shouldRecover) {
@@ -1914,7 +1988,7 @@
             const orderButton = document.getElementById('main-order-button');
             const gachaButton = document.getElementById('gacha-button');
             const hpLabel = document.querySelector('.server-hp-label');
-            
+
             if (debugState.isServerDown) {
                 // サーバーダウン状態のUI
                 if (orderButton) {
@@ -1922,13 +1996,13 @@
                     orderButton.style.background = '#cccccc';
                     orderButton.style.cursor = 'not-allowed';
                 }
-                
+
                 if (gachaButton) {
                     gachaButton.textContent = '謝罪';
                     gachaButton.style.background = '#87ceeb';
                     gachaButton.classList.add('apology');
                 }
-                
+
                 if (hpLabel) {
                     hpLabel.textContent = 'サーバーは応答していません。現在復旧中です。';
                 }
@@ -1947,12 +2021,12 @@
                     orderButton.style.background = '#4caf50';
                     orderButton.style.cursor = 'pointer';
                 }
-                
+
                 if (gachaButton) {
                     gachaButton.style.background = '#ff5722';
                     gachaButton.classList.remove('apology');
                 }
-                
+
                 if (hpLabel) {
                     hpLabel.textContent = 'サーバーHP';
                 }
@@ -1983,7 +2057,7 @@
                 if (!response.ok) {
                     throw new Error('ミッションファイルの読み込みに失敗しました');
                 }
-                
+
                 const data = await response.json();
                 missionData = data;
                 displayCurrentTabMissions();
@@ -2049,18 +2123,18 @@
 
             // 必要な新規ミッション数を計算（6個から保持分を引く）
             const neededCount = 6 - activeMissions.length;
-            
+
             // 未選択のミッションから抽選（進行中・完了以外）
-            const availableMissions = missionData.characterMissions.filter(mission => 
-                !missionStates[mission.id] || 
+            const availableMissions = missionData.characterMissions.filter(mission =>
+                !missionStates[mission.id] ||
                 (missionStates[mission.id].state !== 'progress' && missionStates[mission.id].state !== 'complete')
             );
-            
+
             const newMissions = getRandomMissions(availableMissions, neededCount);
-            
+
             // 全ミッションを結合
             const allMissions = [...activeMissions, ...newMissions];
-            
+
             displayMultipleMissions(allMissions);
         }
 
@@ -2110,7 +2184,7 @@
             switch (state.state) {
                 case 'unaccepted':
                     stateInfo.buttonText = '受諾';
-                    stateInfo.buttonClass = gameState.cash >= 200000 ? 'mission-btn-accept' : 'mission-btn-disabled';
+                    stateInfo.buttonClass = 'mission-btn-accept';
                     stateInfo.timeText = '必要時間：5秒';
                     break;
                 case 'progress':
@@ -2149,7 +2223,7 @@
                     <div class="mission-content">${mission.content}</div>
                     <div class="mission-details">
                         <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
-                        <div class="mission-reward">報酬：${mission.mission.reward}</div>
+                        <div class="mission-reward">報　　酬：${mission.mission.reward}</div>
                     </div>
                     <div class="mission-actions">
                         <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
@@ -2165,9 +2239,7 @@
 
             switch (action) {
                 case '受諾':
-                    if (gameState.cash >= 200000) {
-                        acceptMission(missionId);
-                    }
+                    acceptMission(missionId);
                     break;
                 case '報酬受取':
                     claimMissionReward(missionId);
@@ -2176,9 +2248,7 @@
         }
 
         function acceptMission(missionId) {
-            // 現金を消費
-            gameState.cash -= 200000;
-            
+
             // ミッション状態を進行中に変更
             missionStates[missionId] = {
                 state: 'progress',
@@ -2206,7 +2276,7 @@
             // 新しいタイマーを開始
             state.timerId = setInterval(() => {
                 state.remainingTime--;
-                
+
                 if (state.remainingTime <= 0) {
                     // タイマー完了
                     clearInterval(state.timerId);
@@ -2214,16 +2284,16 @@
                     state.state = 'complete';
                     state.remainingTime = 0;
                 }
-                
+
                 // 表示を更新
                 updateMissionDisplay(missionId);
             }, 1000);
         }
 
         function claimMissionReward(missionId) {
-            // プレミアムコインを獲得
-            gameState.premiumCoin += 50;
-            
+            // はぁとを獲得
+            gameState.favo += 20;
+
             // ミッション状態を受取済に変更
             missionStates[missionId] = {
                 state: 'claimed',
@@ -2266,7 +2336,7 @@
                 <div class="mission-content">${mission.content}</div>
                 <div class="mission-details">
                     <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
-                    <div class="mission-reward">報酬：${mission.mission.reward}</div>
+                    <div class="mission-reward">報　　酬：${mission.mission.reward}</div>
                 </div>
                 <div class="mission-actions">
                     <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
@@ -2300,7 +2370,7 @@
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             // クリックされたタブにactiveクラスを追加
             clickedTab.classList.add('active');
 
@@ -2314,7 +2384,7 @@
             const targetContent = document.getElementById(`${tabName}-content`);
             if (targetContent) {
                 targetContent.classList.add('active');
-                
+
                 // ミッションタブの場合はミッションを読み込み
                 if (tabName === 'mission') {
                     loadMissions();
@@ -2327,7 +2397,7 @@
             document.querySelectorAll('.bottom-tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
+
             // クリックされたタブにactiveクラスを追加
             clickedTab.classList.add('active');
 
@@ -2355,7 +2425,7 @@
         function toggleNameInput() {
             const nameInput = document.getElementById('name-input');
             const nameToggle = document.getElementById('name-toggle');
-            
+
             if (nameInput && nameToggle) {
                 if (nameInput.disabled) {
                     // 無効 → 有効
@@ -2376,14 +2446,41 @@
         function showScreen(screenName) {
             const titleScreen = document.getElementById('title-screen');
             const gameScreen = document.getElementById('game-screen');
-            
+
             if (titleScreen) titleScreen.style.display = screenName === 'title' ? 'block' : 'none';
             if (gameScreen) gameScreen.style.display = screenName === 'game' ? 'block' : 'none';
-            
+
             gameState.currentScreen = screenName;
-            
+
             if (screenName === 'game') {
                 updateDisplay();
+            }
+        }
+
+        function startBot() {
+            if (gameState.botInterval) return; // 重複防止
+
+            gameState.botInterval = setInterval(() => {
+                if (gameState.botEnabled) {
+                    handleOrderClick(); // 注文ボタンと同じ処理
+                }
+            }, gameState.botSpeed);
+        }
+
+        function stopBot() {
+            if (gameState.botInterval) {
+                clearInterval(gameState.botInterval);
+                gameState.botInterval = null;
+            }
+        }
+
+        function toggleBot() {
+            gameState.botEnabled = !gameState.botEnabled;
+
+            if (gameState.botEnabled) {
+                startBot();
+            } else {
+                stopBot();
             }
         }
 
@@ -2395,7 +2492,7 @@
             const headerCash = document.getElementById('header-cash');
             const headerRice = document.getElementById('header-rice');
             const headerFavo = document.getElementById('header-favo');
-            const headerFollower = document.getElementById('header-follower');
+            const headerVoting = document.getElementById('header-voting');
 
             if (headerUsername) headerUsername.textContent = gameState.userName;
             if (headerUserid) headerUserid.textContent = gameState.userId;
@@ -2403,7 +2500,7 @@
             if (headerCash) headerCash.textContent = gameState.cash.toLocaleString();
             if (headerRice) headerRice.textContent = gameState.rice.toLocaleString();
             if (headerFavo) headerFavo.textContent = gameState.favo.toLocaleString();
-            if (headerFollower) headerFollower.textContent = gameState.follower.toLocaleString();
+            if (headerVoting) headerVoting.textContent = gameState.voting.toLocaleString();
 
             // ステータス更新
             const statusOrders = document.getElementById('status-orders');
@@ -2412,7 +2509,7 @@
 
             if (statusOrders) statusOrders.textContent = debugState.orders + '件';
             if (statusPosition) statusPosition.textContent = debugState.positionAmount.toLocaleString() + '円';
-            
+
             // 信用建て余力のパーセンテージ更新
             if (statusCreditMargin) {
                 const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
@@ -2434,13 +2531,13 @@
 
             // 信用建て余力バー更新
             updateCreditMarginBar();
-            
+
             // サーバーHPバー更新
             updateServerHPBar();
-            
+
             // サーバーダウンUI更新
             updateServerDownUI();
-            
+
             // ガチャボタン状態更新
             updateGachaButtonState();
         }
@@ -2477,7 +2574,7 @@
         }
 
         // ========== ガチャ処理機能（Phase 2: 4段階抽選エンジン） ==========
-        
+
         // ガチャタイプ取得
         function getGachaType() {
             // 現在は"standard"固定
@@ -2495,7 +2592,7 @@
             const categories = gacha.stage1_categories;
             const totalWeight = categories.reduce((sum, cat) => sum + cat.weight, 0);
             const random = Math.random() * totalWeight;
-            
+
             let cumulative = 0;
             for (const category of categories) {
                 cumulative += category.weight;
@@ -2504,7 +2601,7 @@
                     return category.type;
                 }
             }
-            
+
             return 'item'; // フォールバック
         }
 
@@ -2519,7 +2616,7 @@
             const amounts = gacha.stage2_amounts[categoryType];
             const totalWeight = amounts.reduce((sum, amt) => sum + amt.weight, 0);
             const random = Math.random() * totalWeight;
-            
+
             let cumulative = 0;
             for (const amount of amounts) {
                 cumulative += amount.weight;
@@ -2528,7 +2625,7 @@
                     return amount.amount;
                 }
             }
-            
+
             return amounts[0].amount; // フォールバック
         }
 
@@ -2543,7 +2640,7 @@
             const rarities = gacha.stage3_rarities;
             const totalWeight = rarities.reduce((sum, rar) => sum + rar.weight, 0);
             const random = Math.random() * totalWeight;
-            
+
             let cumulative = 0;
             for (const rarity of rarities) {
                 cumulative += rarity.weight;
@@ -2552,7 +2649,7 @@
                     return rarity.rarity;
                 }
             }
-            
+
             return 'C'; // フォールバック
         }
 
@@ -2568,24 +2665,24 @@
             // オーバーライド設定を確認
             const gacha = gachaData?.gachaTypes?.[gachaType];
             const overrides = gacha?.stage4_item_overrides?.[rarity] || [];
-            
+
             // 各アイテムの重みを設定（デフォルト1）
             const itemWeights = {};
             rarityItems.forEach(item => {
                 itemWeights[item.id] = 1; // デフォルト重み
             });
-            
+
             // オーバーライドがあれば適用
             overrides.forEach(override => {
                 if (itemWeights[override.itemId] !== undefined) {
                     itemWeights[override.itemId] = override.weight;
                 }
             });
-            
+
             // 重み付き抽選
             const totalWeight = rarityItems.reduce((sum, item) => sum + itemWeights[item.id], 0);
             const random = Math.random() * totalWeight;
-            
+
             let cumulative = 0;
             for (const item of rarityItems) {
                 cumulative += itemWeights[item.id];
@@ -2594,7 +2691,7 @@
                     return item;
                 }
             }
-            
+
             return rarityItems[0]; // フォールバック
         }
 
@@ -2602,7 +2699,7 @@
         function rollSingleGacha() {
             try {
                 console.log('=== ガチャ抽選開始 ===');
-                
+
                 // ガチャデータチェック
                 if (!gachaData) {
                     console.warn('ガチャデータが読み込まれていません。ハードコード版で動作します。');
@@ -2612,49 +2709,49 @@
 
                 // ガチャタイプ取得
                 const gachaType = getGachaType();
-                
+
                 // Stage 1: カテゴリ抽選
                 const category = stage1_rollCategory(gachaType);
-                
+
                 // カテゴリに応じて処理分岐
                 if (category === 'cash' || category === 'premium' || category === 'rice') {
                     // Stage 2: 数量抽選
                     const amount = stage2_rollAmount(gachaType, category);
-                    
+
                     // 結果オブジェクト作成
                     const result = {
                         type: category,
                         amount: amount,
                         name: category === 'cash' ? `現金${amount.toLocaleString()}円` :
-                              category === 'premium' ? `プレミアムコイン${amount}枚` :
-                              `お米${amount}kg`
+                            category === 'premium' ? `プレミアムコイン${amount}枚` :
+                                `お米${amount}kg`
                     };
-                    
+
                     console.log('抽選結果:', result);
                     return result;
-                    
+
                 } else if (category === 'item') {
                     // Stage 3: レアリティ抽選
                     const rarity = stage3_rollRarity(gachaType);
-                    
+
                     // Stage 4: アイテム抽選
                     const item = stage4_rollItem(gachaType, rarity);
-                    
+
                     if (!item) {
                         console.error('アイテム抽選に失敗しました');
                         return rollSingleGachaFallback();
                     }
-                    
+
                     // アイテムにtypeを追加
                     const result = {
                         ...item,
                         type: 'item'
                     };
-                    
+
                     console.log('抽選結果:', result);
                     return result;
                 }
-                
+
             } catch (error) {
                 console.error('ガチャ抽選エラー:', error);
                 return rollSingleGachaFallback();
@@ -2669,14 +2766,14 @@
             }
 
             // アイテムのみ（現金・PTC・お米は出ない）
-            const items = itemData.items.filter(item => 
+            const items = itemData.items.filter(item =>
                 item.id === 'quo_5000' || item.id === 'quo_1000' || item.id === 'quo_500'
             );
-            
+
             // 簡易確率（A:10%, B:30%, C:60%）
             const random = Math.random();
             let selectedItem;
-            
+
             if (random < 0.1) {
                 selectedItem = items.find(item => item.id === 'quo_5000');
             } else if (random < 0.4) {
@@ -2684,7 +2781,7 @@
             } else {
                 selectedItem = items.find(item => item.id === 'quo_500');
             }
-            
+
             return {
                 ...selectedItem,
                 type: 'item'
@@ -2694,9 +2791,9 @@
         function executeGacha() {
             const gachaCount = debugState.orders;
             const results = [];
-            
+
             console.log(`ガチャ発火開始 - ${gachaCount}回抽選`);
-            
+
             // 注文件数分だけ抽選
             for (let i = 0; i < gachaCount; i++) {
                 const result = rollSingleGacha();
@@ -2705,18 +2802,18 @@
                     console.log(`${i + 1}回目:`, result.name);
                 }
             }
-            
+
             // 結果を処理（アイテムと現金等を分離）
             processGachaResults(results);
-            
+
             // ガチャ結果ポップアップ表示
             showGachaResult(results);
-            
+
             // 注文件数・建玉金額をリセット・状態復帰
             debugState.orders = 0;
             debugState.positionAmount = 0; // 建玉金額もリセット
             exitPreGachaMode();
-            
+
             return results;
         }
 
@@ -2750,7 +2847,7 @@
                         break;
                 }
             }
-            
+
             // 表示を更新
             updateDisplay();
             updateInventoryDisplay();
@@ -2759,23 +2856,23 @@
         function showGachaResult(results) {
             // 結果を集計・レアリティ別ソート
             const summary = summarizeGachaResults(results);
-            
+
             // オーバーレイ作成
             const overlay = document.createElement('div');
             overlay.className = 'gacha-overlay';
-            
+
             // ポップアップ作成
             const popup = document.createElement('div');
             popup.className = 'gacha-result-popup';
-            
+
             // ポップアップ内容生成
             popup.innerHTML = createGachaResultHTML(summary);
-            
+
             overlay.appendChild(popup);
             document.body.appendChild(overlay);
-            
+
             // クリックで閉じる（手動のみ）
-            overlay.addEventListener('click', function() {
+            overlay.addEventListener('click', function () {
                 document.body.removeChild(overlay);
             });
         }
@@ -2787,7 +2884,7 @@
                 rice: 0,
                 items: {}
             };
-            
+
             for (const result of results) {
                 switch (result.type) {
                     case 'cash':
@@ -2812,13 +2909,13 @@
                         break;
                 }
             }
-            
+
             return summary;
         }
 
         function createGachaResultHTML(summary) {
             let html = '<div class="gacha-result-title">注文約定一覧</div>';
-            
+
             // 現金表示
             if (summary.cash > 0) {
                 html += `<div class="gacha-result-section">`;
@@ -2827,7 +2924,7 @@
                 html += `<div class="gacha-item">${summary.cash.toLocaleString()}円</div>`;
                 html += `</div></div>`;
             }
-            
+
             // プレミアムコイン表示
             if (summary.premium > 0) {
                 html += `<div class="gacha-result-section">`;
@@ -2836,7 +2933,7 @@
                 html += `<div class="gacha-item">${summary.premium}枚</div>`;
                 html += `</div></div>`;
             }
-            
+
             // お米表示
             if (summary.rice > 0) {
                 html += `<div class="gacha-result-section">`;
@@ -2845,7 +2942,7 @@
                 html += `<div class="gacha-item">${summary.rice}kg</div>`;
                 html += `</div></div>`;
             }
-            
+
             // アイテム表示（レアリティ別）
             const itemsByRarity = {};
             for (const item of Object.values(summary.items)) {
@@ -2854,7 +2951,7 @@
                 }
                 itemsByRarity[item.rarity].push(item);
             }
-            
+
             // S, A, B, C順で表示
             const rarities = ['S', 'A', 'B', 'C'];
             for (const rarity of rarities) {
@@ -2862,16 +2959,16 @@
                     html += `<div class="gacha-result-section">`;
                     html += `<div class="gacha-rarity-header rarity-${rarity.toLowerCase()}">${rarity}ランク</div>`;
                     html += `<div class="gacha-item-list">`;
-                    
+
                     for (const item of itemsByRarity[rarity]) {
                         const emoji = item.emoji || '💳';
                         html += `<div class="gacha-item">${emoji}${item.name}　${item.count}枚</div>`;
                     }
-                    
+
                     html += `</div></div>`;
                 }
             }
-            
+
             html += '<div class="gacha-close-hint">クリックで閉じる</div>';
             return html;
         }
@@ -2897,10 +2994,10 @@
 
             // HP割合計算
             const hpPercentage = (debugState.serverHP / debugState.maxServerHP) * 100;
-            
+
             // バー幅更新
             serverHPFill.style.width = hpPercentage + '%';
-            
+
             // 色クラス設定
             serverHPFill.className = 'server-hp-fill';
             if (hpPercentage > 50) {
@@ -2923,7 +3020,7 @@
 
             // パーセンテージ計算
             const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
-            
+
             // ラベル更新
             creditMarginLabel.textContent = `信用建て余力：${marginPercentage}%`;
 
@@ -2939,7 +3036,7 @@
                 // マイナス領域の段階判定
                 const absPercentage = Math.abs(marginPercentage);
                 const stage = Math.floor(absPercentage / 100);
-                
+
                 // 各段階内での進捗 (0-100%)
                 const stageProgress = absPercentage % 100;
                 percentage = stageProgress;
@@ -2954,7 +3051,7 @@
                 ];
 
                 className = colorClasses[Math.min(stage, colorClasses.length - 1)];
-                
+
                 // -500%超えの場合は100%固定
                 if (absPercentage >= 500) {
                     percentage = 100;
@@ -2969,5 +3066,6 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
+
 </html>
 <!-- ========== ブロック3 終点 ========== -->
