@@ -2158,40 +2158,16 @@
 
         // ========== アイテムデータ読み込み ==========
         async function loadItems() {
-            try {
-                const response = await fetch('./items.json');
-                if (!response.ok) {
-                    throw new Error(`アイテムファイルの読み込みに失敗しました (${response.status})`);
-                }
-
-                const data = await response.json();
-                itemData = data;
-                console.log('アイテムデータ読み込み完了:', itemData);
-                return true;
-            } catch (error) {
-                console.error('重大エラー: アイテムデータの読み込みに失敗しました:', error);
-                alert('ゲームの初期化に失敗しました。items.jsonファイルを確認してください。');
-                return false;
-            }
+            const response = await fetch('./items.json');
+            itemData = await response.json();
+            console.log('アイテムデータ読み込み完了:', itemData);
         }
 
         // ========== ガチャデータ読み込み ==========
         async function loadGacha() {
-            try {
-                const response = await fetch('./gacha.json');
-                if (!response.ok) {
-                    throw new Error(`ガチャファイルの読み込みに失敗しました (${response.status})`);
-                }
-
-                const data = await response.json();
-                gachaData = data;
-                console.log('ガチャデータ読み込み完了:', gachaData);
-                return true;
-            } catch (error) {
-                console.error('ガチャデータの読み込みに失敗しました:', error);
-                console.error('ガチャはハードコードされた設定で動作します');
-                return false;
-            }
+            const response = await fetch('./gacha.json');
+            gachaData = await response.json();
+            console.log('ガチャデータ読み込み完了:', gachaData);
         }
 
         // ========== サーバー自動回復システム ==========
@@ -2240,16 +2216,11 @@
                 console.warn('Twemojiライブラリが読み込まれていません');
             }
 
-            // アイテムデータ読み込み（必須）
-            const itemsLoaded = await loadItems();
-            if (!itemsLoaded) {
-                console.error('ゲーム初期化中止: アイテムデータが読み込めませんでした');
-                return;
-            }
-
-            // ガチャデータ読み込み（エラーでも続行）
+            // 必要なデータを読み込む
+            await loadItems();
             await loadGacha();
 
+            // ゲーム初期化
             updateDisplay();
             loadMissions();
             startServerRecovery(); // サーバー自動回復開始
@@ -3034,48 +3005,29 @@
 
         function updateDisplay() {
             // ヘッダー更新
-            const headerUsername = document.getElementById('header-username');
-            const headerUserid = document.getElementById('header-userid');
-            const headerPremium = document.getElementById('header-premium');
-            const headerCash = document.getElementById('header-cash');
-            const headerRice = document.getElementById('header-rice');
-            const headerFavo = document.getElementById('header-favo');
-            const headerVoting = document.getElementById('header-voting');
-
-            if (headerUsername) headerUsername.textContent = gameState.userName;
-            if (headerUserid) headerUserid.textContent = gameState.userId;
-            if (headerPremium) headerPremium.textContent = gameState.premiumCoin.toLocaleString();
-            if (headerCash) headerCash.textContent = gameState.cash.toLocaleString();
-            if (headerRice) headerRice.textContent = gameState.rice.toLocaleString();
-            if (headerFavo) headerFavo.textContent = gameState.favo.toLocaleString();
-            if (headerVoting) headerVoting.textContent = gameState.voting.toLocaleString();
+            document.getElementById('header-username').textContent = gameState.userName;
+            document.getElementById('header-userid').textContent = gameState.userId;
+            document.getElementById('header-premium').textContent = gameState.premiumCoin.toLocaleString();
+            document.getElementById('header-cash').textContent = gameState.cash.toLocaleString();
+            document.getElementById('header-rice').textContent = gameState.rice.toLocaleString();
+            document.getElementById('header-favo').textContent = gameState.favo.toLocaleString();
+            document.getElementById('header-voting').textContent = gameState.voting.toLocaleString();
 
             // ステータス更新
-            const statusOrders = document.getElementById('status-orders');
-            const statusPosition = document.getElementById('status-position');
-            const statusCreditMargin = document.getElementById('status-credit-margin');
-
-            if (statusOrders) statusOrders.textContent = debugState.orders + '件';
-            if (statusPosition) statusPosition.textContent = debugState.positionAmount.toLocaleString() + '円';
+            document.getElementById('status-orders').textContent = debugState.orders + '件';
+            document.getElementById('status-position').textContent = debugState.positionAmount.toLocaleString() + '円';
 
             // 信用建て余力のパーセンテージ更新
-            if (statusCreditMargin) {
-                const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
-                const maxPositive = gameState.cash * 3.3;
-                const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
-                statusCreditMargin.textContent = marginPercentage + '%';
-            }
+            const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
+            const maxPositive = gameState.cash * 3.3;
+            const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
+            document.getElementById('status-credit-margin').textContent = marginPercentage + '%';
 
             // パフォーマンス指標更新
-            const perfCps = document.getElementById('perf-cps');
-            const perfGetRate = document.getElementById('perf-get-rate');
-            const perfLoadRate = document.getElementById('perf-load-rate');
-            const perfFireRate = document.getElementById('perf-fire-rate');
-
-            if (perfCps) perfCps.textContent = debugState.cps + '回/秒';
-            if (perfGetRate) perfGetRate.textContent = debugState.getRate + '倍';
-            if (perfLoadRate) perfLoadRate.textContent = debugState.loadRate + '%';
-            if (perfFireRate) perfFireRate.textContent = debugState.fireRate + '%';
+            document.getElementById('perf-cps').textContent = debugState.cps + '回/秒';
+            document.getElementById('perf-get-rate').textContent = debugState.getRate + '倍';
+            document.getElementById('perf-load-rate').textContent = debugState.loadRate + '%';
+            document.getElementById('perf-fire-rate').textContent = debugState.fireRate + '%';
 
             // 信用建て余力バー更新
             updateCreditMarginBar();
@@ -3089,7 +3041,7 @@
             // ガチャボタン状態更新
             updateGachaButtonState();
 
-            // 横転判定（最後に追加）
+            // 横転判定
             checkRollover();
         }
 
@@ -3137,7 +3089,6 @@
             const gacha = gachaData?.gachaTypes?.[gachaType];
             if (!gacha || !gacha.stage1_categories) {
                 console.error('Stage1設定が見つかりません');
-                return 'item'; // デフォルト
             }
 
             const categories = gacha.stage1_categories;
@@ -3152,8 +3103,6 @@
                     return category.type;
                 }
             }
-
-            return 'item'; // フォールバック
         }
 
         // Stage 2: 数量抽選（現金・PTC・お米用）
@@ -3161,7 +3110,6 @@
             const gacha = gachaData?.gachaTypes?.[gachaType];
             if (!gacha || !gacha.stage2_amounts || !gacha.stage2_amounts[categoryType]) {
                 console.error('Stage2設定が見つかりません');
-                return 100000; // デフォルト
             }
 
             const amounts = gacha.stage2_amounts[categoryType];
@@ -3176,8 +3124,6 @@
                     return amount.amount;
                 }
             }
-
-            return amounts[0].amount; // フォールバック
         }
 
         // Stage 3: レアリティ抽選（アイテム用）
@@ -3185,7 +3131,6 @@
             const gacha = gachaData?.gachaTypes?.[gachaType];
             if (!gacha || !gacha.stage3_rarities) {
                 console.error('Stage3設定が見つかりません');
-                return 'C'; // デフォルト
             }
 
             const rarities = gacha.stage3_rarities;
@@ -3200,8 +3145,6 @@
                     return rarity.rarity;
                 }
             }
-
-            return 'C'; // フォールバック
         }
 
         // Stage 4: 具体的なアイテム抽選（GID対応修正版）
@@ -3210,7 +3153,6 @@
             const rarityItems = itemData?.items?.filter(item => item.rarity === rarity) || [];
             if (rarityItems.length === 0) {
                 console.error(`レアリティ${rarity}のアイテムが見つかりません`);
-                return null;
             }
 
             // オーバーライド設定を確認
@@ -3252,8 +3194,6 @@
                     return item;
                 }
             }
-
-            return rarityItems[0]; // フォールバック
         }
 
         // 新しいrollSingleGacha関数（4段階抽選）
@@ -3263,9 +3203,7 @@
 
                 // ガチャデータチェック
                 if (!gachaData) {
-                    console.warn('ガチャデータが読み込まれていません。ハードコード版で動作します。');
-                    // フォールバック（元のハードコード版）
-                    return rollSingleGachaFallback();
+                    console.warn('ガチャデータが読み込まれていません。');
                 }
 
                 // ガチャタイプ取得
@@ -3300,7 +3238,6 @@
 
                     if (!item) {
                         console.error('アイテム抽選に失敗しました');
-                        return rollSingleGachaFallback();
                     }
 
                     // アイテムにtypeを追加
@@ -3315,38 +3252,7 @@
 
             } catch (error) {
                 console.error('ガチャ抽選エラー:', error);
-                return rollSingleGachaFallback();
             }
-        }
-
-        // フォールバック用（元のハードコード版）
-        function rollSingleGachaFallback() {
-            if (!itemData || !itemData.items) {
-                console.error('アイテムデータが読み込まれていません');
-                return null;
-            }
-
-            // アイテムのみ（現金・PTC・お米は出ない）
-            const items = itemData.items.filter(item =>
-                item.id === 'quo_5000' || item.id === 'quo_1000' || item.id === 'quo_500'
-            );
-
-            // 簡易確率（A:10%, B:30%, C:60%）
-            const random = Math.random();
-            let selectedItem;
-
-            if (random < 0.1) {
-                selectedItem = items.find(item => item.id === 'quo_5000');
-            } else if (random < 0.4) {
-                selectedItem = items.find(item => item.id === 'quo_1000');
-            } else {
-                selectedItem = items.find(item => item.id === 'quo_500');
-            }
-
-            return {
-                ...selectedItem,
-                type: 'item'
-            };
         }
 
         // アイテムIDから単位を取得
@@ -3529,7 +3435,7 @@
                     html += `<div class="gacha-rarity-header rarity-${rarity.toLowerCase()}">${rarity}ランク</div>`;
                     html += `<div class="gacha-item-list">`;
 
-for (const item of itemsByRarity[rarity]) {
+                    for (const item of itemsByRarity[rarity]) {
                         const emoji = item.emoji || '💳';
                         const unit = getItemUnit(item.id);  // 単位取得
                         html += `<div class="gacha-item" style="display: flex; justify-content: space-between;">`;
