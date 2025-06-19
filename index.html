@@ -1244,6 +1244,366 @@
                 min-height: 100vh;
             }
         }
+
+        /* ========== 株主優待独立ボタン専用CSS（追加） ========== */
+        .upgrade-button-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-button {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .upgrade-button.orange {
+            background: white;
+            color: #ff9800;
+            border-color: #ff9800;
+        }
+
+        .upgrade-button.orange:hover {
+            background: #fff3e0;
+        }
+
+        .upgrade-button.orange.active {
+            background: #ff9800;
+            color: white;
+        }
+
+        .upgrade-button.blue {
+            background: white;
+            color: #87ceeb;
+            border-color: #87ceeb;
+        }
+
+        .upgrade-button.blue:hover {
+            background: #f0f8ff;
+        }
+
+        .upgrade-button.blue.active {
+            background: #87ceeb;
+            color: white;
+        }
+
+        .upgrade-content-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 400px;
+            padding: 0px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .upgrade-content {
+            display: none;
+        }
+
+        .upgrade-content.active {
+            display: block;
+        }
+
+        /* ========== アップグレードUI専用CSS========== */
+        /* 上部詳細カード */
+        .upgrade-detail-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upgrade-level {
+            background: #87ceeb;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .upgrade-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            height: 45px;
+            overflow: hidden;
+        }
+
+        .upgrade-effect {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid #87ceeb;
+        }
+
+        .upgrade-effect-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .upgrade-effect-value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .upgrade-cost-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upgrade-cost {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .cost-value {
+            font-weight: bold;
+            color: #ff9800;
+        }
+
+        .upgrade-action-button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upgrade-action-button:hover {
+            background: #45a049;
+        }
+
+        .upgrade-action-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* 下部選択グリッド、padding下の余白注意ね */
+        .upgrade-grid-container {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .upgrade-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 6px;
+            height: 280px;
+        }
+
+        .upgrade-item {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .upgrade-item:hover {
+            border-color: #87ceeb;
+            background: #f0f8ff;
+        }
+
+        .upgrade-item.selected {
+            border-color: #87ceeb;
+            background: #e3f2fd;
+            box-shadow: 0 2px 8px rgba(135, 206, 235, 0.3);
+        }
+
+        .upgrade-icon-level {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .upgrade-icon {
+            font-size: 18px;
+        }
+
+        .upgrade-item-level {
+            font-size: 9px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .upgrade-name {
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.2;
+            margin-bottom: 2px;
+        }
+
+        .upgrade-max-level {
+            font-size: 8px;
+            color: #999;
+            font-weight: normal;
+        }
+
+
+        /* サンプル表示用（後で削除予定） */
+        .content-sample {
+            text-align: center;
+            padding: 50px 20px;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .content-sample h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .content-sample p {
+            margin-bottom: 10px;
+        }
+
+        /* ========== 汎用ポップアップシステム CSS（追加） ========== */
+        /* 基本ポップアップ（既存のガチャ用を流用） */
+        .universal-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .universal-popup {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            max-width: 90%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            animation: luxuryAppear 0.6s ease forwards;
+            position: relative;
+            text-align: center;
+        }
+
+        .universal-popup-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin: -20px -20px 15px -20px;
+            padding: 15px 20px;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .universal-popup-title::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            animation: sparkle 2s linear infinite;
+        }
+
+        .universal-popup-content {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .universal-popup-close-hint {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+
+        /* 色バリエーション */
+        .popup-gacha .universal-popup-title {
+            background: #87ceeb;
+            /* 水色 - ガチャ用 */
+        }
+
+        .popup-success .universal-popup-title {
+            background: #4caf50;
+            /* 緑色 - アップグレード用 */
+        }
+
+        .popup-error .universal-popup-title {
+            background: #e74c3c;
+            /* 赤色 - エラー用 */
+        }
+
+        .popup-warning .universal-popup-title {
+            background: #ff9800;
+            /* オレンジ色 - ミッション用 */
+        }
     </style>
 </head>
 
@@ -1362,7 +1722,7 @@
             <!-- タブナビゲーション -->
             <nav class="tab-navigation">
                 <button class="tab-button active" data-tab="stocks">株注文</button>
-                <button class="tab-button" data-tab="bot">bot改造</button>
+                <button class="tab-button" data-tab="bot">株主優待</button>
                 <button class="tab-button" data-tab="mission">SNS</button>
                 <button class="tab-button" data-tab="yuutai">実績</button>
                 <button class="tab-button" data-tab="settings">設定</button>
@@ -1486,10 +1846,181 @@
                     </div>
                 </div>
 
-                <!-- BOT改造タブの内容 -->
+                <!-- 株主優待タブの内容 -->
                 <div id="bot-content" class="tab-content">
                     <div class="mission-tab-content">
-                        BOT改造タブ - 準備中
+                        <!-- 株主優待独立ボタンエリア -->
+                        <div class="upgrade-button-area">
+                            <button class="upgrade-button orange active" data-upgrade-content="use">優待を使う</button>
+                            <button class="upgrade-button blue" data-upgrade-content="list">株主優待一覧</button>
+                        </div>
+
+                        <!-- コンテンツエリア -->
+                        <div class="upgrade-content-container">
+                            <!-- 優待を使うコンテンツ -->
+                            <div class="upgrade-content active" id="upgrade-content-use">
+                                <!-- 上部詳細カード -->
+                                <div class="upgrade-detail-card">
+                                    <div class="upgrade-header">
+                                        <div class="upgrade-title">
+                                            <span id="detail-icon">🎍</span>
+                                            <span id="detail-name">BOT強化</span>
+                                        </div>
+                                        <div class="upgrade-level" id="detail-level">Lv.2 (最大：5)</div>
+                                    </div>
+
+                                    <div class="upgrade-description" id="detail-description">
+                                        BOTのクリック速度が向上します。効率的な在庫確保が可能になります。
+                                    </div>
+
+                                    <div class="upgrade-effect">
+                                        <div class="upgrade-effect-label">効果</div>
+                                        <div class="upgrade-effect-value" id="detail-effect">2回/秒 → 3回/秒</div>
+                                    </div>
+
+                                    <div class="upgrade-cost-area">
+                                        <div class="upgrade-cost">
+                                            必要コスト: <span class="cost-value" id="detail-cost">250</span> PTC🪙
+                                        </div>
+                                        <button class="upgrade-action-button" id="upgrade-action-btn">アップグレード</button>
+                                    </div>
+                                </div>
+
+                                <!-- 下部選択グリッド -->
+                                <div class="upgrade-grid-container">
+                                    <div class="grid-title">アップグレード一覧</div>
+                                    <div class="upgrade-grid">
+                                        <!-- 1行目 -->
+                                        <div class="upgrade-item selected" data-upgrade="bot_speed">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🎍</div>
+                                                <div class="upgrade-item-level">Lv.2</div>
+                                            </div>
+                                            <div class="upgrade-name">BOT強化</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="bot_get_rate">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🏵️</div>
+                                                <div class="upgrade-item-level">Lv.1</div>
+                                            </div>
+                                            <div class="upgrade-name">BOT獲得率</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="bot_damage">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🎄</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">BOTダメージ軽減</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <!-- 2行目 -->
+                                        <div class="upgrade-item" data-upgrade="heart_boost">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🐦️</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">はぁとアップ</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="gacha_multi">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🏠️</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">ガチャ倍化</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="credit_margin">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🏧</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">信用余力</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <!-- 3行目 -->
+                                        <div class="upgrade-item" data-upgrade="sato_career">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">👨‍💼</div>
+                                                <div class="upgrade-item-level">Lv.1</div>
+                                            </div>
+                                            <div class="upgrade-name">佐藤昇進</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="puzzle_pro">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🧩</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">パズルプロ</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="loud_voice">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">📢</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">クソデカボイス</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <!-- 4行目 -->
+                                        <div class="upgrade-item" data-upgrade="god_finger">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🖕</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">神の指</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="rollover_avoid">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">🚛</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">横転回避</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+
+                                        <div class="upgrade-item" data-upgrade="god_thumb">
+                                            <div class="upgrade-icon-level">
+                                                <div class="upgrade-icon">👍</div>
+                                                <div class="upgrade-item-level">Lv.0</div>
+                                            </div>
+                                            <div class="upgrade-name">神の親指</div>
+                                            <div class="upgrade-max-level">最大：5</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 株主優待一覧コンテンツ -->
+                            <div class="upgrade-content" id="upgrade-content-list">
+                                <div class="content-sample">
+                                    <h3>💳 株主優待一覧</h3>
+                                    <p>保有している優待券の一覧表示</p>
+                                    <p>• QUOカード各種</p>
+                                    <p>• 食事券・宿泊券</p>
+                                    <p>• その他優待アイテム</p>
+
+                                    <div class="sample-note">
+                                        📝 このエリアには所持している<br>
+                                        優待券の一覧が表示されます
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1563,11 +2094,12 @@
             getRate: 3.4,
             loadRate: 430,
             fireRate: 24,
-            serverHP: 20,
-            maxServerHP: 20,
+            serverHP: 200000,
+            maxServerHP: 200000,
             clickDamage: 1,
             isServerDown: false,
-            isPreGacha: false
+            isPreGacha: false,
+            isRollover: false  // 横転
         };
 
         // ========== ミッションシステム ==========
@@ -1721,6 +2253,8 @@
             updateDisplay();
             loadMissions();
             startServerRecovery(); // サーバー自動回復開始
+            initUpgradeButtons(); // アップグレードタブ
+            initUpgradeSystem();  // アップグレードシステム
         }
 
         function setupEventListeners() {
@@ -1977,6 +2511,9 @@
             debugState.orders = 0;
             debugState.positionAmount = 0;
             updateServerDownUI();
+            // サーバー倒壊エラーポップアップ表示
+            showErrorPopup("🔥サーバー倒壊🔥", "全ての在庫を失いました。<br>謝罪ボタンで復旧してください。");
+
         }
 
         function exitServerDownMode() {
@@ -2291,6 +2828,9 @@
         }
 
         function claimMissionReward(missionId) {
+            // ミッションデータを取得
+            const mission = missionData.characterMissions.find(m => m.id === missionId);
+
             // はぁとを獲得
             gameState.favo += 20;
 
@@ -2300,6 +2840,14 @@
                 timerId: null,
                 remainingTime: 0
             };
+
+            // ミッション完了ポップアップ表示
+            if (mission) {
+                showMissionCompletePopup(
+                    `${mission.character.icon} ${mission.character.name}のミッション`,
+                    "はぁと +20件"
+                );
+            }
 
             // 表示を更新
             updateDisplay();
@@ -2540,6 +3088,9 @@
 
             // ガチャボタン状態更新
             updateGachaButtonState();
+
+            // 横転判定（最後に追加）
+            checkRollover();
         }
 
         function updateGachaButtonState() {
@@ -2653,7 +3204,7 @@
             return 'C'; // フォールバック
         }
 
-        // Stage 4: 具体的なアイテム抽選
+        // Stage 4: 具体的なアイテム抽選（GID対応修正版）
         function stage4_rollItem(gachaType, rarity) {
             // まず該当レアリティのアイテムを全て取得
             const rarityItems = itemData?.items?.filter(item => item.rarity === rarity) || [];
@@ -2672,10 +3223,20 @@
                 itemWeights[item.id] = 1; // デフォルト重み
             });
 
-            // オーバーライドがあれば適用
+            // オーバーライドがあれば適用（GID対応）
             overrides.forEach(override => {
-                if (itemWeights[override.itemId] !== undefined) {
+                // itemId が設定されている場合（旧形式対応）
+                if (override.itemId && itemWeights[override.itemId] !== undefined) {
                     itemWeights[override.itemId] = override.weight;
+                }
+                // gid が設定されている場合（新形式対応）
+                else if (override.gid) {
+                    // GIDからアイテムを検索
+                    const targetItem = rarityItems.find(item => item.gid === override.gid);
+                    if (targetItem && itemWeights[targetItem.id] !== undefined) {
+                        itemWeights[targetItem.id] = override.weight;
+                        console.log(`重み設定適用: ${targetItem.id} (GID: ${override.gid}) → 重み${override.weight}`);
+                    }
                 }
             });
 
@@ -2687,7 +3248,7 @@
             for (const item of rarityItems) {
                 cumulative += itemWeights[item.id];
                 if (random < cumulative) {
-                    console.log(`Stage4: ${item.id} (${item.name})`);
+                    console.log(`Stage4: ${item.id} (${item.name}) 重み:${itemWeights[item.id]}`);
                     return item;
                 }
             }
@@ -2786,6 +3347,14 @@
                 ...selectedItem,
                 type: 'item'
             };
+        }
+
+        // アイテムIDから単位を取得
+        function getItemUnit(itemId) {
+            if (itemId.startsWith('quo_')) return '枚';     // QUOカード
+            if (itemId.startsWith('yutai_')) return '枚';   // 優待券
+            if (itemId.startsWith('cosm_')) return '個';    // 化粧品
+            return '個'; // デフォルト
         }
 
         function executeGacha() {
@@ -2916,34 +3485,34 @@
         function createGachaResultHTML(summary) {
             let html = '<div class="gacha-result-title">注文約定一覧</div>';
 
-            // 現金表示
+            // 現金表示（左右分割）
             if (summary.cash > 0) {
                 html += `<div class="gacha-result-section">`;
-                html += `<div class="gacha-rarity-header" style="color: #4caf50;">💴 現金</div>`;
                 html += `<div class="gacha-item-list">`;
-                html += `<div class="gacha-item">${summary.cash.toLocaleString()}円</div>`;
-                html += `</div></div>`;
+                html += `<div class="gacha-item" style="display: flex; justify-content: space-between;">`;
+                html += `<span>💴　現金</span><span>${summary.cash.toLocaleString()}円</span>`;
+                html += `</div></div></div>`;
             }
 
-            // プレミアムコイン表示
+            // プレミアムコイン表示（左右分割）
             if (summary.premium > 0) {
                 html += `<div class="gacha-result-section">`;
-                html += `<div class="gacha-rarity-header" style="color: #ff9800;">🪙 プレミアムコイン</div>`;
                 html += `<div class="gacha-item-list">`;
-                html += `<div class="gacha-item">${summary.premium}枚</div>`;
-                html += `</div></div>`;
+                html += `<div class="gacha-item" style="display: flex; justify-content: space-between;">`;
+                html += `<span>🪙　プレミアムコイン</span><span>${summary.premium.toLocaleString()}枚</span>`;
+                html += `</div></div></div>`;
             }
 
-            // お米表示
+            // お米表示（左右分割）
             if (summary.rice > 0) {
                 html += `<div class="gacha-result-section">`;
-                html += `<div class="gacha-rarity-header" style="color: #8b4513;">🍙 お米</div>`;
                 html += `<div class="gacha-item-list">`;
-                html += `<div class="gacha-item">${summary.rice}kg</div>`;
-                html += `</div></div>`;
+                html += `<div class="gacha-item" style="display: flex; justify-content: space-between;">`;
+                html += `<span>🍙　お米</span><span>${summary.rice.toLocaleString()}kg</span>`;
+                html += `</div></div></div>`;
             }
 
-            // アイテム表示（レアリティ別）
+            // アイテム表示（レアリティ別・左右分割）
             const itemsByRarity = {};
             for (const item of Object.values(summary.items)) {
                 if (!itemsByRarity[item.rarity]) {
@@ -2960,9 +3529,12 @@
                     html += `<div class="gacha-rarity-header rarity-${rarity.toLowerCase()}">${rarity}ランク</div>`;
                     html += `<div class="gacha-item-list">`;
 
-                    for (const item of itemsByRarity[rarity]) {
+for (const item of itemsByRarity[rarity]) {
                         const emoji = item.emoji || '💳';
-                        html += `<div class="gacha-item">${emoji}${item.name}　${item.count}枚</div>`;
+                        const unit = getItemUnit(item.id);  // 単位取得
+                        html += `<div class="gacha-item" style="display: flex; justify-content: space-between;">`;
+                        html += `<span>${emoji}　${item.name}</span><span>${item.count}${unit}</span>`;
+                        html += `</div>`;
                     }
 
                     html += `</div></div>`;
@@ -3061,7 +3633,412 @@
             creditMarginFill.className = className;
             creditMarginFill.style.width = percentage + '%';
         }
+        // ========== 株主優待ボタン切り替え機能（追加） ==========
+        function initUpgradeButtons() {
+            document.querySelectorAll('.upgrade-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    const contentName = this.dataset.upgradeContent;
 
+                    // 全てのボタンからactiveクラスを削除
+                    document.querySelectorAll('.upgrade-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                    // クリックされたボタンにactiveクラスを追加
+                    this.classList.add('active');
+
+                    // 全てのコンテンツを非表示
+                    document.querySelectorAll('.upgrade-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    // 対応するコンテンツを表示
+                    const targetContent = document.getElementById(`upgrade-content-${contentName}`);
+                    if (targetContent) {
+                        targetContent.classList.add('active');
+                    }
+                });
+            });
+        }
+        // ==========アップグレードシステム（追加） ==========
+        // アップグレードデータ
+        const upgradeData = {
+            bot_speed: {
+                icon: '🎍',
+                name: 'BOT強化',
+                description: 'BOTのクリック速度が向上します。効率的な在庫確保が可能になります。',
+                currentLevel: 2,
+                maxLevel: 5,
+                effect: '2回/秒 → 3回/秒',
+                cost: 250
+            },
+            bot_get_rate: {
+                icon: '🏵️',
+                name: 'BOT獲得率向上',
+                description: 'BOTの在庫獲得成功率が向上します。安定した収益が見込めます。',
+                currentLevel: 1,
+                maxLevel: 5,
+                effect: 'BOT獲得率 25% → 35%',
+                cost: 150
+            },
+            bot_damage: {
+                icon: '🎄',
+                name: 'BOTダメージ軽減',
+                description: 'BOTがサーバーに与えるダメージを軽減します。長時間稼働が可能です。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: 'BOTダメージ -20%',
+                cost: 200
+            },
+            heart_boost: {
+                icon: '🐦️',
+                name: 'はぁと獲得量アップ',
+                description: 'ミッション報酬のはぁと獲得量が増加します。承認欲求を満たせます。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: 'はぁと獲得 +50%',
+                cost: 300
+            },
+            gacha_multi: {
+                icon: '🏠️',
+                name: 'ガチャ結果倍化',
+                description: 'ガチャの抽選結果が2倍、3倍になることがあります。大当たりを狙えます。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '2倍確率 +10%',
+                cost: 500
+            },
+            credit_margin: {
+                icon: '🏧',
+                name: '信用余力緩和',
+                description: '信用建て余力の計算式が緩和されます。より多くの取引が可能になります。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '信用余力 +20%',
+                cost: 400
+            },
+            sato_career: {
+                icon: '👨‍💼',
+                name: '佐藤昇進システム',
+                description: '在庫係から頭取まで昇進します。在庫獲得率が段階的に向上します。',
+                currentLevel: 1,
+                maxLevel: 5,
+                effect: '全体獲得率 30% → 40%',
+                cost: 350
+            },
+            puzzle_pro: {
+                icon: '🧩',
+                name: 'パズルのプロ',
+                description: '注文1件あたりの建玉金額が減少します。リスクを抑えた取引が可能です。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '建玉金額 30万→29万',
+                cost: 300
+            },
+            loud_voice: {
+                icon: '📢',
+                name: 'クソデカボイス',
+                description: '在庫獲得時に、はぁとを自動で獲得します。承認欲求が自動で満たされます。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '在庫獲得時はぁと +5',
+                cost: 250
+            },
+            god_finger: {
+                icon: '🖕',
+                name: '神の指',
+                description: '手動での在庫獲得率を大幅に上昇させます。運に頼らない確実な取引を実現。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '手動獲得率 +30%',
+                cost: 600
+            },
+            rollover_avoid: {
+                icon: '🚛',
+                name: '横転回避',
+                description: '確保できる在庫の上限が上昇します。大量保有によるリスク分散が可能です。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '在庫上限 +50個',
+                cost: 450
+            },
+            god_thumb: {
+                icon: '👍',
+                name: '神の親指',
+                description: '手動時のサーバーダメージを軽減します。手動操作でもサーバーに優しく。',
+                currentLevel: 0,
+                maxLevel: 5,
+                effect: '手動ダメージ -30%',
+                cost: 550
+            }
+        };
+
+        // 選択されているアップグレード
+        let selectedUpgrade = 'bot_speed';
+
+        // 詳細カードを更新
+        function updateUpgradeDetailCard(upgradeId) {
+            const data = upgradeData[upgradeId];
+            if (!data) return;
+
+            document.getElementById('detail-icon').textContent = data.icon;
+            document.getElementById('detail-name').textContent = data.name;
+            document.getElementById('detail-level').textContent = `Lv.${data.currentLevel} (最大：${data.maxLevel})`;
+            document.getElementById('detail-description').textContent = data.description;
+            document.getElementById('detail-effect').textContent = data.effect;
+            document.getElementById('detail-cost').textContent = data.cost;
+
+            // ボタン状態
+            const upgradeBtn = document.getElementById('upgrade-action-btn');
+            if (upgradeBtn) {
+                if (data.currentLevel >= data.maxLevel) {
+                    upgradeBtn.textContent = 'MAX';
+                    upgradeBtn.disabled = true;
+                } else if (gameState.premiumCoin < data.cost) {
+                    upgradeBtn.textContent = 'コイン不足';
+                    upgradeBtn.disabled = true;
+                } else {
+                    upgradeBtn.textContent = 'アップグレード';
+                    upgradeBtn.disabled = false;
+                }
+            }
+        }
+
+        // グリッドアイテムの表示を更新
+        function updateUpgradeGridItem(upgradeId) {
+            const item = document.querySelector(`[data-upgrade="${upgradeId}"]`);
+            if (!item) return;
+
+            const data = upgradeData[upgradeId];
+            const levelElement = item.querySelector('.upgrade-item-level');
+
+            if (levelElement) {
+                levelElement.textContent = `Lv.${data.currentLevel}`;
+            }
+        }
+
+        // アップグレード実行
+        function executeUpgrade(upgradeId) {
+            const data = upgradeData[upgradeId];
+            if (!data) return;
+
+            // 条件チェック
+            if (data.currentLevel >= data.maxLevel) {
+                alert('すでに最大レベルです！');
+                return;
+            }
+
+            if (gameState.premiumCoin < data.cost) {
+                alert('プレミアムコインが足りません！');
+                return;
+            }
+
+            // アップグレード実行
+            gameState.premiumCoin -= data.cost;
+            data.currentLevel++;
+
+            // 実際の効果適用（BOT強化の場合）
+            if (upgradeId === 'bot_speed') {
+                gameState.botSpeed = Math.max(100, 1000 - (data.currentLevel * 200));
+                // BOTの間隔を再設定
+                if (gameState.botEnabled) {
+                    stopBot();
+                    startBot();
+                }
+            }
+
+            // 表示更新
+            updateDisplay();
+            updateUpgradeDetailCard(upgradeId);
+            updateUpgradeGridItem(upgradeId);
+
+            showUpgradeSuccessPopup(`${data.icon} ${data.name}`, data.currentLevel, data.effect);
+        }
+
+        // アップグレードシステム初期化
+        function initUpgradeSystem() {
+            // グリッドアイテムクリック
+            document.querySelectorAll('.upgrade-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    // 全ての選択を解除
+                    document.querySelectorAll('.upgrade-item').forEach(i => i.classList.remove('selected'));
+
+                    // クリックされたアイテムを選択
+                    this.classList.add('selected');
+
+                    // 詳細カードを更新
+                    const upgradeId = this.dataset.upgrade;
+                    selectedUpgrade = upgradeId;
+                    updateUpgradeDetailCard(upgradeId);
+                });
+            });
+
+            // アップグレードボタンクリック
+            const upgradeBtn = document.getElementById('upgrade-action-btn');
+            if (upgradeBtn) {
+                upgradeBtn.addEventListener('click', function () {
+                    if (!this.disabled) {
+                        executeUpgrade(selectedUpgrade);
+                    }
+                });
+            }
+
+            // 初期表示
+            updateUpgradeDetailCard(selectedUpgrade);
+        }
+
+        // 汎用ポップアップ表示関数（クリーン版）
+        function showUniversalPopup(config) {
+            // オーバーレイ作成
+            const overlay = document.createElement('div');
+            overlay.className = 'universal-popup-overlay';
+
+            // ポップアップ作成
+            const popup = document.createElement('div');
+            popup.className = `universal-popup popup-${config.type}`;
+
+            // 内容生成
+            let content = `
+                <div class="universal-popup-title">${config.title}</div>
+            `;
+
+            if (config.customHTML) {
+                content += config.customHTML;
+            } else {
+                content += `
+                    <div class="universal-popup-content">${config.content}</div>
+                `;
+            }
+
+            // クリック無効時は「クリックで閉じる」表示を変更
+            if (config.disableClick && config.autoClose) {
+                content += '<div class="universal-popup-close-hint">自動で閉じます</div>';
+            } else {
+                content += '<div class="universal-popup-close-hint">クリックで閉じる</div>';
+            }
+
+            popup.innerHTML = content;
+            overlay.appendChild(popup);
+            document.body.appendChild(overlay);
+
+            // クリックで閉じる（無効設定がない場合のみ）
+            if (!config.disableClick) {
+                overlay.addEventListener('click', function () {
+                    if (overlay.parentNode) {
+                        document.body.removeChild(overlay);
+                    }
+                });
+            }
+
+            // 自動消去タイマー（設定されている場合）
+            if (config.autoClose) {
+                setTimeout(() => {
+                    if (overlay.parentNode) {
+                        document.body.removeChild(overlay);
+                    }
+                }, config.autoClose);
+            }
+
+            // 絵文字変換
+            if (typeof convertEmojis === 'function') {
+                convertEmojis(popup);
+            }
+        }
+
+        // アップグレード成功ポップアップ
+        function showUpgradeSuccessPopup(upgradeName, currentLevel, effect) {
+            showUniversalPopup({
+                title: "アップグレード成功！",
+                content: `
+                    <div style="font-size: 24px; margin: 10px 0;">${upgradeName}</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #4caf50; margin: 10px 0;">
+                        Lv.${currentLevel - 1} → Lv.${currentLevel}
+                    </div>
+                    <div style="font-size: 14px; color: #666; margin: 10px 0;">
+                        効果: ${effect}
+                    </div>
+                `,
+                type: "success"
+            });
+        }
+
+        // サーバー倒壊エラーポップアップ
+        function showErrorPopup(title, message) {
+            showUniversalPopup({
+                title: title,
+                content: message,
+                type: "error"
+            });
+        }
+        // 横転用エラーポップアップ（クリック無効 + 2秒強制表示）
+        function showRolloverPopup(title, message) {
+            showUniversalPopup({
+                title: title,
+                content: message,
+                type: "error",
+                autoClose: 2000,    // 2秒後に自動で閉じる
+                disableClick: true  // クリック無効
+            });
+        }
+
+        // ミッション完了ポップアップ
+        function showMissionCompletePopup(missionName, reward) {
+            showUniversalPopup({
+                title: "ミッション完了！",
+                content: `
+                    <div style="font-size: 18px; margin: 10px 0;">${missionName}</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #ff9800; margin: 10px 0;">
+                        報酬: ${reward}
+                    </div>
+                `,
+                type: "warning"
+            });
+        }
+
+        // ========== 横転システム（追加） ==========
+        // 横転判定・処理関数
+        function checkRollover() {
+            // 基本余力計算
+            const basicMargin = gameState.cash * 3.3 - debugState.positionAmount;
+            const maxPositive = gameState.cash * 3.3;
+            const marginPercentage = (basicMargin / maxPositive) * 100;
+
+            // 横転回避アップグレードレベル取得
+            const rolloverLevel = upgradeData.rollover_avoid ? upgradeData.rollover_avoid.currentLevel : 0;
+            const rolloverThreshold = rolloverLevel * 100; // Lv1=100%, Lv2=200%...
+
+            // 横転条件チェック
+            const shouldRollover = marginPercentage < -rolloverThreshold;
+
+            // 横転処理
+            if (shouldRollover && debugState.orders > 0 && !debugState.isRollover) {
+                // 横転発動
+                triggerRollover();
+            } else if (debugState.orders === 0 && debugState.isRollover) {
+                // 注文が0になったら横転フラグをリセット
+                debugState.isRollover = false;
+            }
+        }
+        // 横転処理実行（ポップアップ追加版）
+        function triggerRollover() {
+            // 失効する注文件数を記録
+            const lostOrders = debugState.orders;
+
+            console.log('横転発生！注文件数:', lostOrders);
+
+            // 横転フラグ設定
+            debugState.isRollover = true;
+
+            // 注文・建玉リセット
+            debugState.orders = 0;
+            debugState.positionAmount = 0;
+
+            // 横転ポップアップ表示
+            showRolloverPopup("横転しました！", `${lostOrders}件の注文が失効しました！`);
+
+            // 表示更新
+            updateDisplay();
+        }
         // ========== アプリ起動 ==========
         document.addEventListener('DOMContentLoaded', init);
     </script>
