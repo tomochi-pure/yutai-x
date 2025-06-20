@@ -117,7 +117,7 @@
         },
         {
           "rarity": "C",
-          "weight": 40000,
+          "weight": 40,
           "description": "低レア"
         },
         {
@@ -272,7 +272,7 @@
           },
           {
             "itemId": "cosm_kirara",
-            "weight": 1000
+            "weight": 10
           }
         ],
         "N": [

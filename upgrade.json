@@ -3,7 +3,7 @@
     "bot_speed": {
       "icon": "🎍",
       "name": "BOT強化",
-      "description": "BOTのクリック速度が向上します。効率的な在庫確保が可能になります。",
+      "description": "BOTのクリック速度が向上します。<br>効率的な在庫確保が可能になります。",
       "maxLevel": 5,
       "costs": [250, 500, 1000, 2000, 5000],
       "costUnit": "PTC🪙",
@@ -22,7 +22,7 @@
     "bot_get_rate": {
       "icon": "🏵️",
       "name": "BOT獲得率向上",
-      "description": "BOTの在庫獲得成功率が向上します。安定した収益が見込めます。",
+      "description": "BOTの在庫獲得成功率が向上します。<br>安定した収益が見込めます。",
       "maxLevel": 5,
       "costs": [150, 300, 600, 1200, 3000],
       "costUnit": "PTC🪙",
@@ -41,7 +41,7 @@
     "bot_damage": {
       "icon": "🎄",
       "name": "BOTダメージ軽減",
-      "description": "BOTがサーバーに与えるダメージを軽減します。長時間稼働が可能です。",
+      "description": "BOTがサーバーに与えるダメージを軽減します。<br>長時間稼働が可能です。",
       "maxLevel": 5,
       "costs": [200, 400, 800, 1600, 4000],
       "costUnit": "PTC🪙",
@@ -59,8 +59,8 @@
     },
     "god_finger": {
       "icon": "🖕",
-      "name": "神の指",
-      "description": "手動での在庫獲得率を大幅に上昇させます。運に頼らない確実な取引を実現。",
+      "name": "神の中指",
+      "description": "手動での在庫獲得率を大幅に上昇させます。<br>運に頼らない確実な取引を実現。",
       "maxLevel": 5,
       "costs": [600, 1200, 2400, 4800, 10000],
       "costUnit": "PTC🪙",
@@ -79,7 +79,7 @@
     "god_thumb": {
       "icon": "👍",
       "name": "神の親指",
-      "description": "手動時のサーバーダメージを軽減します。手動操作でもサーバーに優しく。",
+      "description": "手動時のサーバーダメージを軽減します。<br>手動操作でもサーバーに優しく。",
       "maxLevel": 5,
       "costs": [550, 1100, 2200, 4400, 9000],
       "costUnit": "PTC🪙",
