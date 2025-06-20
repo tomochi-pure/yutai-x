@@ -3203,40 +3203,29 @@
             }
         }
 
-        // Stage 4: 具体的なアイテム抽選（GID対応修正版）
+        // Stage 4: 具体的なアイテム抽選（GID廃止）
         function stage4_rollItem(gachaType, rarity) {
-            // まず該当レアリティのアイテムを全て取得
-            const rarityItems = itemData?.items?.filter(item => item.rarity === rarity) || [];
-            if (rarityItems.length === 0) {
-                console.error(`レアリティ${rarity}のアイテムが見つかりません`);
-            }
+            console.log(`Stage4開始: ${gachaType}ガチャ, ${rarity}レアリティ`);
 
-            // オーバーライド設定を確認
-            const gacha = gachaData?.gachaTypes?.[gachaType];
-            const overrides = gacha?.stage4_item_overrides?.[rarity] || [];
+            const rarityItems = itemData.items.filter(item => item.rarity === rarity);
+            const gacha = gachaData.gachaTypes[gachaType];
+            const overrides = gacha.stage4_item_overrides[rarity];
+
+            console.log(`${rarity}レアリティアイテム数: ${rarityItems.length}`);
 
             // 各アイテムの重みを設定（デフォルト1）
             const itemWeights = {};
             rarityItems.forEach(item => {
-                itemWeights[item.id] = 1; // デフォルト重み
+                itemWeights[item.id] = 1;
             });
 
-            // オーバーライドがあれば適用（GID対応）
-            overrides.forEach(override => {
-                // itemId が設定されている場合（旧形式対応）
-                if (override.itemId && itemWeights[override.itemId] !== undefined) {
+            // オーバーライド適用（itemIdベースのみ）
+            if (overrides) {
+                overrides.forEach(override => {
                     itemWeights[override.itemId] = override.weight;
-                }
-                // gid が設定されている場合（新形式対応）
-                else if (override.gid) {
-                    // GIDからアイテムを検索
-                    const targetItem = rarityItems.find(item => item.gid === override.gid);
-                    if (targetItem && itemWeights[targetItem.id] !== undefined) {
-                        itemWeights[targetItem.id] = override.weight;
-                        console.log(`重み設定適用: ${targetItem.id} (GID: ${override.gid}) → 重み${override.weight}`);
-                    }
-                }
-            });
+                    console.log(`重み設定: ${override.itemId} → ${override.weight}`);
+                });
+            }
 
             // 重み付き抽選
             const totalWeight = rarityItems.reduce((sum, item) => sum + itemWeights[item.id], 0);
@@ -3246,68 +3235,37 @@
             for (const item of rarityItems) {
                 cumulative += itemWeights[item.id];
                 if (random < cumulative) {
-                    console.log(`Stage4: ${item.id} (${item.name}) 重み:${itemWeights[item.id]}`);
+                    console.log(`Stage4結果: ${item.id} (${item.name})`);
                     return item;
                 }
             }
         }
 
-        // 新しいrollSingleGacha関数（4段階抽選）
+        // 新しいrollSingleGacha関数（4段階抽選try-catch削除）
         function rollSingleGacha() {
-            try {
-                console.log('=== ガチャ抽選開始 ===');
+            console.log('=== ガチャ抽選開始 ===');
 
-                // ガチャデータチェック
-                if (!gachaData) {
-                    console.warn('ガチャデータが読み込まれていません。');
-                }
+            const gachaType = getGachaType();
+            const category = stage1_rollCategory(gachaType);
 
-                // ガチャタイプ取得
-                const gachaType = getGachaType();
+            if (category === 'cash' || category === 'premium' || category === 'rice') {
+                const amount = stage2_rollAmount(gachaType, category);
+                const result = {
+                    type: category,
+                    amount: amount,
+                    name: category === 'cash' ? `現金${amount.toLocaleString()}円` :
+                        category === 'premium' ? `プレミアムコイン${amount}枚` :
+                            `お米${amount}kg`
+                };
+                console.log('抽選結果:', result);
+                return result;
 
-                // Stage 1: カテゴリ抽選
-                const category = stage1_rollCategory(gachaType);
-
-                // カテゴリに応じて処理分岐
-                if (category === 'cash' || category === 'premium' || category === 'rice') {
-                    // Stage 2: 数量抽選
-                    const amount = stage2_rollAmount(gachaType, category);
-
-                    // 結果オブジェクト作成
-                    const result = {
-                        type: category,
-                        amount: amount,
-                        name: category === 'cash' ? `現金${amount.toLocaleString()}円` :
-                            category === 'premium' ? `プレミアムコイン${amount}枚` :
-                                `お米${amount}kg`
-                    };
-
-                    console.log('抽選結果:', result);
-                    return result;
-
-                } else if (category === 'item') {
-                    // Stage 3: レアリティ抽選
-                    const rarity = stage3_rollRarity(gachaType);
-
-                    // Stage 4: アイテム抽選
-                    const item = stage4_rollItem(gachaType, rarity);
-
-                    if (!item) {
-                        console.error('アイテム抽選に失敗しました');
-                    }
-
-                    // アイテムにtypeを追加
-                    const result = {
-                        ...item,
-                        type: 'item'
-                    };
-
-                    console.log('抽選結果:', result);
-                    return result;
-                }
-
-            } catch (error) {
-                console.error('ガチャ抽選エラー:', error);
+            } else if (category === 'item') {
+                const rarity = stage3_rollRarity(gachaType);
+                const item = stage4_rollItem(gachaType, rarity);
+                const result = { ...item, type: 'item' };
+                console.log('抽選結果:', result);
+                return result;
             }
         }
 
@@ -3506,11 +3464,6 @@
 
             html += '<div class="gacha-close-hint">クリックで閉じる</div>';
             return html;
-        }
-
-        function addItemsToInventory(items) {
-            // この関数は不要になったが、互換性のため残す
-            // processGachaResults()で処理されるため
         }
 
         function enterPreGachaMode() {
