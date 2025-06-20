@@ -1808,8 +1808,8 @@
                                             <span class="status-value" id="status-orders">0件</span>
                                         </div>
                                         <div class="status-item">
-                                            <span class="status-label">信用建て余力</span>
-                                            <span class="status-value" id="status-credit-margin">100%</span>
+                                            <span class="status-label">総アクセス数</span>
+                                            <span class="status-value" id="status-credit-margin">0回</span>
                                         </div>
                                     </div>
                                     <!-- 下段：1列 -->
@@ -2074,7 +2074,7 @@
             userName: 'ともちぃさん',
             userId: 'tomochi-fun',
             cash: 10000000,
-            premiumCoin: 450,
+            premiumCoin: 450000,
             rice: 0,           // お米システム
             favo: 0,           // 新規追加: はぁとシステム
             voting: 0,        // 議決権の保有量
@@ -2099,11 +2099,16 @@
             clickDamage: 1,
             isServerDown: false,
             isPreGacha: false,
-            isRollover: false  // 横転
+            isRollover: false,  // 横転
+            clicksSinceLastGacha: 0  // 前回ガチャからのクリック数
         };
 
         // ========== ミッションシステム ==========
         let missionData = null;
+        let upgradeJsonData = null;
+        let upgradeProgress = {　　 // 進捗管理（メモリのみ、ローカルストレージは後回し）
+            bot_speed: 2  // 現在レベル
+        };
         let currentMissionTab = 'recommend';
         let missionStates = {}; // ミッション状態管理
         let serverRecoveryTimer = null; // サーバー自動回復タイマー
@@ -2170,6 +2175,24 @@
             console.log('ガチャデータ読み込み完了:', gachaData);
         }
 
+        // ========== アップグレードデータ読み込み ==========
+        async function loadUpgrades() {
+            try {
+                const response = await fetch('./upgrade.json');
+                if (!response.ok) {
+                    throw new Error(`アップグレードファイルの読み込みに失敗しました (${response.status})`);
+                }
+
+                const data = await response.json();
+                upgradeJsonData = data;
+                console.log('アップグレードデータ読み込み完了:', upgradeJsonData);
+                return true;
+            } catch (error) {
+                console.error('アップグレードデータの読み込みに失敗しました:', error);
+                return false;
+            }
+        }
+
         // ========== サーバー自動回復システム ==========
         function startServerRecovery() {
             if (serverRecoveryTimer) return; // 重複防止
@@ -2219,6 +2242,7 @@
             // 必要なデータを読み込む
             await loadItems();
             await loadGacha();
+            await loadUpgrades();
 
             // ゲーム初期化
             updateDisplay();
@@ -2248,7 +2272,9 @@
             }
 
             if (mainOrderButton) {
-                mainOrderButton.addEventListener('click', handleOrderClick);
+                mainOrderButton.addEventListener('click', function () {
+                    handleOrderClick(); // 引数なし = false
+                });
             }
 
             if (nameToggle && nameInput) {
@@ -2387,22 +2413,52 @@
         }
 
         // ========== クリック処理機能 ==========
-        function handleOrderClick() {
+        function handleOrderClick(isBot = false) {
             // サーバーダウン中またはpre現渡中はクリック無効
             if (debugState.isServerDown || debugState.isPreGacha) return;
 
             // 総クリック数を必ず増加
             gameState.totalClicks++;
 
+            // 現引きまでのクリック数をカウント
+            debugState.clicksSinceLastGacha++;
+
+            // ダメージ計算（基本値：手動1、BOT2）
+            let damage = isBot ? 2 : 1;
+
+            if (isBot) {
+                // 🎄BOTダメージ軽減 (1レベルあたり16%軽減、最大80%)
+                const damageReduction = Math.min((upgradeProgress.bot_damage || 0) * 0.16, 0.8);
+                damage *= (1 - damageReduction);
+            } else {
+                // 👍神の親指 (1レベルあたり16%軽減、最大80%)
+                const handDamageReduction = Math.min((upgradeProgress.god_thumb || 0) * 0.16, 0.8);
+                damage *= (1 - handDamageReduction);
+            }
+
+            // 成功率計算（基本値：手動25%、BOT10%）
+            let successRate = isBot ? 0.1 : 0.25;
+
+            if (isBot) {
+                // 🏵️BOT獲得率向上 (1レベルあたり10%向上、10%→60%)
+                successRate += (upgradeProgress.bot_get_rate || 0) * 0.1;
+            } else {
+                // 🖕神の指 (1レベルあたり13%向上、25%→90%)
+                successRate += (upgradeProgress.god_finger || 0) * 0.13;
+            }
+
+            // デバッグ用ログ
+            console.log(`${isBot ? 'BOT' : '手動'}クリック - ダメージ:${damage.toFixed(1)}, 成功率:${(successRate * 100).toFixed(1)}%`);
+
             // サーバーHP減少処理
-            debugState.serverHP -= debugState.clickDamage;
+            debugState.serverHP -= damage;
             if (debugState.serverHP < 0) debugState.serverHP = 0;
 
             // サーバーダウンチェック
             checkServerDown();
 
-            // 25%の確率で当たり
-            const isHit = Math.random() < 0.25;
+            // 当たり判定
+            const isHit = Math.random() < successRate;
 
             if (isHit) {
                 // 当たり処理
@@ -2981,7 +3037,7 @@
 
             gameState.botInterval = setInterval(() => {
                 if (gameState.botEnabled) {
-                    handleOrderClick(); // 注文ボタンと同じ処理
+                    handleOrderClick(true); // isBot = true でBOT処理
                 }
             }, gameState.botSpeed);
         }
@@ -3016,12 +3072,12 @@
             // ステータス更新
             document.getElementById('status-orders').textContent = debugState.orders + '件';
             document.getElementById('status-position').textContent = debugState.positionAmount.toLocaleString() + '円';
+            document.getElementById('status-credit-margin').textContent = debugState.clicksSinceLastGacha + '回';
 
             // 信用建て余力のパーセンテージ更新
             const creditMargin = gameState.cash * 3.3 - debugState.positionAmount;
             const maxPositive = gameState.cash * 3.3;
             const marginPercentage = Math.round((creditMargin / maxPositive) * 100);
-            document.getElementById('status-credit-margin').textContent = marginPercentage + '%';
 
             // パフォーマンス指標更新
             document.getElementById('perf-cps').textContent = debugState.cps + '回/秒';
@@ -3287,6 +3343,7 @@
             // 注文件数・建玉金額をリセット・状態復帰
             debugState.orders = 0;
             debugState.positionAmount = 0; // 建玉金額もリセット
+            debugState.clicksSinceLastGacha = 0; // 総アクセス数リセット
             exitPreGachaMode();
 
             return results;
@@ -3567,140 +3624,43 @@
             });
         }
         // ==========アップグレードシステム（追加） ==========
-        // アップグレードデータ
-        const upgradeData = {
-            bot_speed: {
-                icon: '🎍',
-                name: 'BOT強化',
-                description: 'BOTのクリック速度が向上します。効率的な在庫確保が可能になります。',
-                currentLevel: 2,
-                maxLevel: 5,
-                effect: '2回/秒 → 3回/秒',
-                cost: 250
-            },
-            bot_get_rate: {
-                icon: '🏵️',
-                name: 'BOT獲得率向上',
-                description: 'BOTの在庫獲得成功率が向上します。安定した収益が見込めます。',
-                currentLevel: 1,
-                maxLevel: 5,
-                effect: 'BOT獲得率 25% → 35%',
-                cost: 150
-            },
-            bot_damage: {
-                icon: '🎄',
-                name: 'BOTダメージ軽減',
-                description: 'BOTがサーバーに与えるダメージを軽減します。長時間稼働が可能です。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: 'BOTダメージ -20%',
-                cost: 200
-            },
-            heart_boost: {
-                icon: '🐦️',
-                name: 'はぁと獲得量アップ',
-                description: 'ミッション報酬のはぁと獲得量が増加します。承認欲求を満たせます。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: 'はぁと獲得 +50%',
-                cost: 300
-            },
-            gacha_multi: {
-                icon: '🏠️',
-                name: 'ガチャ結果倍化',
-                description: 'ガチャの抽選結果が2倍、3倍になることがあります。大当たりを狙えます。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '2倍確率 +10%',
-                cost: 500
-            },
-            credit_margin: {
-                icon: '🏧',
-                name: '信用余力緩和',
-                description: '信用建て余力の計算式が緩和されます。より多くの取引が可能になります。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '信用余力 +20%',
-                cost: 400
-            },
-            sato_career: {
-                icon: '👨‍💼',
-                name: '佐藤昇進システム',
-                description: '在庫係から頭取まで昇進します。在庫獲得率が段階的に向上します。',
-                currentLevel: 1,
-                maxLevel: 5,
-                effect: '全体獲得率 30% → 40%',
-                cost: 350
-            },
-            puzzle_pro: {
-                icon: '🧩',
-                name: 'パズルのプロ',
-                description: '注文1件あたりの建玉金額が減少します。リスクを抑えた取引が可能です。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '建玉金額 30万→29万',
-                cost: 300
-            },
-            loud_voice: {
-                icon: '📢',
-                name: 'クソデカボイス',
-                description: '在庫獲得時に、はぁとを自動で獲得します。承認欲求が自動で満たされます。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '在庫獲得時はぁと +5',
-                cost: 250
-            },
-            god_finger: {
-                icon: '🖕',
-                name: '神の指',
-                description: '手動での在庫獲得率を大幅に上昇させます。運に頼らない確実な取引を実現。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '手動獲得率 +30%',
-                cost: 600
-            },
-            rollover_avoid: {
-                icon: '🚛',
-                name: '横転回避',
-                description: '確保できる在庫の上限が上昇します。大量保有によるリスク分散が可能です。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '在庫上限 +50個',
-                cost: 450
-            },
-            god_thumb: {
-                icon: '👍',
-                name: '神の親指',
-                description: '手動時のサーバーダメージを軽減します。手動操作でもサーバーに優しく。',
-                currentLevel: 0,
-                maxLevel: 5,
-                effect: '手動ダメージ -30%',
-                cost: 550
-            }
-        };
-
+        // アップグレードデータはupgrade.jsonに移動しました
         // 選択されているアップグレード
         let selectedUpgrade = 'bot_speed';
 
         // 詳細カードを更新
         function updateUpgradeDetailCard(upgradeId) {
-            const data = upgradeData[upgradeId];
-            if (!data) return;
+            if (!upgradeJsonData || !upgradeJsonData.upgrades[upgradeId]) return;
+
+            const data = upgradeJsonData.upgrades[upgradeId];
+            const currentLevel = upgradeProgress[upgradeId] || 0;
 
             document.getElementById('detail-icon').textContent = data.icon;
             document.getElementById('detail-name').textContent = data.name;
-            document.getElementById('detail-level').textContent = `Lv.${data.currentLevel} (最大：${data.maxLevel})`;
+            document.getElementById('detail-level').textContent = `Lv.${currentLevel} (最大：${data.maxLevel})`;
             document.getElementById('detail-description').textContent = data.description;
-            document.getElementById('detail-effect').textContent = data.effect;
-            document.getElementById('detail-cost').textContent = data.cost;
+
+            // 効果説明
+            if (currentLevel < data.maxLevel) {
+                document.getElementById('detail-effect').textContent = data.effects.descriptions[currentLevel];
+            } else {
+                document.getElementById('detail-effect').textContent = 'MAX';
+            }
+
+            // コスト表示
+            if (currentLevel < data.maxLevel) {
+                document.getElementById('detail-cost').textContent = data.costs[currentLevel];
+            } else {
+                document.getElementById('detail-cost').textContent = '-';
+            }
 
             // ボタン状態
             const upgradeBtn = document.getElementById('upgrade-action-btn');
             if (upgradeBtn) {
-                if (data.currentLevel >= data.maxLevel) {
+                if (currentLevel >= data.maxLevel) {
                     upgradeBtn.textContent = 'MAX';
                     upgradeBtn.disabled = true;
-                } else if (gameState.premiumCoin < data.cost) {
+                } else if (gameState.premiumCoin < data.costs[currentLevel]) {
                     upgradeBtn.textContent = 'コイン不足';
                     upgradeBtn.disabled = true;
                 } else {
@@ -3709,43 +3669,53 @@
                 }
             }
         }
-
         // グリッドアイテムの表示を更新
         function updateUpgradeGridItem(upgradeId) {
             const item = document.querySelector(`[data-upgrade="${upgradeId}"]`);
             if (!item) return;
 
-            const data = upgradeData[upgradeId];
+            const currentLevel = upgradeProgress[upgradeId] || 0;
             const levelElement = item.querySelector('.upgrade-item-level');
 
             if (levelElement) {
-                levelElement.textContent = `Lv.${data.currentLevel}`;
+                levelElement.textContent = `Lv.${currentLevel}`;
             }
         }
-
         // アップグレード実行
         function executeUpgrade(upgradeId) {
-            const data = upgradeData[upgradeId];
-            if (!data) return;
+            if (!upgradeJsonData || !upgradeJsonData.upgrades[upgradeId]) return;
+
+            const data = upgradeJsonData.upgrades[upgradeId];
+            const currentLevel = upgradeProgress[upgradeId] || 0;
 
             // 条件チェック
-            if (data.currentLevel >= data.maxLevel) {
+            if (currentLevel >= data.maxLevel) {
                 alert('すでに最大レベルです！');
                 return;
             }
 
-            if (gameState.premiumCoin < data.cost) {
+            if (gameState.premiumCoin < data.costs[currentLevel]) {
                 alert('プレミアムコインが足りません！');
                 return;
             }
 
             // アップグレード実行
-            gameState.premiumCoin -= data.cost;
-            data.currentLevel++;
+            gameState.premiumCoin -= data.costs[currentLevel];
+            upgradeProgress[upgradeId] = currentLevel + 1;
 
             // 実際の効果適用（BOT強化の場合）
             if (upgradeId === 'bot_speed') {
-                gameState.botSpeed = Math.max(100, 1000 - (data.currentLevel * 200));
+                // JSON参照でBOT速度を設定
+                if (upgradeJsonData && upgradeJsonData.upgrades.bot_speed) {
+                    const newLevel = upgradeProgress.bot_speed || 0;
+                    if (newLevel > 0) {
+                        const speedValue = upgradeJsonData.upgrades.bot_speed.effects.values[newLevel - 1];
+                        gameState.botSpeed = speedValue;
+                    } else {
+                        gameState.botSpeed = 1000; // 初期値
+                    }
+                }
+
                 // BOTの間隔を再設定
                 if (gameState.botEnabled) {
                     stopBot();
@@ -3758,7 +3728,8 @@
             updateUpgradeDetailCard(upgradeId);
             updateUpgradeGridItem(upgradeId);
 
-            showUpgradeSuccessPopup(`${data.icon} ${data.name}`, data.currentLevel, data.effect);
+            const newLevel = upgradeProgress[upgradeId];
+            showUpgradeSuccessPopup(`${data.icon} ${data.name}`, newLevel, data.effects.descriptions[newLevel - 1]);
         }
 
         // アップグレードシステム初期化
@@ -3789,8 +3760,10 @@
                 });
             }
 
-            // 初期表示
-            updateUpgradeDetailCard(selectedUpgrade);
+            // 初期表示（JSON読み込み後のみ）
+            if (upgradeJsonData) {
+                updateUpgradeDetailCard(selectedUpgrade);
+            }
         }
 
         // 汎用ポップアップ表示関数（クリーン版）
@@ -3910,7 +3883,7 @@
             const marginPercentage = (basicMargin / maxPositive) * 100;
 
             // 横転回避アップグレードレベル取得
-            const rolloverLevel = upgradeData.rollover_avoid ? upgradeData.rollover_avoid.currentLevel : 0;
+            const rolloverLevel = upgradeProgress.rollover_avoid || 0;
             const rolloverThreshold = rolloverLevel * 100; // Lv1=100%, Lv2=200%...
 
             // 横転条件チェック
