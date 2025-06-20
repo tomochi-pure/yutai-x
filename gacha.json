@@ -22,7 +22,7 @@
         },
         {
           "type": "item",
-          "weight": 20,
+          "weight": 200,
           "description": "アイテム各種"
         }
       ],
@@ -35,12 +35,12 @@
           },
           {
             "amount": 200000,
-            "weight": 30,
+            "weight": 1,
             "description": "20万円"
           },
           {
             "amount": 500000,
-            "weight": 15,
+            "weight": 1,
             "description": "50万円"
           },
           {
@@ -77,7 +77,7 @@
           },
           {
             "amount": 500000,
-            "weight": 10,
+            "weight": 10000,
             "description": "testes"
           }
         ],
@@ -117,7 +117,7 @@
         },
         {
           "rarity": "C",
-          "weight": 40,
+          "weight": 40000,
           "description": "低レア"
         },
         {
@@ -130,211 +130,155 @@
         "S": [
           {
             "itemId": "quo_10000",
-            "weight": 1,
-            "note": "基本重み（items.jsonから自動取得される他のSレアアイテムと同等）"
+            "weight": 1
           },
           {
-            "gid": "ITM_20250614_163319",
-            "weight": 80,
-            "note": ""
+            "itemId": "yutai_lovehotel",
+            "weight": 80
           },
           {
-            "gid": "ITM_20250614_170049",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_teiki",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_170556",
-            "weight": 10,
-            "note": ""
-          },
-          {
-            "gid": "ITM_20250614_171113",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_onsen_nurunuru",
+            "weight": 10
           }
         ],
         "A": [
           {
             "itemId": "quo_5000",
-            "weight": 1,
-            "note": "基本重み"
+            "weight": 1
           },
           {
-            "gid": "ITM_20250614_163326",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_panc",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_163735",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_hotel",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_170028",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_miya",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_171633",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_izakaya",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_172053",
-            "weight": 10,
-            "note": ""
+            "itemId": "quo_temu",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_172300",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_dr",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_173920",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_sanrio",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_174152",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_momuharu",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_174238",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_hawai",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_174330",
-            "weight": 10,
-            "note": ""
-          },
-          {
-            "gid": "ITM_20250614_174415",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_dis",
+            "weight": 10
           }
         ],
         "B": [
           {
-            "itemId": "quo_1000",
-            "weight": 1,
-            "note": "基本重み"
+            "itemId": "quo_3000",
+            "weight": 1
           },
           {
-            "gid": "ITM_20250614_163335",
-            "weight": 10,
-            "note": ""
+            "itemId": "quo_2000",
+            "weight": 1
           },
           {
-            "gid": "ITM_20250614_163340",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_tako",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_171457",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_susi",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_171710",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_usagi",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_172220",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_cake",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_172359",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_kosika",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_173207",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_taya",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_173339",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_roze",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_173502",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_yaman",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_173701",
-            "weight": 10,
-            "note": ""
-          },
-          {
-            "gid": "ITM_20250614_173844",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_pef",
+            "weight": 10
           }
         ],
         "C": [
           {
+            "itemId": "quo_1000",
+            "weight": 1
+          },
+          {
             "itemId": "quo_500",
-            "weight": 1,
-            "note": "基本重み"
+            "weight": 1
           },
           {
-            "gid": "ITM_20250614_163347",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_ramen",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_163352",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_ice",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_163511",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_kippu",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_170151",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_onsen",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_170739",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_mcd",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_171100",
-            "weight": 10,
-            "note": ""
+            "itemId": "yutai_cafe",
+            "weight": 10
           },
           {
-            "gid": "ITM_20250614_171159",
-            "weight": 10,
-            "note": ""
-          },
-          {
-            "gid": "ITM_20250614_171813",
-            "weight": 10,
-            "note": ""
-          },
-          {
-            "gid": "ITM_20250614_172942",
-            "weight": 10,
-            "note": ""
+            "itemId": "cosm_kirara",
+            "weight": 1000
           }
         ],
         "N": [
           {
-            "gid": "ITM_20250614_100005",
-            "weight": 10,
-            "note": ""
+            "itemId": "quo_xx",
+            "weight": 10
           }
         ]
       }
@@ -443,15 +387,13 @@
         "S": [
           {
             "itemId": "quo_10000",
-            "weight": 2,
-            "note": "プレミアムガチャでは2倍出やすく"
+            "weight": 2
           }
         ],
         "A": [
           {
             "itemId": "quo_5000",
-            "weight": 2,
-            "note": "プレミアムガチャでは2倍出やすく"
+            "weight": 2
           }
         ]
       }
@@ -530,153 +472,22 @@
         "S": [
           {
             "itemId": "quo_10000",
-            "weight": 10,
-            "note": "デバッグ用高確率"
-          }
-        ]
-      }
-    },
-    "standard_copy": {
-      "name": "通常ガチャ (複製)",
-      "description": "基本的なガチャです。現金、プレミアムコイン、お米、アイテムが排出されます。",
-      "stage1_categories": [
-        {
-          "type": "cash",
-          "weight": 40,
-          "description": "現金"
-        },
-        {
-          "type": "premium",
-          "weight": 30,
-          "description": "プレミアムコイン"
-        },
-        {
-          "type": "rice",
-          "weight": 20,
-          "description": "お米"
-        },
-        {
-          "type": "item",
-          "weight": 10,
-          "description": "アイテム各種"
-        }
-      ],
-      "stage2_amounts": {
-        "cash": [
-          {
-            "amount": 100000,
-            "weight": 50,
-            "description": "10万円"
-          },
-          {
-            "amount": 200000,
-            "weight": 30,
-            "description": "20万円"
-          },
-          {
-            "amount": 500000,
-            "weight": 15,
-            "description": "50万円"
-          },
-          {
-            "amount": 1000000,
-            "weight": 5,
-            "description": "100万円"
-          }
-        ],
-        "premium": [
-          {
-            "amount": 10,
-            "weight": 60,
-            "description": "10枚"
-          },
-          {
-            "amount": 20,
-            "weight": 30,
-            "description": "20枚"
-          },
-          {
-            "amount": 50,
-            "weight": 10,
-            "description": "50枚"
-          }
-        ],
-        "rice": [
-          {
-            "amount": 1,
-            "weight": 70,
-            "description": "1kg"
-          },
-          {
-            "amount": 2,
-            "weight": 25,
-            "description": "2kg"
-          },
-          {
-            "amount": 3,
-            "weight": 5,
-            "description": "3kg"
-          }
-        ]
-      },
-      "stage3_rarities": [
-        {
-          "rarity": "S",
-          "weight": 1,
-          "description": "最高レア"
-        },
-        {
-          "rarity": "A",
-          "weight": 9,
-          "description": "高レア"
-        },
-        {
-          "rarity": "B",
-          "weight": 30,
-          "description": "中レア"
-        },
-        {
-          "rarity": "C",
-          "weight": 60,
-          "description": "低レア"
-        }
-      ],
-      "stage4_item_overrides": {
-        "S": [
-          {
-            "itemId": "quo_10000",
-            "weight": 1,
-            "note": "基本重み（items.jsonから自動取得される他のSレアアイテムと同等）"
-          }
-        ],
-        "A": [
-          {
-            "itemId": "quo_5000",
-            "weight": 1,
-            "note": "基本重み"
-          }
-        ],
-        "B": [
-          {
-            "itemId": "quo_1000",
-            "weight": 1,
-            "note": "基本重み"
-          }
-        ],
-        "C": [
-          {
-            "itemId": "quo_500",
-            "weight": 1,
-            "note": "基本重み"
+            "weight": 10
           }
         ]
       }
     }
   },
   "_metadata": {
-    "version": "1.0.0",
-    "created": "2025-06-13",
-    "description": "yutai-x ガチャシステム設定ファイル",
+    "version": "2.0.0",
+    "created": "2025-06-20",
+    "description": "yutai-x ガチャシステム設定ファイル (GID廃止版)",
+    "changes": [
+      "GIDフィールドを完全削除",
+      "stage4_item_overridesをitemIdベースのみに統一",
+      "noteフィールドを削除（軽量化）",
+      "メタデータのバージョンを2.0.0に更新"
+    ],
     "notes": [
       "defaultGacha: index.htmlが呼び出すデフォルトのガチャ種類",
       "stage1: カテゴリ抽選（現金・コイン・お米・アイテム）",

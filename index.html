@@ -2617,9 +2617,9 @@
             missionList.innerHTML = '<div class="loading-message">ミッションを読み込み中...</div>';
 
             try {
-                const response = await fetch('./missions.json');
+                const response = await fetch('./tweet.json');
                 if (!response.ok) {
-                    throw new Error('ミッションファイルの読み込みに失敗しました');
+                    throw new Error('tweetファイルの読み込みに失敗しました');
                 }
 
                 const data = await response.json();
@@ -2627,7 +2627,7 @@
                 displayCurrentTabMissions();
             } catch (error) {
                 console.error('ミッション読み込みエラー:', error);
-                missionList.innerHTML = '<div class="error-message">ミッションの読み込みに失敗しました<br>missions.jsonファイルを確認してください</div>';
+                missionList.innerHTML = '<div class="error-message">ミッションの読み込みに失敗しました<br>tweet.jsonファイルを確認してください</div>';
             }
         }
 

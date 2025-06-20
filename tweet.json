@@ -1,0 +1,151 @@
+{
+  "characterMissions": [
+    {
+      "id": "c001",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "油そば食べ過ぎて死亡確認\n助けて優待クロス界隈",
+      "timestamp": "1時間",
+      "stats": {
+        "replies": 3,
+        "retweets": 1,
+        "likes": 156
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "界隈の危機を救出せよ！"
+      }
+    },
+    {
+      "id": "c002",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "ラーメン食べ過ぎて腹痛確認\n誰か正露丸持ってない？",
+      "timestamp": "2時間",
+      "stats": {
+        "replies": 5,
+        "retweets": 2,
+        "likes": 89
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "腹痛の危機を救済せよ！"
+      }
+    },
+    {
+      "id": "c003",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "焼肉食べ放題行き過ぎて\n今月の食費が予算オーバー",
+      "timestamp": "4時間",
+      "stats": {
+        "replies": 4,
+        "retweets": 1,
+        "likes": 167
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "食費オーバーの危機を救え！"
+      }
+    },
+    {
+      "id": "c004",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "株主総会のお土産もらいすぎて\n冷蔵庫がパンク寸前",
+      "timestamp": "5時間",
+      "stats": {
+        "replies": 6,
+        "retweets": 4,
+        "likes": 198
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "冷蔵庫パンクの危機を解決せよ！"
+      }
+    },
+    {
+      "id": "c005",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "寿司食べ過ぎて財布が軽い\n優待券で回転寿司行きたい",
+      "timestamp": "7時間",
+      "stats": {
+        "replies": 2,
+        "retweets": 1,
+        "likes": 123
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "寿司資金の危機を支援せよ！"
+      }
+    },
+    {
+      "id": "c006",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "うなぎ食べ過ぎて土用の丑の日が\n365日あったらいいのにな",
+      "timestamp": "9時間",
+      "stats": {
+        "replies": 3,
+        "retweets": 2,
+        "likes": 145
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "うなぎ中毒の危機を救え！"
+      }
+    },
+    {
+      "id": "c007",
+      "type": "character",
+      "character": {
+        "name": "じゅるりかぶ",
+        "handle": "@juru",
+        "icon": "🤤👍"
+      },
+      "content": "クロス取引で大失敗\n今日は素うどんで我慢する",
+      "timestamp": "10時間",
+      "stats": {
+        "replies": 9,
+        "retweets": 6,
+        "likes": 345
+      },
+      "mission": {
+        "reward": "はぁと 20件",
+        "materials": "なし",
+        "description": "食事グレードダウンの危機を救え！"
+      }
+    }
+  ]
+}

@@ -6,9 +6,7 @@
       "value": 10000,
       "rarity": "N",
       "emoji": "💳",
-      "cssClass": "glow",
-      "memo": "",
-      "gid": "ITM_20250614_100005"
+      "memo": ""
     },
     {
       "id": "quo_10000",
@@ -16,9 +14,7 @@
       "value": 10000,
       "rarity": "S",
       "emoji": "💳",
-      "cssClass": "glow",
-      "memo": "",
-      "gid": "ITM_20250614_163319"
+      "memo": ""
     },
     {
       "id": "quo_5000",
@@ -26,9 +22,7 @@
       "value": 5000,
       "rarity": "A",
       "emoji": "💳",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163326"
+      "memo": ""
     },
     {
       "id": "quo_3000",
@@ -36,9 +30,7 @@
       "value": 3000,
       "rarity": "B",
       "emoji": "💳",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163335"
+      "memo": ""
     },
     {
       "id": "quo_2000",
@@ -46,9 +38,7 @@
       "value": 2000,
       "rarity": "B",
       "emoji": "💳",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163340"
+      "memo": ""
     },
     {
       "id": "quo_1000",
@@ -56,9 +46,7 @@
       "value": 1000,
       "rarity": "C",
       "emoji": "💳",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163347"
+      "memo": ""
     },
     {
       "id": "quo_500",
@@ -66,9 +54,7 @@
       "value": 500,
       "rarity": "C",
       "emoji": "💳",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163352"
+      "memo": ""
     },
     {
       "id": "yutai_ramen",
@@ -76,9 +62,7 @@
       "value": 1000,
       "rarity": "C",
       "emoji": "🍜",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163511"
+      "memo": ""
     },
     {
       "id": "yutai_panc",
@@ -86,9 +70,7 @@
       "value": 2000,
       "rarity": "A",
       "emoji": "🥞",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_163735"
+      "memo": ""
     },
     {
       "id": "yutai_hotel",
@@ -96,9 +78,7 @@
       "value": 20000,
       "rarity": "A",
       "emoji": "🏨",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_170028"
+      "memo": ""
     },
     {
       "id": "yutai_lovehotel",
@@ -106,9 +86,7 @@
       "value": 20000,
       "rarity": "S",
       "emoji": "🏩",
-      "cssClass": "glow",
-      "memo": "",
-      "gid": "ITM_20250614_170049"
+      "memo": ""
     },
     {
       "id": "yutai_ice",
@@ -116,9 +94,7 @@
       "value": 500,
       "rarity": "C",
       "emoji": "🍦",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_170151"
+      "memo": ""
     },
     {
       "id": "yutai_teiki",
@@ -126,9 +102,7 @@
       "value": 30000,
       "rarity": "S",
       "emoji": "🚅",
-      "cssClass": "glow",
-      "memo": "",
-      "gid": "ITM_20250614_170556"
+      "memo": ""
     },
     {
       "id": "yutai_kippu",
@@ -136,9 +110,7 @@
       "value": 1000,
       "rarity": "C",
       "emoji": "🚃",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_170739"
+      "memo": ""
     },
     {
       "id": "yutai_onsen",
@@ -146,9 +118,7 @@
       "value": 1000,
       "rarity": "C",
       "emoji": "♨",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171100"
+      "memo": ""
     },
     {
       "id": "yutai_onsen_nurunuru",
@@ -156,9 +126,7 @@
       "value": 10000,
       "rarity": "S",
       "emoji": "♨",
-      "cssClass": "glow",
-      "memo": "",
-      "gid": "ITM_20250614_171113"
+      "memo": ""
     },
     {
       "id": "yutai_mcd",
@@ -166,9 +134,7 @@
       "value": 1000,
       "rarity": "C",
       "emoji": "🍔",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171159"
+      "memo": ""
     },
     {
       "id": "yutai_tako",
@@ -176,9 +142,7 @@
       "value": 1500,
       "rarity": "B",
       "emoji": "🐙",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171457"
+      "memo": ""
     },
     {
       "id": "yutai_miya",
@@ -186,9 +150,7 @@
       "value": 20000,
       "rarity": "A",
       "emoji": "🥩",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171633"
+      "memo": ""
     },
     {
       "id": "yutai_susi",
@@ -196,9 +158,7 @@
       "value": 3000,
       "rarity": "B",
       "emoji": "🍣",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171710"
+      "memo": ""
     },
     {
       "id": "yutai_cafe",
@@ -206,9 +166,7 @@
       "value": 2000,
       "rarity": "C",
       "emoji": "☕",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_171813"
+      "memo": ""
     },
     {
       "id": "yutai_izakaya",
@@ -216,9 +174,7 @@
       "value": 4000,
       "rarity": "A",
       "emoji": "🍻",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_172053"
+      "memo": ""
     },
     {
       "id": "yutai_usagi",
@@ -226,9 +182,7 @@
       "value": 3000,
       "rarity": "B",
       "emoji": "🐇",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_172220"
+      "memo": ""
     },
     {
       "id": "quo_temu",
@@ -236,9 +190,7 @@
       "value": 5000,
       "rarity": "A",
       "emoji": "🎫",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_172300"
+      "memo": ""
     },
     {
       "id": "yutai_cake",
@@ -246,9 +198,7 @@
       "value": 3000,
       "rarity": "B",
       "emoji": "🍰",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_172359"
+      "memo": ""
     },
     {
       "id": "cosm_kirara",
@@ -256,9 +206,7 @@
       "value": 4864,
       "rarity": "C",
       "emoji": "💄",
-      "cssClass": "",
-      "memo": "",
-      "gid": "ITM_20250614_172942"
+      "memo": ""
     },
     {
       "id": "cosm_kosika",
@@ -266,9 +214,7 @@
       "value": 2000,
       "rarity": "B",
       "emoji": "💄",
-      "cssClass": "",
-      "memo": "足の裏の匂いがする",
-      "gid": "ITM_20250614_173207"
+      "memo": "足の裏の匂いがする"
     },
     {
       "id": "cosm_taya",
@@ -276,9 +222,7 @@
       "value": 1760,
       "rarity": "B",
       "emoji": "🧴",
-      "cssClass": "",
-      "memo": "りんごの匂いがする",
-      "gid": "ITM_20250614_173339"
+      "memo": "りんごの匂いがする"
     },
     {
       "id": "cosm_roze",
@@ -286,9 +230,7 @@
       "value": 1100,
       "rarity": "B",
       "emoji": "💄",
-      "cssClass": "",
-      "memo": "バラの匂いがする",
-      "gid": "ITM_20250614_173502"
+      "memo": "バラの匂いがする"
     },
     {
       "id": "cosm_yaman",
@@ -296,9 +238,7 @@
       "value": 4000,
       "rarity": "B",
       "emoji": "🧴",
-      "cssClass": "",
-      "memo": "ミネラルがオンリーで黄色いやつ。オススメ",
-      "gid": "ITM_20250614_173701"
+      "memo": "ミネラルがオンリーで黄色いやつ。オススメ"
     },
     {
       "id": "cosm_pef",
@@ -306,9 +246,7 @@
       "value": 3000,
       "rarity": "B",
       "emoji": "🫧",
-      "cssClass": "",
-      "memo": "パーフェクトな１つ",
-      "gid": "ITM_20250614_173844"
+      "memo": "パーフェクトな１つ"
     },
     {
       "id": "cosm_dr",
@@ -316,9 +254,7 @@
       "value": 10000,
       "rarity": "A",
       "emoji": "🚿",
-      "cssClass": "",
-      "memo": "逆日歩の嵐が吹く",
-      "gid": "ITM_20250614_173920"
+      "memo": "逆日歩の嵐が吹く"
     },
     {
       "id": "yutai_sanrio",
@@ -326,9 +262,7 @@
       "value": 3000,
       "rarity": "A",
       "emoji": "🎟️",
-      "cssClass": "",
-      "memo": "クロミちゃんすこです",
-      "gid": "ITM_20250614_174152"
+      "memo": "クロミちゃんすこです"
     },
     {
       "id": "yutai_momuharu",
@@ -336,9 +270,7 @@
       "value": 3000,
       "rarity": "A",
       "emoji": "🎟️",
-      "cssClass": "",
-      "memo": "ウマ娘",
-      "gid": "ITM_20250614_174238"
+      "memo": "ウマ娘"
     },
     {
       "id": "yutai_hawai",
@@ -346,9 +278,7 @@
       "value": 3000,
       "rarity": "A",
       "emoji": "🎟️",
-      "cssClass": "",
-      "memo": "ココ姉さん",
-      "gid": "ITM_20250614_174330"
+      "memo": "ココ姉さん"
     },
     {
       "id": "yutai_dis",
@@ -356,9 +286,7 @@
       "value": 10000,
       "rarity": "A",
       "emoji": "🎟️",
-      "cssClass": "",
-      "memo": "ぶっちゃけあんまり好きじゃない",
-      "gid": "ITM_20250614_174415"
+      "memo": "ぶっちゃけあんまり好きじゃない"
     }
   ]
 }
