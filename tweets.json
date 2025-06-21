@@ -1,0 +1,212 @@
+{
+  "characters": {
+    "juru": {
+      "name": "じゅるりかぶ",
+      "handle": "@juru",
+      "icon": "🤤"
+    },
+    "gametta": {
+      "name": "金券ショップガメッタ",
+      "handle": "@gametta",
+      "icon": "🐢"
+    },
+    "fuuka": {
+      "name": "大芝居風花",
+      "handle": "@fuuka",
+      "icon": "🤥"
+    }
+  },
+  "difficulties": {
+    "1": {
+      "stars": "⭐",
+      "duration": 3
+    },
+    "2": {
+      "stars": "⭐⭐",
+      "duration": 5
+    },
+    "3": {
+      "stars": "⭐⭐⭐",
+      "duration": 8
+    }
+  },
+  "missions": [
+    {
+      "id": "c001",
+      "char": "juru",
+      "difficulty": 1,
+      "content": "油そば食べ過ぎて死亡確認\n助けて優待クロス界隈",
+      "requirements": {},
+      "rewards": {"favo": 20}
+    },
+    {
+      "id": "c002",
+      "char": "juru",
+      "difficulty": 1,
+      "content": "ラーメン食べ過ぎて腹痛確認\n誰か正露丸持ってない？",
+      "requirements": {},
+      "rewards": {"favo": 25}
+    },
+    {
+      "id": "c003",
+      "char": "juru",
+      "difficulty": 1,
+      "content": "焼肉食べ放題行き過ぎて\n今月の食費が予算オーバー",
+      "requirements": {},
+      "rewards": {"favo": 18}
+    },
+    {
+      "id": "c004",
+      "char": "juru",
+      "difficulty": 1,
+      "content": "寿司食べ過ぎて財布が軽い\n優待券で回転寿司行きたい",
+      "requirements": {},
+      "rewards": {"favo": 22}
+    },
+    {
+      "id": "c005",
+      "char": "juru",
+      "difficulty": 2,
+      "content": "高級寿司店に行きたいけど\nQUOカード1000円分足りない！",
+      "requirements": {"items": [{"id": "quo_1000", "amount": 1}]},
+      "rewards": {"favo": 50}
+    },
+    {
+      "id": "c006",
+      "char": "juru",
+      "difficulty": 2,
+      "content": "コンビニ弁当に飽きた\nお米2kg分けてくれない？",
+      "requirements": {"rice": 2},
+      "rewards": {"favo": 45}
+    },
+    {
+      "id": "c007",
+      "char": "juru",
+      "difficulty": 3,
+      "content": "最高級レストランに行きたい！\nQUOカード5000円分恵んで",
+      "requirements": {"items": [{"id": "quo_5000", "amount": 1}]},
+      "rewards": {"favo": 100},
+      "specialRewards": {"items": [{"id": "yutai_hotel", "amount": 1}]}
+    },
+    {
+      "id": "c008",
+      "char": "gametta",
+      "difficulty": 1,
+      "content": "優待買取強化中です🎵\n何かお売りになりませんか？",
+      "requirements": {},
+      "rewards": {"favo": 15}
+    },
+    {
+      "id": "c009",
+      "char": "gametta",
+      "difficulty": 1,
+      "content": "金券ショップ開店記念！\n初回査定は無料ですよ〜",
+      "requirements": {},
+      "rewards": {"favo": 12}
+    },
+    {
+      "id": "c010",
+      "char": "gametta",
+      "difficulty": 2,
+      "content": "QUOカード1000円を高価買取中！\n現金に換金いたします",
+      "requirements": {"items": [{"id": "quo_1000", "amount": 1}]},
+      "rewards": {"favo": 30, "cash": 800000}
+    },
+    {
+      "id": "c011",
+      "char": "gametta",
+      "difficulty": 2,
+      "content": "化粧品の買取も始めました\n美容系優待券お売りください",
+      "requirements": {"items": [{"id": "cosm_kirara", "amount": 1}]},
+      "rewards": {"favo": 35, "cash": 300000}
+    },
+    {
+      "id": "c012",
+      "char": "gametta",
+      "difficulty": 2,
+      "content": "お米の買取も承ります\n現金で即座にお支払い！",
+      "requirements": {"rice": 3},
+      "rewards": {"favo": 25, "cash": 150000}
+    },
+    {
+      "id": "c013",
+      "char": "gametta",
+      "difficulty": 2,
+      "content": "高額QUOカード大歓迎です\n市場価格の90%で買取中",
+      "requirements": {"items": [{"id": "quo_3000", "amount": 1}]},
+      "rewards": {"favo": 40, "cash": 2700000}
+    },
+    {
+      "id": "c014",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "今日の稽古は疲れました〜\n明日の舞台頑張ります！",
+      "requirements": {},
+      "rewards": {"favo": 16}
+    },
+    {
+      "id": "c015",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "新しい役をもらいました♪\n恋する乙女の役です〜",
+      "requirements": {},
+      "rewards": {"favo": 19}
+    },
+    {
+      "id": "c016",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "衣装合わせしてきました\n綺麗なドレスで嬉しい〜",
+      "requirements": {},
+      "rewards": {"favo": 21}
+    },
+    {
+      "id": "c017",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "台詞覚えるの大変です\n暗記って難しいですね...",
+      "requirements": {},
+      "rewards": {"favo": 14}
+    },
+    {
+      "id": "c018",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "今日は千秋楽でした！\n皆様ありがとうございました",
+      "requirements": {},
+      "rewards": {"favo": 23}
+    },
+    {
+      "id": "c019",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "次回公演のチケット発売中\n良かったら見に来てね〜",
+      "requirements": {},
+      "rewards": {"favo": 17}
+    },
+    {
+      "id": "c020",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "楽屋でお弁当食べてます\n優待券のお弁当美味しい♪",
+      "requirements": {},
+      "rewards": {"favo": 20}
+    },
+    {
+      "id": "c021",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "メイクさんに褒められました\n今日の演技調子良いかも",
+      "requirements": {},
+      "rewards": {"favo": 18}
+    },
+    {
+      "id": "c022",
+      "char": "fuuka",
+      "difficulty": 1,
+      "content": "雨の日の稽古は大変です\n劇場まで遠いんです〜",
+      "requirements": {},
+      "rewards": {"favo": 15}
+    }
+  ]
+}

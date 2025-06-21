@@ -1,151 +1,122 @@
 {
-  "characterMissions": [
+  "stories": [
     {
-      "id": "c001",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "油そば食べ過ぎて死亡確認\n助けて優待クロス界隈",
-      "timestamp": "1時間",
-      "stats": {
-        "replies": 3,
-        "retweets": 1,
-        "likes": 156
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "界隈の危機を救出せよ！"
-      }
+      "storyId": "family",
+      "title": "家族の絆",
+      "icon": "💕",
+      "description": "独身から始まる人生の物語",
+      "totalChapters": 20,
+      "chapters": [
+        {
+          "id": "family_01",
+          "chapterNumber": 1,
+          "title": "運命の出会い",
+          "content": "会社の帰り道、偶然カフェで\n素敵な人と目が合いました...",
+          "duration": 3,
+          "requirements": {},
+          "rewards": {
+            "favo": 30,
+            "cash": 100000
+          },
+          "unlockConditions": []
+        },
+        {
+          "id": "family_02", 
+          "chapterNumber": 2,
+          "title": "初めてのデート",
+          "content": "勇気を出して誘ってみたら\nOKしてくれました！",
+          "duration": 5,
+          "requirements": {
+            "cash": 500000
+          },
+          "rewards": {
+            "favo": 50,
+            "premium": 50,
+            "items": [{"id": "yutai_cafe", "amount": 1}]
+          },
+          "unlockConditions": ["family_01"]
+        },
+        {
+          "id": "family_03",
+          "chapterNumber": 3,
+          "title": "告白の準備",
+          "content": "関係も深まってきました\n特別なレストランで告白したい",
+          "duration": 8,
+          "requirements": {
+            "items": [{"id": "yutai_miya", "amount": 1}]
+          },
+          "rewards": {
+            "favo": 80,
+            "premium": 100,
+            "cash": 1000000,
+            "items": [{"id": "yutai_hotel", "amount": 1}]
+          },
+          "unlockConditions": ["family_02"]
+        }
+      ]
     },
     {
-      "id": "c002",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "ラーメン食べ過ぎて腹痛確認\n誰か正露丸持ってない？",
-      "timestamp": "2時間",
-      "stats": {
-        "replies": 5,
-        "retweets": 2,
-        "likes": 89
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "腹痛の危機を救済せよ！"
-      }
-    },
-    {
-      "id": "c003",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "焼肉食べ放題行き過ぎて\n今月の食費が予算オーバー",
-      "timestamp": "4時間",
-      "stats": {
-        "replies": 4,
-        "retweets": 1,
-        "likes": 167
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "食費オーバーの危機を救え！"
-      }
-    },
-    {
-      "id": "c004",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "株主総会のお土産もらいすぎて\n冷蔵庫がパンク寸前",
-      "timestamp": "5時間",
-      "stats": {
-        "replies": 6,
-        "retweets": 4,
-        "likes": 198
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "冷蔵庫パンクの危機を解決せよ！"
-      }
-    },
-    {
-      "id": "c005",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "寿司食べ過ぎて財布が軽い\n優待券で回転寿司行きたい",
-      "timestamp": "7時間",
-      "stats": {
-        "replies": 2,
-        "retweets": 1,
-        "likes": 123
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "寿司資金の危機を支援せよ！"
-      }
-    },
-    {
-      "id": "c006",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "うなぎ食べ過ぎて土用の丑の日が\n365日あったらいいのにな",
-      "timestamp": "9時間",
-      "stats": {
-        "replies": 3,
-        "retweets": 2,
-        "likes": 145
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "うなぎ中毒の危機を救え！"
-      }
-    },
-    {
-      "id": "c007",
-      "type": "character",
-      "character": {
-        "name": "じゅるりかぶ",
-        "handle": "@juru",
-        "icon": "🤤👍"
-      },
-      "content": "クロス取引で大失敗\n今日は素うどんで我慢する",
-      "timestamp": "10時間",
-      "stats": {
-        "replies": 9,
-        "retweets": 6,
-        "likes": 345
-      },
-      "mission": {
-        "reward": "はぁと 20件",
-        "materials": "なし",
-        "description": "食事グレードダウンの危機を救え！"
-      }
+      "storyId": "company", 
+      "title": "佐藤の出世物語",
+      "icon": "👨‍💼",
+      "description": "在庫調達係から頭取への道のり",
+      "totalChapters": 20,
+      "chapters": [
+        {
+          "id": "company_01",
+          "chapterNumber": 1,
+          "title": "新人の佐藤",
+          "content": "在庫調達係の佐藤です\n初めての大口注文で緊張してます",
+          "duration": 3,
+          "requirements": {
+            "items": [{"id": "yutai_cafe", "amount": 1}]
+          },
+          "rewards": {
+            "favo": 25,
+            "cash": 200000
+          },
+          "unlockConditions": []
+        },
+        {
+          "id": "company_02",
+          "chapterNumber": 2, 
+          "title": "佐藤の初昇進",
+          "content": "頑張りが認められて\n係長に昇進しました！",
+          "duration": 6,
+          "requirements": {
+            "cash": 1000000,
+            "items": [{"id": "yutai_izakaya", "amount": 2}]
+          },
+          "rewards": {
+            "favo": 60,
+            "premium": 50,
+            "cash": 500000,
+            "items": [{"id": "quo_3000", "amount": 1}]
+          },
+          "unlockConditions": ["company_01"]
+        },
+        {
+          "id": "company_03",
+          "chapterNumber": 3,
+          "title": "佐藤の重要プロジェクト",
+          "content": "大手企業との契約を任されました\n接待の準備が必要です",
+          "duration": 10,
+          "requirements": {
+            "cash": 5000000,
+            "items": [
+              {"id": "yutai_miya", "amount": 1},
+              {"id": "cosm_dr", "amount": 1}
+            ]
+          },
+          "rewards": {
+            "favo": 120,
+            "premium": 200,
+            "cash": 2000000,
+            "items": [{"id": "quo_5000", "amount": 1}]
+          },
+          "unlockConditions": ["company_02"]
+        }
+      ]
     }
   ]
 }

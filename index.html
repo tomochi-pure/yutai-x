@@ -992,47 +992,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .mission-card-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-
-        .mission-avatar {
-            font-size: 24px;
-            min-width: 40px;
-            text-align: center;
-        }
-
-        .mission-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .mission-user {
-            display: flex;
-            align-items: baseline;
-            gap: 5px;
-            margin-bottom: 2px;
-        }
-
-        .mission-name {
-            font-weight: bold;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .mission-handle {
-            color: #666;
-            font-size: 12px;
-        }
-
-        .mission-timestamp {
-            color: #666;
-            font-size: 12px;
-        }
-
         .mission-content {
             color: #333;
             font-size: 14px;
@@ -1112,6 +1071,11 @@
         }
 
         .mission-reward {
+            color: #FF9800;
+            font-weight: bold;
+        }
+
+        .mission-requirement {
             color: #4caf50;
             font-weight: bold;
         }
@@ -1827,6 +1791,68 @@
                 transform: scale(1);
             }
         }
+
+        /* ========== ミッションカードの統一レイアウト用CSS（追加） ========== */
+        /* コンパクトヘッダー */
+        .mission-card-header-compact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            padding: 0 2px;
+        }
+
+        /* アバター（固定幅） */
+        .mission-avatar-small {
+            font-size: 20px;
+            min-width: 26px;
+            width: 26px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* 名前（本文サイズに調整） */
+        .mission-name-small {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+            flex-shrink: 0;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ハンドル */
+        .mission-handle-small {
+            color: #666;
+            font-size: 14px;
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            min-width: 0;
+        }
+
+        /* 難易度（中央揃え） */
+        .mission-difficulty-small {
+            font-size: 14px;
+            flex-shrink: 0;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* 旧ヘッダーを無効化（念のため） */
+        .mission-card-header {
+            display: none !important;
+        }
+
+        /* 絵文字サイズ統一調整 */
+        .mission-avatar-small img.emoji {
+            height: 20px;
+            /* 18px → 20px */
+            width: 20px;
+        }
     </style>
 </head>
 
@@ -2325,8 +2351,8 @@
             getRate: 3.4,
             loadRate: 430,
             fireRate: 24,
-            serverHP: 200000,
-            maxServerHP: 200000,
+            serverHP: 20,
+            maxServerHP: 20,
             clickDamage: 1,
             isServerDown: false,
             isPreGacha: false,
@@ -2336,13 +2362,295 @@
 
         // ========== ミッションシステム ==========
         let missionData = null;
+        let tweetsData = null;      // tweets.json
+        let missionsData = null;    // missions.json
+        let normalizedMissions = []; // 正規化済みミッション一覧
+        let currentActiveTab = 'recommend'; // 現在のアクティブタブ
         let upgradeJsonData = null;
         let upgradeProgress = {　　 // 進捗管理（メモリのみ、ローカルストレージは後回し）
             bot_speed: 2  // 現在レベル
         };
+
+        // ========== SystemTimer最適化版 ==========
+        const SystemTimer = {
+            timer: null,
+            shouldUpdateMissionUI: false,
+            shouldFullRefresh: false,
+
+            start() {
+                if (this.timer) return; // 重複防止
+
+                this.timer = setInterval(() => {
+                    this.updateServer();
+                    this.updateMissions();
+                    this.updateUI();
+                }, 1000);
+
+                console.log('システムタイマー開始');
+            },
+
+            stop() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                    console.log('システムタイマー停止');
+                }
+            },
+
+            updateServer() {
+                // サーバーHP回復処理
+                if (debugState.serverHP < debugState.maxServerHP) {
+                    debugState.serverHP += 1;
+                    checkServerDown();
+                }
+            },
+
+            updateMissions() {
+                // 全ミッション進行更新
+                let hasTimeUpdates = false;
+                let hasCompletions = false;
+
+                for (const missionId in missionStates) {
+                    const state = missionStates[missionId];
+                    if (state.state === 'progress' && state.remainingTime > 0) {
+                        state.remainingTime--;
+                        hasTimeUpdates = true;
+
+                        if (state.remainingTime <= 0) {
+                            // ミッション完了
+                            state.state = 'complete';
+                            state.remainingTime = 0;
+                            hasCompletions = true;
+                            console.log(`ミッション完了: ${missionId} → complete状態に変更`);
+                        }
+                    }
+                }
+
+                // 完了状態変化があった場合は全体更新
+                if (hasCompletions) {
+                    this.shouldFullRefresh = true;
+                    console.log('完了検出 - 全体更新予約');
+                }
+                // 時間変化のみの場合は部分更新
+                else if (hasTimeUpdates) {
+                    this.shouldUpdateMissionUI = true;
+                }
+            },
+
+            updateUI() {
+                // アクティブタブのUI更新
+                updateDisplay(); // 既存のヘッダー更新
+
+                // 現在のアクティブタブが mission の場合のみ処理
+                const activeTabButton = document.querySelector('.tab-button.active');
+                if (activeTabButton && activeTabButton.dataset.tab === 'mission') {
+
+                    if (this.shouldFullRefresh) {
+                        // 全体更新（完了時）
+                        console.log('全体更新実行');
+                        displayCurrentTabMissions();
+                        this.shouldFullRefresh = false;
+
+                    } else if (this.shouldUpdateMissionUI) {
+                        // 部分更新（時間表示のみ）
+                        updateMissionTimeDisplays();
+                        this.shouldUpdateMissionUI = false;
+                    }
+                }
+            }
+        };
+        // ========== 部分更新関数（追加） ==========
+
+        function updateMissionTimeDisplays() {
+            // 進行中ミッションの時間表示のみを更新
+            for (const missionId in missionStates) {
+                const state = missionStates[missionId];
+                if (state.state === 'progress') {
+                    const missionCard = document.querySelector(`[data-mission-id="${missionId}"]`);
+                    if (missionCard) {
+                        const timeElement = missionCard.querySelector('.mission-time');
+                        if (timeElement) {
+                            timeElement.textContent = `残り時間：${state.remainingTime}秒`;
+                            console.log(`時間更新: ${missionId} → ${state.remainingTime}秒`);
+                        }
+                    }
+                }
+            }
+        }
+
+        // ========== 統一インターフェースシステム ==========
+        const MissionNormalizer = {
+            // fromCharacter関数は既存のまま
+            fromCharacter(mission, characters, difficulties) {
+                const char = characters[mission.char];
+                const diff = difficulties[mission.difficulty];
+
+                // 基本報酬 + 個別レアアイテム
+                const rewards = { ...mission.rewards };
+                if (mission.specialRewards) {
+                    // specialRewardsをマージ
+                    Object.keys(mission.specialRewards).forEach(key => {
+                        if (key === 'items') {
+                            rewards.items = [
+                                ...(rewards.items || []),
+                                ...mission.specialRewards.items
+                            ];
+                        } else {
+                            rewards[key] = (rewards[key] || 0) + mission.specialRewards[key];
+                        }
+                    });
+                }
+
+                return {
+                    id: mission.id,
+                    title: char.name,
+                    content: mission.content,
+                    duration: diff.duration,
+                    requirements: mission.requirements,
+                    rewards: rewards,
+                    type: 'character',
+                    metadata: {
+                        character: char,
+                        difficulty: diff.stars,
+                        chapterTitle: `${char.name}のミッション`
+                    }
+                };
+            },
+
+            // fromStory関数修正版
+            fromStory(chapter, story) {
+                return {
+                    id: chapter.id,
+                    title: story.title,
+                    content: chapter.content,
+                    duration: chapter.duration,
+                    requirements: chapter.requirements,
+                    rewards: chapter.rewards,
+                    type: 'story',
+                    metadata: {
+                        storyId: story.storyId,
+                        storyTitle: story.title,
+                        storyIcon: story.icon,  // ← 追加
+                        chapterNumber: chapter.chapterNumber,
+                        chapterTitle: chapter.title,
+                        totalChapters: story.totalChapters,
+                        unlockConditions: chapter.unlockConditions,
+                        difficulty: `第${chapter.chapterNumber}話`
+                    }
+                };
+            }
+        };
+
+        const BotTimer = {
+            timer: null,
+
+            start() {
+                if (this.timer) this.stop(); // 既存を停止
+
+                this.timer = setInterval(() => {
+                    if (gameState.botEnabled) {
+                        handleOrderClick(true); // 既存の関数
+                    }
+                }, gameState.botSpeed);
+
+                console.log(`BOTタイマー開始: ${gameState.botSpeed}ms間隔`);
+            },
+
+            stop() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                    console.log('BOTタイマー停止');
+                }
+            },
+
+            restart() {
+                console.log('BOTタイマー再起動');
+                this.stop();
+                this.start();
+            }
+        };
+
+        const GameTimerManager = {
+            isInitialized: false,
+
+            init() {
+                if (this.isInitialized) return;
+
+                console.log('ゲームタイマーマネージャー初期化');
+                SystemTimer.start();
+                this.isInitialized = true;
+            },
+
+            startBot() {
+                console.log('BOT開始');
+                gameState.botEnabled = true;
+                BotTimer.start();
+            },
+
+            stopBot() {
+                console.log('BOT停止');
+                gameState.botEnabled = false;
+                BotTimer.stop();
+            },
+
+            updateBotSpeed(newSpeed) {
+                console.log(`BOT速度変更: ${gameState.botSpeed}ms → ${newSpeed}ms`);
+                gameState.botSpeed = newSpeed;
+
+                if (gameState.botEnabled) {
+                    BotTimer.restart();
+                }
+            },
+
+            destroy() {
+                console.log('全タイマー停止');
+                SystemTimer.stop();
+                BotTimer.stop();
+                this.isInitialized = false;
+            }
+        };
+
+        // ========== アクティブタブ表示更新修正 ==========
+
+        function updateActiveTabDisplay() {
+            // 現在アクティブなタブのみ更新
+            const activeTabButton = document.querySelector('.tab-button.active, .mission-tab-button.active');
+            if (!activeTabButton) return;
+
+            const tabName = activeTabButton.dataset.tab || activeTabButton.dataset.missionTab;
+
+            // ミッションタブの場合は内部タブもチェック
+            if (tabName === 'mission') {
+                updateActiveMissionTab();
+            }
+            // 他のタブは後で実装
+        }
+
+        function updateActiveMissionTab() {
+            // ミッション内タブの更新
+            if (normalizedMissions.length > 0) {
+                // 進行中のミッションの時間を更新（1秒ごと）
+                let needsUpdate = false;
+
+                for (const missionId in missionStates) {
+                    const state = missionStates[missionId];
+                    if (state.state === 'progress') {
+                        needsUpdate = true;
+                        break;
+                    }
+                }
+
+                // 進行中ミッションがある場合のみUI更新
+                if (needsUpdate) {
+                    displayCurrentTabMissions();
+                }
+            }
+        }
+
+
         let currentMissionTab = 'recommend';
         let missionStates = {}; // ミッション状態管理
-        let serverRecoveryTimer = null; // サーバー自動回復タイマー
 
         // ========== アイテムシステム ==========
         let itemData = null; // items.jsonから読み込んだデータ
@@ -2399,21 +2707,6 @@
             }
         }
 
-        // ========== サーバー自動回復システム ==========
-        function startServerRecovery() {
-            if (serverRecoveryTimer) return; // 重複防止
-
-            serverRecoveryTimer = setInterval(() => {
-                if (debugState.serverHP < debugState.maxServerHP) {
-                    debugState.serverHP += 1;
-
-                    // サーバーダウン状態チェック
-                    checkServerDown();
-                    updateDisplay();
-                }
-            }, 1000); // 1秒間隔で1HP回復
-        }
-
         // ========== 初期化 ==========
         async function init() {
             setupEventListeners();
@@ -2452,8 +2745,8 @@
 
             // ゲーム初期化
             updateDisplay();
-            loadMissions();
-            startServerRecovery(); // サーバー自動回復開始
+            await loadAllMissionData();
+            GameTimerManager.init(); // 新タイマーシステムで初期化
             initUpgradeButtons(); // アップグレードタブ
             initUpgradeSystem();  // アップグレードシステム
             initItemList();       // アイテム一覧システム
@@ -2815,38 +3108,266 @@
         }
 
         // ========== ミッション機能 ==========
-        async function loadMissions() {
-            const missionList = document.getElementById('mission-list');
-            if (!missionList) return;
 
-            // ローディング表示
-            missionList.innerHTML = '<div class="loading-message">ミッションを読み込み中...</div>';
+        async function loadAllMissionData() {
+            console.log('全ミッションデータ読み込み開始');
 
             try {
-                const response = await fetch('./tweet.json');
-                if (!response.ok) {
-                    throw new Error('tweetファイルの読み込みに失敗しました');
-                }
+                // tweets.json 読み込み
+                await loadTweetsData();
 
-                const data = await response.json();
-                missionData = data;
+                // missions.json 読み込み
+                await loadMissionsData();
+
+                // 正規化処理
+                normalizeMissions();
+
+                // 初期表示（ストーリータブをデフォルト）
+                currentActiveTab = 'story';
                 displayCurrentTabMissions();
+
+                console.log('全ミッションデータ読み込み完了');
+
             } catch (error) {
-                console.error('ミッション読み込みエラー:', error);
-                missionList.innerHTML = '<div class="error-message">ミッションの読み込みに失敗しました<br>tweet.jsonファイルを確認してください</div>';
+                console.error('ミッションデータ読み込みエラー:', error);
+                showMissionError('ミッションデータの読み込みに失敗しました');
             }
         }
 
-        function refreshMissions() {
-            if (!missionData || !missionData.characterMissions) return;
+        // ========== タブ表示ロジック修正 ==========
+        function displayCurrentTabMissions() {
+            console.log(`現在のタブ表示: ${currentActiveTab}`);
 
-            // 未受諾 + 受取済み状態のミッションIDを取得
+            if (currentActiveTab === 'character') {
+                displayCharacterTab();
+            } else if (currentActiveTab === 'story') {
+                displayStoryTab();
+            } else {
+                // デフォルトはストーリータブ
+                currentActiveTab = 'story';
+                displayStoryTab();
+            }
+        }
+
+        function displayCharacterTab() {
+            console.log('フォロー中タブ表示');
+
+            // キャラクターミッションを取得
+            const characterMissions = normalizedMissions.filter(m => m.type === 'character');
+
+            // 進行中・完了・受取済みのミッションを保持（全て表示継続）
+            const activeMissions = [];
+            for (const missionId in missionStates) {
+                const state = missionStates[missionId].state;
+                if (state === 'progress' || state === 'complete' || state === 'claimed') {
+                    const mission = characterMissions.find(m => m.id === missionId);
+                    if (mission) {
+                        activeMissions.push(mission);
+                    }
+                }
+            }
+
+            console.log(`アクティブミッション: ${activeMissions.length}個 (進行中・完了・受取済み)`);
+
+            // 必要な新規ミッション数を計算（3個から保持分を引く）
+            const neededCount = 3 - activeMissions.length;
+
+            if (neededCount > 0) {
+                // 未選択のミッションから抽選
+                const availableMissions = characterMissions.filter(mission =>
+                    !missionStates[mission.id]
+                );
+
+                const newMissions = getRandomMissions(availableMissions, neededCount);
+                console.log(`新規ミッション追加: ${newMissions.length}個`);
+
+                // 全ミッションを結合
+                const allMissions = [...activeMissions, ...newMissions];
+                displayMissions(allMissions);
+            } else {
+                // 既にアクティブミッションが3個以上ある場合
+                displayMissions(activeMissions.slice(0, 3));
+            }
+        }
+
+        // ========== ストーリータブ表示修正 ==========
+
+        function displayStoryTab() {
+            console.log('オススメタブ表示');
+
+            // ストーリーミッションを取得
+            const storyMissions = normalizedMissions.filter(m => m.type === 'story');
+            console.log(`ストーリーミッション数: ${storyMissions.length}`);
+
+            if (storyMissions.length === 0) {
+                console.log('ストーリーミッションが見つかりません');
+                const missionList = document.getElementById('mission-list');
+                if (missionList) {
+                    missionList.innerHTML = '<div class="error-message">ストーリーミッションが読み込まれていません</div>';
+                }
+                return;
+            }
+
+            // 各ストーリーから次に進行可能なチャプターを取得
+            const availableChapters = [];
+
+            if (missionsData && missionsData.stories) {
+                console.log(`利用可能ストーリー数: ${missionsData.stories.length}`);
+
+                missionsData.stories.forEach(story => {
+                    const nextChapter = getNextAvailableChapter(story.storyId, storyMissions);
+                    if (nextChapter) {
+                        availableChapters.push(nextChapter);
+                        console.log(`追加されたチャプター: ${nextChapter.id}`);
+                    } else {
+                        console.log(`${story.storyId}: 利用可能なチャプターなし`);
+                    }
+                });
+            }
+
+            // 最大3個まで表示
+            const displayChapters = availableChapters.slice(0, 3);
+            console.log(`表示チャプター数: ${displayChapters.length}`);
+
+            displayMissions(displayChapters);
+        }
+
+        function getNextAvailableChapter(storyId, storyMissions) {
+            // そのストーリーのミッションを取得
+            const storyChapters = storyMissions.filter(m => m.metadata.storyId === storyId);
+
+            // 完了済みチャプター数を計算
+            const completedCount = storyChapters.filter(chapter => {
+                const state = missionStates[chapter.id];
+                return state && state.state === 'claimed';
+            }).length;
+
+            // 次のチャプター番号
+            const nextChapterNum = completedCount + 1;
+
+            // 該当するチャプターを返す
+            return storyChapters.find(chapter =>
+                chapter.metadata.chapterNumber === nextChapterNum
+            );
+        }
+
+        // ========== ミッション表示関数 ==========
+
+        function displayMissions(missions) {
+            const missionList = document.getElementById('mission-list');
+            if (!missionList) {
+                console.error('mission-list要素が見つかりません');
+                return;
+            }
+
+            if (missions.length === 0) {
+                missionList.innerHTML = '<div class="loading-message">表示可能なミッションがありません</div>';
+                return;
+            }
+
+            console.log(`ミッション表示: ${missions.length}個`);
+
+            const missionHTML = missions.map(mission => {
+                const state = missionStates[mission.id] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
+                const stateInfo = getMissionStateInfo(mission.id, state);
+                return createUnifiedMissionCard(mission, stateInfo);
+            }).join('');
+
+            missionList.innerHTML = missionHTML;
+
+            // Twemoji変換
+            if (typeof convertEmojis === 'function') {
+                convertEmojis(missionList);
+            }
+        }
+
+
+        async function loadTweetsData() {
+            console.log('tweets.json 読み込み中...');
+            const response = await fetch('./tweets.json');
+            if (!response.ok) {
+                throw new Error(`tweets.json読み込み失敗 (${response.status})`);
+            }
+            tweetsData = await response.json();
+            console.log('tweets.json 読み込み完了:', tweetsData);
+        }
+
+        async function loadMissionsData() {
+            console.log('missions.json 読み込み中...');
+            const response = await fetch('./missions.json');
+            if (!response.ok) {
+                throw new Error(`missions.json読み込み失敗 (${response.status})`);
+            }
+            missionsData = await response.json();
+            console.log('missions.json 読み込み完了:', missionsData);
+        }
+
+        function normalizeMissions() {
+            console.log('ミッション正規化開始');
+            normalizedMissions = [];
+
+            // tweets.json のキャラクターミッション正規化
+            if (tweetsData && tweetsData.missions) {
+                tweetsData.missions.forEach(mission => {
+                    const normalized = MissionNormalizer.fromCharacter(
+                        mission,
+                        tweetsData.characters,
+                        tweetsData.difficulties
+                    );
+                    normalizedMissions.push(normalized);
+                });
+            }
+
+            // missions.json のストーリーミッション正規化
+            if (missionsData && missionsData.stories) {
+                missionsData.stories.forEach(story => {
+                    story.chapters.forEach(chapter => {
+                        const normalized = MissionNormalizer.fromStory(chapter, story);
+                        normalizedMissions.push(normalized);
+                    });
+                });
+            }
+
+            console.log(`正規化完了: ${normalizedMissions.length}個のミッション`);
+        }
+
+        function showMissionError(message) {
+            const missionList = document.getElementById('mission-list');
+            if (missionList) {
+                missionList.innerHTML = `<div class="error-message">${message}</div>`;
+            }
+        }
+
+        // ========== 更新ボタン修正 ==========
+
+        function refreshMissions() {
+            console.log('ミッション更新ボタンクリック');
+
+            if (currentActiveTab === 'character') {
+                refreshCharacterMissions();
+            } else if (currentActiveTab === 'story') {
+                refreshStoryMissions();
+            }
+        }
+
+        function refreshCharacterMissions() {
+            console.log('キャラクターミッション更新');
+
+            if (!tweetsData || !tweetsData.missions) {
+                console.error('tweetsDataが読み込まれていません');
+                return;
+            }
+
+            // 未受諾 + 受取済み状態のミッションIDを取得（進行中・完了は保護）
             const replaceableMissions = [];
             for (const missionId in missionStates) {
-                if (missionStates[missionId].state === 'unaccepted' || missionStates[missionId].state === 'claimed') {
+                const state = missionStates[missionId].state;
+                if (state === 'unaccepted' || state === 'claimed') {
                     replaceableMissions.push(missionId);
                 }
             }
+
+            console.log(`リフレッシュ対象: ${replaceableMissions.length}個 (進行中・完了は保護)`);
 
             // 未受諾 + 受取済みミッションの状態をクリア
             replaceableMissions.forEach(missionId => {
@@ -2854,62 +3375,26 @@
             });
 
             // ミッションを再表示
-            displayCurrentTabMissions();
+            displayCharacterTab();
         }
 
-        function displayCurrentTabMissions() {
-            if (currentMissionTab === 'recommend') {
-                displayRecommendMissions();
-            } else if (currentMissionTab === 'character') {
-                displayCharacterMissions();
-            }
+        function refreshStoryMissions() {
+            console.log('ストーリーミッション更新');
+
+            // ストーリーミッションは更新の概念がないので、再表示のみ
+            displayStoryTab();
         }
 
-        function displayRecommendMissions() {
-            const missionList = document.getElementById('mission-list');
-            if (!missionList) return;
-
-            // オススメミッションはまだ未実装
-            missionList.innerHTML = '<div class="loading-message">更新中...</div>';
-        }
-
-        function displayCharacterMissions() {
-            const missionList = document.getElementById('mission-list');
-            if (!missionList || !missionData || !missionData.characterMissions) {
-                missionList.innerHTML = '<div class="error-message">ミッションが見つかりません</div>';
-                return;
-            }
-
-            // 進行中・完了のミッションを保持（タイマー継続・報酬受取待ち）
-            const activeMissions = [];
-            for (const missionId in missionStates) {
-                if (missionStates[missionId].state === 'progress' || missionStates[missionId].state === 'complete') {
-                    const mission = missionData.characterMissions.find(m => m.id === missionId);
-                    if (mission) {
-                        activeMissions.push(mission);
-                    }
-                }
-            }
-
-            // 必要な新規ミッション数を計算（6個から保持分を引く）
-            const neededCount = 6 - activeMissions.length;
-
-            // 未選択のミッションから抽選（進行中・完了以外）
-            const availableMissions = missionData.characterMissions.filter(mission =>
-                !missionStates[mission.id] ||
-                (missionStates[mission.id].state !== 'progress' && missionStates[mission.id].state !== 'complete')
-            );
-
-            const newMissions = getRandomMissions(availableMissions, neededCount);
-
-            // 全ミッションを結合
-            const allMissions = [...activeMissions, ...newMissions];
-
-            displayMultipleMissions(allMissions);
-        }
-
+        // ========== タブ切り替え修正 ==========
         function switchMissionTab(tabName) {
-            currentMissionTab = tabName;
+            console.log(`ミッションタブ切り替え: ${tabName}`);
+
+            // タブ名をcurrentActiveTabに対応させる
+            if (tabName === 'recommend') {
+                currentActiveTab = 'story';
+            } else if (tabName === 'character') {
+                currentActiveTab = 'character';
+            }
 
             // タブボタンのアクティブ状態切り替え
             document.querySelectorAll('.mission-tab-button').forEach(btn => {
@@ -2931,20 +3416,11 @@
             return shuffled.slice(0, Math.min(count, shuffled.length));
         }
 
-        function displayMultipleMissions(missions) {
-            const missionList = document.getElementById('mission-list');
-            if (!missionList) return;
-
-            const missionHTML = missions.map(mission => {
-                const state = missionStates[mission.id] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
-                const stateInfo = getMissionStateInfo(mission.id, state);
-                return createMissionCard(mission, stateInfo);
-            }).join('');
-
-            missionList.innerHTML = missionHTML;
-        }
+        // ========== ミッション状態情報取得関数（追加） ==========
 
         function getMissionStateInfo(missionId, state) {
+            console.log(`状態情報取得: ${missionId}, state: ${state.state}, remainingTime: ${state.remainingTime}`);
+
             const stateInfo = {
                 id: missionId,
                 state: state.state,
@@ -2955,56 +3431,168 @@
                 case 'unaccepted':
                     stateInfo.buttonText = '受諾';
                     stateInfo.buttonClass = 'mission-btn-accept';
-                    stateInfo.timeText = '必要時間：5秒';
+
+                    // 正規化済みミッションから時間を取得
+                    const mission = normalizedMissions.find(m => m.id === missionId);
+                    if (mission) {
+                        stateInfo.timeText = `必要時間：${mission.duration}秒`;
+                    } else {
+                        stateInfo.timeText = '必要時間：不明';
+                    }
                     break;
+
                 case 'progress':
                     stateInfo.buttonText = '受諾中';
                     stateInfo.buttonClass = 'mission-btn-disabled';
                     stateInfo.timeText = `残り時間：${state.remainingTime}秒`;
                     break;
+
                 case 'complete':
                     stateInfo.buttonText = '報酬受取';
                     stateInfo.buttonClass = 'mission-btn-claim';
                     stateInfo.timeText = '完了';
                     break;
+
                 case 'claimed':
                     stateInfo.buttonText = '受取済';
                     stateInfo.buttonClass = 'mission-btn-disabled';
                     stateInfo.timeText = '受取済';
                     break;
+
+                default:
+                    stateInfo.buttonText = '不明';
+                    stateInfo.buttonClass = 'mission-btn-disabled';
+                    stateInfo.timeText = '不明';
+                    break;
             }
 
+            console.log(`状態情報結果: ${stateInfo.buttonText}, ${stateInfo.timeText}`);
             return stateInfo;
         }
 
-        function createMissionCard(mission, stateInfo) {
+        // ========== 統一ミッションカード作成 ==========
+        function createUnifiedMissionCard(mission, stateInfo) {
+            // アバター/アイコンの決定
+            let avatar, userName, handle, difficulty;
+
+            if (mission.type === 'character') {
+                avatar = mission.metadata.character.icon;
+                userName = mission.metadata.character.name;
+                handle = mission.metadata.character.handle;
+                difficulty = mission.metadata.difficulty;  // ⭐⭐
+            } else if (mission.type === 'story') {
+                avatar = mission.metadata.storyIcon || '📖';  // ← ストーリー別絵文字
+                userName = mission.title;
+                handle = mission.metadata.chapterTitle;    // 章タイトル
+                difficulty = `第${mission.metadata.chapterNumber}話`;  // 第2話
+            }
+
+            // 素材不足チェック
+            const canAfford = checkRequirements(mission.requirements);
+            const isDisabled = !canAfford && stateInfo.state === 'unaccepted';
+
+            // ボタンクラスの調整
+            let buttonClass = stateInfo.buttonClass;
+            let buttonDisabled = stateInfo.buttonClass === 'mission-btn-disabled';
+
+            if (isDisabled) {
+                buttonClass = 'mission-btn-disabled';
+                buttonDisabled = true;
+            }
+
             return `
-                <div class="mission-card ${stateInfo.bgClass}" data-mission-id="${stateInfo.id}">
-                    <div class="mission-card-header">
-                        <div class="mission-avatar">${mission.character.icon}</div>
-                        <div class="mission-info">
-                            <div class="mission-user">
-                                <span class="mission-name">${mission.character.name}</span>
-                                <span class="mission-handle">${mission.character.handle}</span>
-                                <span class="mission-difficulty">⭐⭐</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mission-content">${mission.content}</div>
-                    <div class="mission-details">
-                        <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
-                        <div class="mission-reward">報　　酬：${mission.mission.reward}</div>
-                    </div>
-                    <div class="mission-actions">
-                        <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
-                        <div class="mission-time">${stateInfo.timeText}</div>
-                    </div>
-                </div>
-            `;
+        <div class="mission-card ${stateInfo.bgClass}" data-mission-id="${stateInfo.id}">
+            <div class="mission-card-header-compact">
+                <div class="mission-avatar-small">${avatar}</div>
+                <div class="mission-name-small">${userName}</div>
+                <div class="mission-handle-small">${handle}</div>
+                <div class="mission-difficulty-small">${difficulty}</div>
+            </div>
+            <div class="mission-content">${mission.content}</div>
+            <div class="mission-details">
+                <div class="mission-requirement">達成条件：${formatRequirements(mission.requirements)}</div>
+                <div class="mission-reward">報　　酬：${formatRewards(mission.rewards)}</div>
+            </div>
+            <div class="mission-actions">
+                <button class="mission-btn ${buttonClass}" ${buttonDisabled ? 'disabled' : ''}>${stateInfo.buttonText}</button>
+                <div class="mission-time">${stateInfo.timeText}</div>
+            </div>
+        </div>
+    `;
+        }
+        // ========== 素材チェック関数（追加） ==========
+
+        function checkRequirements(requirements) {
+            if (!requirements || Object.keys(requirements).length === 0) {
+                return true; // 条件なしの場合はOK
+            }
+
+            // 必要素材のチェック（消費はしない）
+            if (requirements.cash && gameState.cash < requirements.cash) {
+                return false;
+            }
+            if (requirements.premium && gameState.premiumCoin < requirements.premium) {
+                return false;
+            }
+            if (requirements.rice && gameState.rice < requirements.rice) {
+                return false;
+            }
+            if (requirements.items) {
+                for (const item of requirements.items) {
+                    const owned = gameState.inventory[item.id] || 0;
+                    if (owned < item.amount) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
-        // ========== ミッションアクション処理 ==========
+        function formatRequirements(requirements) {
+            if (!requirements || Object.keys(requirements).length === 0) {
+                return 'なし';
+            }
+
+            const parts = [];
+            if (requirements.cash) parts.push(`現金${(requirements.cash / 10000).toFixed(0)}万円`);
+            if (requirements.premium) parts.push(`PTC${requirements.premium}枚`);
+            if (requirements.rice) parts.push(`お米${requirements.rice}kg`);
+            if (requirements.items) {
+                requirements.items.forEach(item => {
+                    const itemData = findItemById(item.id);
+                    if (itemData) {
+                        parts.push(`${itemData.name}${item.amount}${getItemUnit(item.id)}`);
+                    }
+                });
+            }
+
+            return parts.join('、');
+        }
+
+        function formatRewards(rewards) {
+            const parts = [];
+            if (rewards.favo) parts.push(`はぁと${rewards.favo}件`);
+            if (rewards.cash) parts.push(`現金${(rewards.cash / 10000).toFixed(0)}万円`);
+            if (rewards.premium) parts.push(`PTC${rewards.premium}枚`);
+            if (rewards.rice) parts.push(`お米${rewards.rice}kg`);
+            if (rewards.items) {
+                rewards.items.forEach(item => {
+                    const itemData = findItemById(item.id);
+                    if (itemData) {
+                        parts.push(`${itemData.name}${item.amount}${getItemUnit(item.id)}`);
+                    }
+                });
+            }
+
+            return parts.join('、');
+        }
+
+        // ========== ミッションアクション処理修正 ==========
+
         function handleMissionAction(missionId, action) {
+            console.log(`ミッションアクション: ${missionId}, ${action}`);
+
             const state = missionStates[missionId] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
 
             switch (action) {
@@ -3017,55 +3605,77 @@
             }
         }
 
+        // ========== ミッション受諾処理修正 ==========
+
         function acceptMission(missionId) {
+            console.log(`ミッション受諾: ${missionId}`);
+
+            // 正規化済みミッションを取得
+            const mission = normalizedMissions.find(m => m.id === missionId);
+            if (!mission) {
+                console.error(`ミッション見つからず: ${missionId}`);
+                return;
+            }
+
+            // 必要素材をチェック・消費
+            if (!consumeRequirements(mission.requirements)) {
+                console.log('必要素材が不足しています');
+                return;
+            }
 
             // ミッション状態を進行中に変更
             missionStates[missionId] = {
                 state: 'progress',
                 timerId: null,
-                remainingTime: 5
+                remainingTime: mission.duration
             };
 
-            // タイマーを開始
-            startMissionTimer(missionId);
+            console.log(`ミッション開始: ${missionId}, 所要時間: ${mission.duration}秒`);
 
-            // 表示を更新
+            // ヘッダー更新のみ（素材消費反映）
             updateDisplay();
-            updateMissionDisplay(missionId);
+
+            // 該当ミッションカードのみ更新
+            updateSingleMissionCard(missionId);
         }
+        // ========== 単一ミッションカード更新関数（追加） ==========
 
-        function startMissionTimer(missionId) {
-            const state = missionStates[missionId];
-            if (!state || state.state !== 'progress') return;
+        function updateSingleMissionCard(missionId) {
+            const mission = normalizedMissions.find(m => m.id === missionId);
+            if (!mission) return;
 
-            // 既存のタイマーをクリア
-            if (state.timerId) {
-                clearInterval(state.timerId);
-            }
+            const state = missionStates[missionId] || { state: 'unaccepted', timerId: null, remainingTime: 0 };
+            const stateInfo = getMissionStateInfo(missionId, state);
 
-            // 新しいタイマーを開始
-            state.timerId = setInterval(() => {
-                state.remainingTime--;
+            const missionCard = document.querySelector(`[data-mission-id="${missionId}"]`);
+            if (missionCard) {
+                // カード全体を更新
+                missionCard.outerHTML = createUnifiedMissionCard(mission, stateInfo);
 
-                if (state.remainingTime <= 0) {
-                    // タイマー完了
-                    clearInterval(state.timerId);
-                    state.timerId = null;
-                    state.state = 'complete';
-                    state.remainingTime = 0;
+                // Twemoji変換
+                const newCard = document.querySelector(`[data-mission-id="${missionId}"]`);
+                if (newCard && typeof convertEmojis === 'function') {
+                    convertEmojis(newCard);
                 }
 
-                // 表示を更新
-                updateMissionDisplay(missionId);
-            }, 1000);
+                console.log(`単一カード更新: ${missionId}`);
+            }
         }
 
-        function claimMissionReward(missionId) {
-            // ミッションデータを取得
-            const mission = missionData.characterMissions.find(m => m.id === missionId);
+        // ========== 報酬受取処理修正 ==========
 
-            // はぁとを獲得
-            gameState.favo += 20;
+        function claimMissionReward(missionId) {
+            console.log(`報酬受取: ${missionId}`);
+
+            // 正規化済みミッションを取得
+            const mission = normalizedMissions.find(m => m.id === missionId);
+            if (!mission) {
+                console.error(`ミッション見つからず: ${missionId}`);
+                return;
+            }
+
+            // 報酬を付与
+            giveRewards(mission.rewards);
 
             // ミッション状態を受取済に変更
             missionStates[missionId] = {
@@ -3075,55 +3685,70 @@
             };
 
             // ミッション完了ポップアップ表示
-            if (mission) {
-                showMissionCompletePopup(
-                    `${mission.character.icon} ${mission.character.name}のミッション`,
-                    "はぁと +20件"
-                );
-            }
+            let rewardText = formatRewards(mission.rewards);
+            showMissionCompletePopup(
+                `${mission.title}のミッション`,
+                rewardText
+            );
 
             // 表示を更新
             updateDisplay();
-            updateMissionDisplay(missionId);
+            displayCurrentTabMissions();
         }
 
-        function updateMissionDisplay(missionId) {
-            const missionCard = document.querySelector(`[data-mission-id="${missionId}"]`);
-            if (!missionCard) return;
+        function consumeRequirements(requirements) {
+            if (!requirements || Object.keys(requirements).length === 0) {
+                return true; // 条件なしの場合はOK
+            }
 
-            const state = missionStates[missionId];
-            if (!state) return;
+            // 必要素材のチェック
+            if (requirements.cash && gameState.cash < requirements.cash) {
+                return false;
+            }
+            if (requirements.premium && gameState.premiumCoin < requirements.premium) {
+                return false;
+            }
+            if (requirements.rice && gameState.rice < requirements.rice) {
+                return false;
+            }
+            if (requirements.items) {
+                for (const item of requirements.items) {
+                    const owned = gameState.inventory[item.id] || 0;
+                    if (owned < item.amount) {
+                        return false;
+                    }
+                }
+            }
 
-            // ミッションデータを取得
-            const mission = missionData.characterMissions.find(m => m.id === missionId);
-            if (!mission) return;
+            // 実際に消費
+            if (requirements.cash) gameState.cash -= requirements.cash;
+            if (requirements.premium) gameState.premiumCoin -= requirements.premium;
+            if (requirements.rice) gameState.rice -= requirements.rice;
+            if (requirements.items) {
+                for (const item of requirements.items) {
+                    gameState.inventory[item.id] -= item.amount;
+                    if (gameState.inventory[item.id] <= 0) {
+                        delete gameState.inventory[item.id];
+                    }
+                }
+            }
 
-            // 状態情報を取得
-            const stateInfo = getMissionStateInfo(missionId, state);
+            return true;
+        }
 
-            // カードの内容を更新
-            missionCard.className = `mission-card ${stateInfo.bgClass}`;
-            missionCard.innerHTML = `
-                <div class="mission-card-header">
-                    <div class="mission-avatar">${mission.character.icon}</div>
-                    <div class="mission-info">
-                        <div class="mission-user">
-                            <span class="mission-name">${mission.character.name}</span>
-                            <span class="mission-handle">${mission.character.handle}</span>
-                            <span class="mission-difficulty">⭐⭐</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mission-content">${mission.content}</div>
-                <div class="mission-details">
-                    <div class="mission-requirement">達成条件：${mission.mission.materials}</div>
-                    <div class="mission-reward">報　　酬：${mission.mission.reward}</div>
-                </div>
-                <div class="mission-actions">
-                    <button class="mission-btn ${stateInfo.buttonClass}" ${stateInfo.buttonClass === 'mission-btn-disabled' ? 'disabled' : ''}>${stateInfo.buttonText}</button>
-                    <div class="mission-time">${stateInfo.timeText}</div>
-                </div>
-            `;
+        function giveRewards(rewards) {
+            if (rewards.favo) gameState.favo += rewards.favo;
+            if (rewards.cash) gameState.cash += rewards.cash;
+            if (rewards.premium) gameState.premiumCoin += rewards.premium;
+            if (rewards.rice) gameState.rice += rewards.rice;
+            if (rewards.items) {
+                for (const item of rewards.items) {
+                    if (!gameState.inventory[item.id]) {
+                        gameState.inventory[item.id] = 0;
+                    }
+                    gameState.inventory[item.id] += item.amount;
+                }
+            }
         }
 
         function switchInfoTab(tabName) {
@@ -3146,6 +3771,7 @@
             }
         }
 
+        // ========== ゲームタブ切り替え修正 ==========
         function switchGameTab(clickedTab) {
             // すべてのタブボタンからactiveクラスを削除
             document.querySelectorAll('.tab-button').forEach(btn => {
@@ -3168,7 +3794,12 @@
 
                 // ミッションタブの場合はミッションを読み込み
                 if (tabName === 'mission') {
-                    loadMissions();
+                    // 新システムで初期化
+                    if (normalizedMissions.length === 0) {
+                        loadAllMissionData();
+                    } else {
+                        displayCurrentTabMissions();
+                    }
                 }
 
                 // 株主優待タブの場合はアイテム一覧を更新
@@ -3243,30 +3874,18 @@
             }
         }
 
-        function startBot() {
-            if (gameState.botInterval) return; // 重複防止
-
-            gameState.botInterval = setInterval(() => {
-                if (gameState.botEnabled) {
-                    handleOrderClick(true); // isBot = true でBOT処理
-                }
-            }, gameState.botSpeed);
-        }
-
-        function stopBot() {
-            if (gameState.botInterval) {
-                clearInterval(gameState.botInterval);
-                gameState.botInterval = null;
-            }
-        }
-
         function toggleBot() {
-            gameState.botEnabled = !gameState.botEnabled;
-
             if (gameState.botEnabled) {
-                startBot();
+                GameTimerManager.stopBot(); // 修正
             } else {
-                stopBot();
+                GameTimerManager.startBot(); // 修正
+            }
+
+            // UI更新（既存コード）
+            const botToggle = document.getElementById('bot-toggle');
+            if (botToggle) {
+                botToggle.innerHTML = gameState.botEnabled ? 'BOT<br>ON' : 'BOT<br>OFF';
+                botToggle.className = gameState.botEnabled ? 'bot-toggle-btn active' : 'bot-toggle-btn';
             }
         }
 
@@ -3872,9 +4491,9 @@
                     const newLevel = upgradeProgress.bot_speed || 0;
                     if (newLevel > 0) {
                         const speedValue = upgradeJsonData.upgrades.bot_speed.effects.values[newLevel - 1];
-                        gameState.botSpeed = speedValue;
+                        GameTimerManager.updateBotSpeed(speedValue); // 修正
                     } else {
-                        gameState.botSpeed = 1000; // 初期値
+                        GameTimerManager.updateBotSpeed(1000); // 修正
                     }
                 }
 
